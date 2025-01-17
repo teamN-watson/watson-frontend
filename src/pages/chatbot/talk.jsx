@@ -7,7 +7,7 @@ export default function IndexPage() {
     const [chatHistory, setChatHistory] = useState([]);  // 채팅 기록 상태
 
     useEffect(() => {
-        axios.post('http://127.0.0.1:8000/api/chatbot/record/').then((response) => {
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/record/`).then((response) => {
             if (response.status === 200) {
                 console.log(response.data)
                 const data = response.data;
@@ -50,7 +50,7 @@ export default function IndexPage() {
 
         try {
             await axios.post(
-                'http://127.0.0.1:8000/api/chatbot/',
+                `${import.meta.env.VITE_BACKEND_URL}/api/chatbot/`,
                 { message: message },
             ).then((response) => {
                 const data = response.data;

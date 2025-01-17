@@ -123,25 +123,30 @@
 }
 
 
-.signupStepForm.step1 .signupStep2, .signupStepForm.step1 .signupStep3, .signupStepForm.step2 .signupStep1, .signupStepForm.step2 .signupStep3, .signupStepForm.step3 .signupStep1, .signupStepForm.step3 .signupStep2 {
+.signupStep1, .signupStep2, .signupStep3{
     display: none;
 }
-.signupStepForm.step1 .signupStep1, .signupStepForm.step2 .signupStep2, .signupStepForm.step3 .signupStep3 {
+.signupStep1.active, .signupStep2.active, .signupStep3.active {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.signupStepForm.step3 .signupStep3 .user_interest{
+.signupStepForm .signupStep3 .user_interest{
     display: flex;
     flex-direction: column;
     gap: 10px;
 
 }
-.signupStepForm.step3 .signupStep3 .interst_txt{
+.signupStepForm .signupStep3 .interst_txt{
     /* width: 400px; */
 }
 
 /* input */
+.signupStepForm .user_input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .signupStepForm input[name="photo"]{
     display: none;
 }

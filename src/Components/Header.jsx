@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
+import default_photo from '@assets/images/default_profile.png';
 export default function Header() {
     const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
 
@@ -18,12 +19,27 @@ export default function Header() {
         if (accessToken) {
             setAccessToken(accessToken);
             // 로그인 상태일 때 유저 정보 불러오기
-            axios.get('http://127.0.0.1:8000/api/account/token/', {
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/token/`, {
                 headers: { 'Authorization': `Bearer ${accessToken}` }
             }).then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data)
-                    setUserInfo(response.data);
+                    const data = response.data;
+                    console.log(data)
+                    let photo = ""
+                    if (data.photo) {
+                        photo = data.photo.split("/").splice(2);
+                        if (photo[0] == "items") {
+                            photo = `https://cdn.fastly.steamstatic.com/steamcommunity/public/images/${photo.join("/")}`
+                        } else if (photo[0] == "https%3A") {
+                            photo = `${photo.join("/").replace("%3A", ":")}`
+                        } else if (photo[0] == "images" && photo[1] == "profile") {
+                            photo = `${import.meta.env.VITE_BACKEND_URL}${data.photo}`
+                        } else {
+                            photo = ""
+                        }
+                    }
+
+                    setUserInfo({ ...response.data, photo: photo });
                 }
             }).catch((error) => {
                 console.error('Error fetching user info:', error);
@@ -33,7 +49,7 @@ export default function Header() {
 
     const handleLogout = () => {
         if (refreshToken && accessToken) {
-            axios.post('http://127.0.0.1:8000/api/account/logout/', {
+            axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/account/logout/`, {
                 refresh_token: refreshToken, // body 데이터
             }, {
                 headers: { 'Authorization': `Bearer ${accessToken}` }, // 헤더 설정
@@ -73,11 +89,9 @@ export default function Header() {
                         <div className="nav_auth">
                             {isLoggedIn ? (
                                 <>
-                                    {userInfo?.photo && (
-                                        <div className="user_photo">
-                                            <img src={userInfo.photo} alt="User Photo" />
-                                        </div>
-                                    )}
+                                    <div className="user_photo">
+                                        <img src={userInfo?.photo ? userInfo.photo : default_photo} alt="User Photo" />
+                                    </div>
                                     <h3>{userInfo?.user_id}님</h3>
                                     <a href={`/profile/${userInfo?.id}`}>마이페이지</a>
                                     <button onClick={handleLogout}>로그아웃</button>
@@ -85,7 +99,7 @@ export default function Header() {
                             ) : (
                                 <>
                                     <a href="/signin">로그인</a>
-                                    <a href="/signup">회원가입</a>
+                                    {/* <a href="/signup">회원가입</a> */}
                                 </>
                             )}
                         </div>
