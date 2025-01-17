@@ -47,12 +47,14 @@ function Profile() {
   };
 
   const steamProfileAction = () => {
-    // const accessToken = sessionStorage.getItem('access_token');
     if (window.confirm('스팀 프로필 이미지를 가져오시겠습니까?')) {
       axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_profile/`, {
       }).then((response) => {
         console.log(response)
-        // window.location.reload(); // 성공 시 새로고침
+        if (response.data?.data?.steam_photo) {
+          const photo = getProfilePhotoUrl(response.data.data.steam_photo);
+          setUserInfo({ ...userInfo, photo: photo });
+        }
       }).catch((error) => {
         console.error(error);
       });
