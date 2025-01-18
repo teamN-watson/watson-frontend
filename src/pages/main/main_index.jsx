@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './main_index.css';
+import '@assets/css/main/main_index.css';
 
 // 게임 데이터 (예시)
 const gameData = [

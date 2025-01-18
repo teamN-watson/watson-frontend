@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './sign_index.css'; // CSS 파일 import
+import '@assets/css/main/sign_index.css'; // CSS 파일 import
 import backgroundVideo from "@assets/videos/background.mp4";
 
 function SignInButton({ onClick }) {
