@@ -33,7 +33,8 @@ export default function SignIndex() {
       <div className="content">
         <h1 className="logo">WATSON</h1>
         <p className="subtitle">
-          AI를 활용해 사용자가 원하는 게임을 쉽고 정확하게 찾을 수 있도록 도와줍니다.
+          AI 기반 게임 추천 시스템으로 당신만의 완벽한 게임을 발견하세요. 
+          개인화된 분석을 통해 취향에 꼭 맞는 게임을 찾아드립니다.
         </p>
         <div className="button-group">
           <SignUpButton onClick={() => navigate('/signup')} />

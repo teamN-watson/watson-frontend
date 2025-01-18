@@ -11,7 +11,9 @@
     text-align: center;
 }
 .error_msg {
-    color: #ff3f3f;
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 4px;
 }
 .signupStepForm {
     display: flex;
@@ -23,10 +25,6 @@
     gap: 6px;
     max-width: 1024px;
 }
-
-.signupStepForm .interest_list span{
-}
-
 .signupStepForm .interest_info {
     position: relative;
     flex: 1 1 200px;
@@ -167,4 +165,78 @@
     border-radius: 5px;
     cursor: pointer;
     padding: 5px;
+}
+
+.signupStep1, .signupStep2, .signupStep3 {
+    background: rgba(25, 25, 35, 0.7);
+    padding: 2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user_input input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #fff;
+}
+
+.user_input input:focus {
+    outline: none;
+    border-color: #a6b0f3;
+}
+
+.step_action button {
+    background: rgba(72, 54, 153, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    margin: 0 8px;
+    transition: all 0.3s ease;
+}
+
+.step_action button:hover {
+    background: rgba(91, 72, 182, 0.8);
+    transform: translateY(-2px);
+}
+
+.user_photo_wrap {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.user_photo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(166, 176, 243, 0.3);
+}
+
+.interest_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.interest_info {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.interest_info:hover {
+    transform: translateY(-5px);
+}
+
+.interest_img.selected {
+    border: 3px solid #a6b0f3;
 }
