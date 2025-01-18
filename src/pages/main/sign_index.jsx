@@ -5,7 +5,7 @@ import backgroundVideo from "@assets/videos/background.mp4";
 
 function SignInButton({ onClick }) {
   return (
-    <button className="auth-button" onClick={onClick}>
+    <button className="auth-button login" onClick={onClick}>
       로그인
     </button>
   );
@@ -13,7 +13,7 @@ function SignInButton({ onClick }) {
 
 function SignUpButton({ onClick }) {
   return (
-    <button className="auth-button" onClick={onClick}>
+    <button className="auth-button signup" onClick={onClick}>
       회원가입
     </button>
   );
