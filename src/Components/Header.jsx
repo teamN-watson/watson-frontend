@@ -91,7 +91,7 @@ export default function Header() {
                                     <div className="user_photo">
                                         <img src={userInfo?.photo ? userInfo.photo : default_photo} alt="User Photo" />
                                     </div>
-                                    <h3>{userInfo?.user_id}님</h3>
+                                    <h3>{userInfo?.nickname}님</h3>
                                     <a href={`/profile/${userInfo?.id}`}>마이페이지</a>
                                     <button onClick={handleLogout}>로그아웃</button>
                                 </>

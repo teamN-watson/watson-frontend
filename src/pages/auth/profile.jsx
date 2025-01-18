@@ -70,7 +70,7 @@ function Profile() {
         </div>
 
         <div className="user_info">
-          {isMypage && <a href="/view/edit/"><button>편집하기</button></a>}
+          {isMypage && <a href={`/profile/${id}/edit/`}><button>편집하기</button></a>}
           <p id="user_user_id">아이디 : {userInfo?.user_id}</p>
           <p id="user_email">이메일 : {userInfo?.email}</p>
           <p id="user_nickname">닉네임 : {userInfo?.nickname}</p>
