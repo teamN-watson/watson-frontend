@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '@assets/css/review/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
+import useStore from '@store/zustore';
+
 export default function ReviewList() {
     const [message, setMessage] = useState('');
     const [reviews, setReviews] = useState([]);  // 채팅 기록 상태
+    const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
+
     const navigate = useNavigate();
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/reviews/`).then((response) => {
@@ -24,7 +28,10 @@ export default function ReviewList() {
 
     return (
         <div className="listContainer">
-            <h1>리뷰 목록</h1>
+            <div>
+                <h1>리뷰 목록</h1>
+                {userInfo && <a href="/review/create">새 리뷰 작성</a>}
+            </div>
             {reviews && reviews.map((review) => {
                 const objectDate = new Date(review.created_at);
 
@@ -58,9 +65,7 @@ export default function ReviewList() {
                     </div>
                 )
             })}
-            <div>
-                <a href="/review/create">새 리뷰 작성</a>
-            </div>
+
         </div>
     )
 }

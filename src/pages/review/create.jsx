@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '@assets/css/review/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
+import '@assets/css/review/create.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 
 export default function ReviewCreate() {
