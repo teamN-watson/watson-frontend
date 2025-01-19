@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '@assets/css/chatbot/talk.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 
 export default function IndexPage() {
     const [message, setMessage] = useState('');
     const [chatHistory, setChatHistory] = useState([]);  // 채팅 기록 상태
+    const chatEndRef = useRef(null);  // 스크롤을 위한 ref 추가
+
+    // 스크롤 함수 추가
+    const scrollToBottom = () => {
+        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    // 채팅 기록이 업데이트될 때마다 스크롤
+    useEffect(() => {
+        scrollToBottom();
+    }, [chatHistory]);
 
     useEffect(() => {
         axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/record/`).then((response) => {
@@ -102,19 +113,24 @@ export default function IndexPage() {
         <div className="chatbotContainer">
             <div className="chatbot_wrap" id="wrap1">
                 <div className="chatbot_record">
-                    {chatHistory.length && chatHistory.map((chat, index) => (
+                    {chatHistory.length > 0 && chatHistory.map((chat, index) => (
                         <div key={index}>
-                            {/* 사용자 또는 봇 메시지 */}
                             <div className={chat.is_user ? "user" : "ai"}>
                                 <p>{chat.content.message}</p>
                             </div>
-
                         </div>
                     ))}
+                    <div ref={chatEndRef} /> {/* 스크롤 위치용 ref */}
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="chatbot_input">
-                        <input onChange={(e) => setMessage(e.target.value)} type="text" name="message" placeholder="메시지를 입력해주세요." value={message} />
+                        <input 
+                            onChange={(e) => setMessage(e.target.value)} 
+                            type="text" 
+                            name="message" 
+                            placeholder="메시지를 입력해주세요." 
+                            value={message}
+                        />
                     </div>
                 </form>
             </div>
