@@ -4,6 +4,9 @@ import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
 import default_photo from '@assets/images/default_profile.png';
+import logo from '@assets/images/watson/watson_logo.gif';  // .gif에서 .png로 변경
+import { Link } from 'react-router-dom';    
+
 export default function Header() {
     const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
 
@@ -74,7 +77,7 @@ export default function Header() {
                 <div className="container">
                     <div>
                         <a href="/" className="logo">
-                            Watson
+                            <img src={logo} alt="Watson" />
                         </a>
                     </div>
                     <div>
