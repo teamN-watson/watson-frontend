@@ -1,0 +1,92 @@
+form .input-group {
+    margin-bottom: 1.5rem;
+}
+
+form .input-group label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+form .input-group input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+form .input-group input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+
+form .error-message {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    display: block;
+}
+/* action-button */
+
+.action-button {
+    width: 100%;
+    padding: 1rem;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.action-button:hover {
+    background: #5a52d5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+/* user photo */
+form .user_photo input[type="file"] {
+    display: none;
+}
+
+form .user_photo_wrap {
+    text-align: center;
+    margin: 2rem auto 3.5rem;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+form .user_photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(108, 99, 255, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+form .user_photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

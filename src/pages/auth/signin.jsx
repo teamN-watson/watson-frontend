@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
+import '@assets/css/input.css';
 import '@assets/css/account/signin.css';
 
 export default function SignIn() {
@@ -20,7 +21,10 @@ export default function SignIn() {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/account/signin/`, formData);
       if (response.status === 200) {
-        login({ user_id: formData.user_id }, response.data.access_token, response.data.refresh_token);
+        const data = response.data;
+        login(data.user, data.access_token, data.refresh_token);
+        // setUserInfo({ ...response.data, photo: photo });
+        console.log(response.data)
         navigate('/');
       }
     } catch (error) {
@@ -61,7 +65,7 @@ export default function SignIn() {
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit" className="signin-button">
+        <button type="submit" className="action-button">
           로그인
         </button>
 

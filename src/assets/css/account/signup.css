@@ -47,65 +47,6 @@ h2 {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.user_input {
-    margin-bottom: 2.5rem;
-}
-
-.user_input label {
-    display: block;
-    color: #fff;
-    margin-bottom: 0.8rem;
-    font-size: 1rem;
-    opacity: 0.9;
-}
-
-.user_input input {
-    width: 100%;
-    padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    margin-bottom: 0.5rem;
-}
-
-.user_input input:focus {
-    outline: none;
-    border-color: #6c63ff;
-    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.user_photo_wrap {
-    text-align: center;
-    margin: 2rem auto 3.5rem;
-    position: relative;
-    width: 150px;
-    height: 150px;
-}
-
-.user_photo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid rgba(108, 99, 255, 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.user_photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
 /* 이미지가 없을 때 카메라 아이콘 표시 */
 .user_photo:empty::before {
@@ -143,10 +84,6 @@ h2 {
 .user_photo_icon {
     color: white;
     font-size: 24px;
-}
-
-.user_photo input[type="file"] {
-    display: none;
 }
 
 .user_interest {
@@ -285,14 +222,6 @@ h2 {
     opacity: 1;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.user_input .error_msg {
-    color: #ff6b6b;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    margin-top: 0;
-    display: block;
 }
 
 /* 스텝 표시 */

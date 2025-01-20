@@ -8,9 +8,12 @@ function ProfileEdit() {
   const { id } = useParams(); // URL에서 id 파라미터 가져오기
   const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
   const [photo, setPhoto] = useState("");
+  const [photoFile, setPhotoFile] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
+  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
   const fileRef = useRef(null);
   const navigate = useNavigate();
 
@@ -27,26 +30,29 @@ function ProfileEdit() {
   }, [userInfo]);
 
   const handleImageChange = (event) => {
+    const MAX_FILE_SIZE = 2.5 * 1024 * 1024; // 5MB (백엔드 제한 크기에 맞춤)
     const file = event.target.files[0];
+    setError("")
+    if (file.size > MAX_FILE_SIZE) {
+      setError("파일 크기가 너무 큽니다. 2.5MB 이하의 파일을 업로드해주세요.");
+      return;
+    }
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
+        setPhotoFile(file);
         setPhoto(e.target.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const imgClick = () => {
-    fileRef.current.click();
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault(); // 기본 제출 동작 방지
     const formData = new FormData();
 
     if (photo) {
-      formData.append('photo', photo);
+      formData.append('photo', photoFile);
     }
     formData.append('email', email);
     formData.append('age', age);
@@ -54,7 +60,7 @@ function ProfileEdit() {
 
     try {
       const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/account/mypage/`, formData);
-      if (response.status == 200) {
+      if (response.status == 201) {
         setUserInfo({ ...userInfo, email: email, age: age, nickname: nickname, photo: photo ? photo : "" })
         navigate(-1);
       }
@@ -62,7 +68,8 @@ function ProfileEdit() {
       console.log(response.data)
     } catch (error) {
       console.error(error);
-      // setErrors(error.response?.data || {});
+      setErrors(error.response?.data || {});
+      setError(error.message || {});
     }
   };
 
@@ -72,25 +79,40 @@ function ProfileEdit() {
       <form method="PUT" encType="multipart/form-data">
         <div className="editForm">
           <div className="user_photo_wrap">
-            <div className="user_photo">
-              <img id="user_photo" src={photo ? photo : default_photo} alt="사용자 프로필" onClick={imgClick} />
-            </div>
-            <label htmlFor="id_photo">📸 프로필 사진 올리기</label>
-            <input ref={fileRef} type="file" name="photo" accept="image/*" id="id_photo" onChange={handleImageChange} readOnly />
+            <label className="user_photo" htmlFor="photo_upload">
+              <img src={photo !== '' ? photo : default_photo} alt="프로필 사진" />
+              <div className="user_photo_overlay">
+                <span className="user_photo_icon">📷</span>
+              </div>
+              <input
+                type="file"
+                id="photo_upload"
+                name="photo"
+                accept="image/*"
+                onChange={handleImageChange} ref={fileRef}
+              />
+            </label>
           </div>
           <div>
-            <span>나이</span>
-            <input type="text" name="age" placeholder="나이를 입력해주세요" id="id_age" value={age} onChange={(e) => setAge(e.target.value)} />
-            <p className="error_msg age"></p>
-            <span>닉네임</span>
-            <input type="text" name="nickname" placeholder="닉네임을 입력해주세요" id="id_nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-            <p className="error_msg nickname"></p>
-            <span>이메일</span>
-            <input type="email" name="email" placeholder="이메일을 입력해주세요" id="id_email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <p className="error_msg email"></p>
+            <div className="input-group">
+              <label htmlFor="id_age">나이</label>
+              <input type="text" id="id_age" placeholder="나이를 입력해주세요" value={age} onChange={(e) => setAge(e.target.value)} required />
+            </div>
+            {errors.age && <p className="error-message">{errors.age}</p>}
+            <div className="input-group">
+              <label htmlFor="id_age">나이</label>
+              <input type="text" name="nickname" placeholder="닉네임을 입력해주세요" id="id_nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+            </div>
+            {errors.nickname && <p className="error-message">{errors.nickname}</p>}
+
+            <div className="input-group">
+              <label htmlFor="id_age">이메일</label>
+              <input type="email" name="email" placeholder="이메일을 입력해주세요" id="id_email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
           </div>
-          <span className="error_msg"></span>
-          <input type="submit" value="회원 수정" onClick={handleSubmit} />
+          {errors.email && <p className="error-message">{errors.email}</p>}
+
+          <input type="submit" className='action-button' value="회원 수정" onClick={handleSubmit} />
         </div>
       </form>
     </div>

@@ -5,6 +5,7 @@ import SignupStep3 from '@Components/auth/SignupStep3';
 import useStore from '@store/zustore';
 import axios from '@src/axiosInstance';
 import '@assets/css/account/signup.css';
+import '@assets/css/input.css';
 import { useLocation } from "react-router-dom";
 
 export default function SignupPage() {
@@ -87,7 +88,7 @@ export default function SignupPage() {
         }));
         return;
       } else {
-        formData.append('select_id', Array.from(selectedGames).join(','));
+        formData.append('select_id', Array.from(selectedGames, value => value - 1).join(','));
         if (claimedId) {
           const steam_id = claimedId.split("/")[claimedId.split("/").length - 1]
           formData.append('steamId', steam_id);

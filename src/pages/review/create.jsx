@@ -36,15 +36,15 @@ export default function ReviewCreate() {
                     <div>
                         <span>내용</span>
                         <input type="text" name="content" placeholder="내용을 입력해주세요" id="id_content" value={content} onChange={(e) => setContent(e.target.value)} />
-                        <p className="error_msg content"></p>
+                        <p className="error-message content"></p>
                         <span>app id</span>
                         <input type="text" name="app_id" placeholder="app id를 입력해주세요" id="id_app_id" value={app_id} onChange={(e) => setAppId(e.target.value)} />
-                        <p className="error_msg app_id"></p>
+                        <p className="error-message app_id"></p>
                         <span>score</span>
                         <input type="text" name="score" placeholder="score를 입력해주세요" id="id_score" value={score} onChange={(e) => setScore(e.target.value)} />
-                        <p className="error_msg score"></p>
+                        <p className="error-message score"></p>
                     </div>
-                    <span className="error_msg"></span>
+                    <span className="error-message"></span>
                     <input type="submit" value="리뷰 등록" onClick={handleSubmit} />
                 </div>
             </form>

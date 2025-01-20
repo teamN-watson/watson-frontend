@@ -15,9 +15,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
     <div className={`signupStep1 ${step === 1 ? 'active' : ''}`}>
       <div className="user_photo_wrap">
         <label className="user_photo" htmlFor="photo_upload">
-          {formData.photo_result && (
-            <img src={formData.photo_result} alt="프로필 사진" />
-          )}
+          <img src={formData.photo_result !== '' ? formData.photo_result : default_photo} alt="프로필 사진" />
           <div className="user_photo_overlay">
             <span className="user_photo_icon">📷</span>
           </div>
@@ -30,7 +28,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
           />
         </label>
       </div>
-      <div className="user_input">
+      <div className="input-group">
         <label htmlFor="user_id">아이디</label>
         <input
           id="user_id"
@@ -40,7 +38,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
           onChange={(e) => updateFormData('user_id', e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        {errors.user_id && <p className="error_msg">{errors.user_id}</p>}
+        {errors.user_id && <p className="error-message">{errors.user_id}</p>}
 
         <label htmlFor="password">비밀번호</label>
         <input
@@ -51,7 +49,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
           onChange={(e) => updateFormData('password', e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        {errors.password && <p className="error_msg">{errors.password}</p>}
+        {errors.password && <p className="error-message">{errors.password}</p>}
 
         <label htmlFor="confirm_password">비밀번호 확인</label>
         <input
@@ -62,7 +60,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
           onChange={(e) => updateFormData('confirm_password', e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        {errors.confirm_password && <p className="error_msg">{errors.confirm_password}</p>}
+        {errors.confirm_password && <p className="error-message">{errors.confirm_password}</p>}
       </div>
       <div className="step_action">
         <button type="button" onClick={handleSubmit} className="nextButton">

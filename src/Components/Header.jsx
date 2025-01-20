@@ -5,20 +5,14 @@ import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
 import default_photo from '@assets/images/default_profile.png';
 import logo from '@assets/images/watson/watson_logo.gif';  // .gif에서 .png로 변경
-import { Link } from 'react-router-dom';    
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
 
     useEffect(() => {
-        const refreshToken = sessionStorage.getItem('refresh_token');
-
-        if (refreshToken) {
-            setRefreshToken(refreshToken);
-        }
-    }, [refreshToken]);
-    useEffect(() => {
         const accessToken = sessionStorage.getItem('access_token');
+        const refreshToken = sessionStorage.getItem('refresh_token');
         if (accessToken) {
             setAccessToken(accessToken);
             // 로그인 상태일 때 유저 정보 불러오기
@@ -47,6 +41,10 @@ export default function Header() {
             }).catch((error) => {
                 console.error('Error fetching user info:', error);
             });
+        }
+        if (refreshToken) {
+            setRefreshToken(refreshToken);
+            console.log(refreshToken)
         }
     }, []);
 
