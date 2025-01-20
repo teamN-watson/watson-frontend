@@ -4,6 +4,7 @@ import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/input.css';
 import '@assets/css/account/signin.css';
+import { getProfilePhotoUrl } from '@src/utils';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -22,9 +23,8 @@ export default function SignIn() {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/account/signin/`, formData);
       if (response.status === 200) {
         const data = response.data;
-        login(data.user, data.access_token, data.refresh_token);
-        // setUserInfo({ ...response.data, photo: photo });
-        console.log(response.data)
+        const user = { ...data.user, photo: getProfilePhotoUrl(data.user?.photo) }
+        login(user, data.access_token, data.refresh_token);
         navigate('/');
       }
     } catch (error) {

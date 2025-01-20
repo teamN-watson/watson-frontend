@@ -5,6 +5,7 @@ import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
 import default_photo from '@assets/images/default_profile.png';
 import logo from '@assets/images/watson/watson_logo.gif';  // .gif에서 .png로 변경
+import { getProfilePhotoUrl } from '@src/utils';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
@@ -22,21 +23,8 @@ export default function Header() {
                 if (response.status === 200) {
                     const data = response.data;
                     console.log(data)
-                    let photo = ""
-                    if (data.photo) {
-                        photo = data.photo.split("/").splice(2);
-                        if (photo[0] == "items") {
-                            photo = `https://cdn.fastly.steamstatic.com/steamcommunity/public/images/${photo.join("/")}`
-                        } else if (photo[0] == "https%3A") {
-                            photo = `${photo.join("/").replace("%3A", ":")}`
-                        } else if (photo[0] == "images" && photo[1] == "profile") {
-                            photo = `${import.meta.env.VITE_BACKEND_URL}${data.photo}`
-                        } else {
-                            photo = ""
-                        }
-                    }
 
-                    setUserInfo({ ...response.data, photo: photo });
+                    setUserInfo({ ...response.data, photo: getProfilePhotoUrl(data.photo) });
                 }
             }).catch((error) => {
                 console.error('Error fetching user info:', error);

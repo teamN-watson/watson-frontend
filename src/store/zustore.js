@@ -15,6 +15,8 @@ const useStore = create((set) => ({
     set({
       userInfo,
       isLoggedIn: true,
+      accessToken,
+      refreshToken,
     });
   },
   logout: () => set({ isLoggedIn: false, userInfo: null, accessToken: null, refreshToken: null }),
