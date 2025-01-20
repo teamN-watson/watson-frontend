@@ -9,12 +9,17 @@ export default function IndexPage() {
 
     // 스크롤 함수 추가
     const scrollToBottom = () => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        chatEndRef.current?.scrollIntoView({
+            block: "end",
+            behavior: "smooth",
+        });
     };
 
     // 채팅 기록이 업데이트될 때마다 스크롤
     useEffect(() => {
-        scrollToBottom();
+        if (chatHistory) {
+            scrollToBottom();
+        }
     }, [chatHistory]);
 
     useEffect(() => {
@@ -136,10 +141,10 @@ export default function IndexPage() {
                             </div>
                         </div>
                     ))}
-                    <div ref={chatEndRef} /> {/* 스크롤 위치용 ref */}
+                    <div /> {/* 스크롤 위치용 ref */}
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className="chatbot_input">
+                    <div className="chatbot_input" ref={chatEndRef}>
                         <input
                             onChange={(e) => setMessage(e.target.value)}
                             type="text"
