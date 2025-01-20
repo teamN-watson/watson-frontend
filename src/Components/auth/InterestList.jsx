@@ -1,5 +1,4 @@
 import React from 'react';
-import like from '@assets/images/like.png';
 import '@assets/css/account/signup.css';
 export default function InterestList({ games, selectedGames, onGameSelect }) {
     return (
@@ -9,9 +8,7 @@ export default function InterestList({ games, selectedGames, onGameSelect }) {
                     <div className={`interest_img ${selectedGames.includes(game.id) && "selected"}`}>
                         <img src={`/src/assets/images/games/${game.id}.jpg`} />
                     </div>
-                    <div className="interest_hover">
-                        <img src={like} />
-                    </div>
+                    <div className="interest_hover"></div>
                 </div>
             ))}
         </div>
