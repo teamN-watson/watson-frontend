@@ -1,0 +1,409 @@
+/* 전체 화면 배경 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #000;
+}
+
+.game-detail {
+    background: #000;
+    min-height: 100vh;
+    color: #fff;
+    padding-top: 70px;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;  /* 가로 스크롤 방지 */
+}
+
+.game-header {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.game-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.game-header-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 4%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+}
+
+.game-header-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.game-meta {
+    display: flex;
+    gap: 2.5rem;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    align-items: center;
+}
+
+.game-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.game-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    padding: 2rem 4%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 470px); /* 헤더 높이(400px) + 상단 패딩(70px) 고려 */
+}
+
+.game-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+section {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.game-screenshots {
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.screenshot-item {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;  /* 16:9 비율 유지 */
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.screenshot-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.screenshot-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.screenshot-item:hover img {
+    transform: scale(1.1);
+}
+
+.game-sidebar {
+    position: sticky;
+    top: 90px;
+    height: fit-content;
+    align-self: start;  /* 그리드 내에서 상단 정렬 */
+}
+
+.game-info-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.game-info-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.price-section {
+    margin-bottom: 2rem;
+}
+
+.price {
+    font-size: 2rem;
+    color: #6c63ff;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+.genre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.genre-tag {
+    background: rgba(108, 99, 255, 0.2);
+    padding: 0.7rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.system-requirements {
+    margin-top: 2rem;
+}
+
+.system-requirements h4 {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.system-requirements li {
+    margin: 0.8rem 0;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+}
+
+.system-requirements strong {
+    color: rgba(255,255,255,0.95);
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-card {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.review-header {
+    margin-bottom: 1rem;
+}
+
+.review-user {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+}
+
+.review-comment {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+}
+
+.game-video-review {
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 비율 */
+    margin-top: 1rem;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+.video-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.video-creator {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.description-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.game-thumbnail {
+    width: 280px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.description-text {
+    flex: 1;
+}
+
+.description-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.description-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.2px;
+}
+
+/* 반응형에서의 전체 화면 처리 */
+@media (max-width: 1024px) {
+    .game-content {
+        grid-template-columns: 1fr;
+        min-height: auto;  /* 모바일에서는 최소 높이 제거 */
+    }
+
+    .game-sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .screenshot-item {
+        padding-bottom: 56.25%;  /* 16:9 비율 유지 */
+    }
+
+    .description-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .game-thumbnail {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 1.5rem;
+    }
+
+    .description-text h2 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-header {
+        height: 300px;
+    }
+
+    .game-header-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .game-meta {
+        font-size: 1rem;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .description-text p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .game-info-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .price {
+        font-size: 1.6rem;
+    }
+
+    .genre-tag {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .screenshot-item {
+        padding-bottom: 56.25%;  /* 16:9 비율 유지 */
+    }
+
+    .game-screenshots {
+        padding: 1rem;
+    }
+
+    .game-video-review {
+        padding: 1rem;
+    }
+
+    .video-info {
+        padding: 0.8rem;
+    }
+
+    .video-title {
+        font-size: 1rem;
+    }
+} 

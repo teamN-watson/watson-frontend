@@ -9,6 +9,7 @@ import Profile from "./pages/auth/profile"; // 프로필 페이지 컴포넌트
 import SteamCallback from "./pages/auth/steam_callback";
 import "./App.css";
 import SteamChoose from "./pages/auth/steam_choose";
+import GameDetail from "./pages/game/GameDetail";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/steam/callback" element={<SteamCallback />} />
         <Route exact path="/profile/:id" element={<Profile />} />
         <Route path="/profile" element={<Navigate to="/" />} />
+        <Route path="game/:id" element={<GameDetail />} />
       </Route>
     </Routes>
   );

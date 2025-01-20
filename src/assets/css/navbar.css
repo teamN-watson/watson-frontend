@@ -8,22 +8,21 @@ nav.navbar {
     right: 0;
     width: 100%;
     z-index: 1000;
+    height: 70px;
 }
 
 nav.navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
-    padding: 0;
+    height: 100%;
+    padding: 0 2rem;
 }
 
 .logo {
-    height: 45px;
+    height: 40px;
     display: flex;
     align-items: center;
-    padding: 0;
-    transform: translateY(4px);
 }
 
 .logo img {
@@ -36,18 +35,16 @@ nav.navbar .container {
 }
 
 @media (max-width: 768px) {
-    nav.navbar .container {
+    nav.navbar {
         height: 60px;
-        padding: 0 1rem;
     }
 
     .logo {
-        height: 35px;
-        transform: translateY(3px);
+        height: 32px;
     }
     
-    .logo img {
-        max-width: 160px;
+    nav.navbar .container {
+        padding: 0 1rem;
     }
 }
 
