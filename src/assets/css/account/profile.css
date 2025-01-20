@@ -7,7 +7,7 @@
     color: #fff;
 }
 
-.profile_wrap {
+.profileContainer .profile_wrap {
     width: 100%;
     max-width: 1200px;
     background: rgba(255, 255, 255, 0.05);
@@ -21,20 +21,20 @@
 }
 
 /* 프로필 영역 - 왼쪽 사이드바 */
-.profile_sidebar {
+.profileContainer .profile_sidebar {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 2rem;
     height: fit-content;
 }
 
-.profile_wrap .user_photo {
+.profileContainer .profile_wrap .user_photo {
     width: 150px;
     height: 150px;
     margin: 0 auto 2rem;
 }
 
-.user_photo img {
+.profileContainer .user_photo img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -43,20 +43,20 @@
     transition: all 0.3s ease;
 }
 
-.user_info {
+.profileContainer .user_info {
     text-align: center;
 }
 
-.user_info p {
+.profileContainer .user_info p {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1rem;
     margin: 0.6rem 0;
     text-align: left;
 }
 
-.user_info button, 
-.user_info input[type="button"],
-.btn-steam-login {
+.profileContainer .user_info button, 
+.profileContainer .user_info input[type="button"],
+.profileContainer .btn-steam-login {
     width: 100%;
     background: #6c63ff;
     color: white;
@@ -69,28 +69,28 @@
     margin: 1rem 0;
 }
 
-.user_info button:hover,
-.user_info input[type="button"]:hover,
-.btn-steam-login:hover {
+.profileContainer .user_info button:hover,
+.profileContainer .user_info input[type="button"]:hover,
+.profileContainer .btn-steam-login:hover {
     background: #5a52d5;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
 }
 
 /* 게임 섹션 - 오른쪽 컨텐츠 */
-.games_content {
+.profileContainer .games_content {
     display: grid;
     grid-template-rows: auto auto;
     gap: 2rem;
 }
 
-.owned_game, .recent_game {
+.profileContainer .owned_game, .recent_game {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 1.5rem;
 }
 
-.owned_game h1, .recent_game h1 {
+.profileContainer .owned_game h1, .recent_game h1 {
     font-size: 1.5rem;
     color: #fff;
     margin-bottom: 1.5rem;
@@ -100,24 +100,24 @@
     align-items: center;
 }
 
-.owned_game h1::before {
+.profileContainer .owned_game h1::before {
     content: '🎮';
     margin-right: 0.5rem;
 }
 
-.recent_game h1::before {
+.profileContainer .recent_game h1::before {
     content: '🕹️';
     margin-right: 0.5rem;
 }
 
 /* 게임 아이템 그리드 */
-.game_list {
+.profileContainer .game_list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
 }
 
-.game_item {
+.profileContainer .game_item {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -128,35 +128,35 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.game_item:hover {
+.profileContainer .game_item:hover {
     transform: translateY(-2px);
     background: rgba(108, 99, 255, 0.1);
     border-color: rgba(108, 99, 255, 0.3);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.game_item img {
+.profileContainer .game_item img {
     width: 64px;
     height: 64px;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.game_info {
+.profileContainer .game_info {
     flex: 1;
 }
 
-.game_info .game_name {
+.profileContainer .game_info .game_name {
     font-size: 1.1rem;
     font-weight: 500;
     color: #fff;
     margin-bottom: 0.5rem;
 }
 
-.game_info .game_time,
-.game_info .game_total_time,
-.game_info .game_recent_time,
-.game_info .game_last_played {
+.profileContainer .game_info .game_time,
+.profileContainer .game_info .game_total_time,
+.profileContainer .game_info .game_recent_time,
+.profileContainer .game_info .game_last_played {
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
     display: flex;
@@ -164,28 +164,28 @@
     margin: 0.3rem 0;
 }
 
-.game_info .game_time::before {
+.profileContainer .game_info .game_time::before {
     content: '⏱️';
     margin-right: 0.5rem;
 }
 
-.game_info .game_total_time::before {
+.profileContainer .game_info .game_total_time::before {
     content: '⌛';
     margin-right: 0.5rem;
 }
 
-.game_info .game_recent_time::before {
+.profileContainer .game_info .game_recent_time::before {
     content: '🕒';
     margin-right: 0.5rem;
 }
 
-.game_info .game_last_played::before {
+.profileContainer .game_info .game_last_played::before {
     content: '📅';
     margin-right: 0.5rem;
 }
 
 /* 게임이 없을 때 메시지 스타일 */
-.game_list > div:only-child:not(.game_item) {
+.profileContainer .game_list > div:only-child:not(.game_item) {
     grid-column: 1 / -1;
     text-align: center;
     padding: 2rem;
@@ -196,18 +196,18 @@
 }
 
 /* 반응형 디자인 개선 */
-@media (max-width: 1200px) {
-    .game_list {
+ @media (max-width: 1200px) {
+    .profileContainer .game_list {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
 }
 
 @media (max-width: 1024px) {
-    .profile_wrap {
+    .profileContainer .profile_wrap {
         grid-template-columns: 1fr;
     }
 
-    .profile_sidebar {
+    .profileContainer .profile_sidebar {
         max-width: 500px;
         margin: 0 auto;
     }
@@ -218,19 +218,19 @@
         padding: 1rem;
     }
 
-    .profile_wrap {
+    .profileContainer .profile_wrap {
         padding: 1.5rem;
     }
 
-    .game_list {
+    .profileContainer .game_list {
         grid-template-columns: 1fr;
     }
 
-    .game_item {
+    .profileContainer .game_item {
         padding: 0.8rem;
     }
 
-    .game_info .game_name {
+    .profileContainer .game_info .game_name {
         font-size: 1rem;
     }
 }

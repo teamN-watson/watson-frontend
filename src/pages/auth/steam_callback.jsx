@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '@src/axiosInstance';
+import loading from '@assets/images/search_loading.gif';
+import '@assets/css/account/callback.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
+
 const SteamCallback = () => {
   const navigate = useNavigate();
 
@@ -41,7 +44,12 @@ const SteamCallback = () => {
 
   }, [navigate]);
 
-  return <div>Processing Steam login...</div>;
+  return (
+    <div className="callback_loading">
+      <img src={loading} />
+      <h2>로딩 중입니다...</h2>
+    </div>
+  )
 };
 
 export default SteamCallback;

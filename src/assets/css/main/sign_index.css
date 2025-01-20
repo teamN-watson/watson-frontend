@@ -1,10 +1,3 @@
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #121212;
-    color: #fff;
-}
-
 .sign-index {
     position: relative;
     width: 100%;
@@ -17,7 +10,7 @@ body {
     padding: 0;
 }
 
-.background-video {
+.sign-index .background-video {
     position: fixed;  /* fixed로 변경하여 스크롤해도 배경이 고정되게 */
     top: 0;
     left: 0;
@@ -27,7 +20,7 @@ body {
     z-index: 0;
 }
 
-.content {
+.sign-index .content {
     position: relative;
     z-index: 1;
     text-align: center;
@@ -37,7 +30,7 @@ body {
     padding: 0;
 }
 
-.header, .navigation-section {
+.sign-index .header, .sign-index .navigation-section {
     position: relative; /* Keeps these elements above the video */
 }
 
@@ -50,7 +43,7 @@ body {
     margin-right: auto;
 }
 
-.logo::after {
+.sign-index .logo::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -66,7 +59,7 @@ body {
     border-radius: 2px;
 }
 
-.subtitle {
+.sign-index .subtitle {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.2rem;
     line-height: 1.7;
@@ -80,7 +73,7 @@ body {
     position: relative;
 }
 
-.subtitle::after {
+.sign-index .subtitle::after {
     content: '';
     position: absolute;
     bottom: -20px;
@@ -96,14 +89,14 @@ body {
 }
 
 /* 기존 스타일 유지 */
-.button-group {
+.sign-index .button-group {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
     margin-top: 4rem;
 }
 
-.auth-button {
+.sign-index .auth-button {
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
     border: none;
@@ -113,33 +106,33 @@ body {
     min-width: 140px;
 }
 
-.auth-button.signup {
+.sign-index .auth-button.signup {
     background: #6c63ff;
     color: white;
 }
 
-.auth-button.login {
+.sign-index .auth-button.login {
     background: rgba(255, 255, 255, 0.1);
     color: white;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(108, 99, 255, 0.3);
 }
 
-.auth-button:hover {
+.sign-index .auth-button:hover {
     transform: translateY(-2px);
 }
 
-.auth-button.signup:hover {
+.sign-index .auth-button.signup:hover {
     background: #5a52d5;
     box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
 }
 
-.auth-button.login:hover {
+.sign-index .auth-button.login:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(108, 99, 255, 0.5);
 }
 
-.start-button {
+.sign-index .start-button {
     background-color: #1db954;
     color: white;
     padding: 0.75rem 1.5rem;
@@ -151,27 +144,27 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.start-button:hover {
+.sign-index .start-button:hover {
     background-color: #1ed760;
 }
 
-.features {
+.sign-index .features {
     display: flex;
     justify-content: space-around;
     margin: 2rem 0;
     width: 100%;
 }
 
-.feature {
+.sign-index .feature {
     text-align: center;
     max-width: 200px;
 }
 
-.feature h2 {
+.sign-index .feature h2 {
     color: #1db954;
 }
 /* 추가 네비게이션 버튼 스타일 */
-.navigation-section {
+.sign-index .navigation-section {
     margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
@@ -179,7 +172,7 @@ body {
     justify-content: center;
 }
 
-.nav-button {
+.sign-index .nav-button {
     background-color: #2b2b2b;
     color: #fff;
     padding: 0.75rem 1.5rem;
@@ -190,18 +183,18 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.nav-button:hover {
+.sign-index .nav-button:hover {
     background-color: #1db954;
     transform: scale(1.05);
 }
 
-.auth-form {
+.sign-index .auth-form {
   width: 100%;
   max-width: 450px;
   margin: 20px auto;
 }
 
-.email-input {
+.sign-index .email-input {
   width: 100%;
   padding: 14px;
   border: 1px solid #ddd;
@@ -210,7 +203,7 @@ body {
   margin-bottom: 10px;
 }
 
-.continue-button {
+.sign-index .continue-button {
   width: 100%;
   padding: 14px;
   background-color: #1ed760;
@@ -223,31 +216,31 @@ body {
   transition: all 0.2s;
 }
 
-.continue-button:hover {
+.sign-index .continue-button:hover {
   background-color: #1fdf64;
   transform: scale(1.02);
 }
 
 @media (max-width: 768px) {
-    .logo {
+    .sign-index .logo {
         height: 80px;
         margin-bottom: 2rem;
     }
 
-    .subtitle {
+    .sign-index .subtitle {
         font-size: 1.1rem;
         line-height: 1.6;
         margin: 2rem auto 3rem;
         padding: 0 1.5rem;
     }
 
-    .button-group {
+    .sign-index .button-group {
         flex-direction: column;
         padding: 0 2rem;
         gap: 1rem;
     }
 
-    .auth-button {
+    .sign-index .auth-button {
         width: 100%;
         min-width: auto;
     }

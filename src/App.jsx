@@ -8,11 +8,11 @@ import Talk from "./pages/chatbot/talk"; // 챗봇 페이지 컴포넌트
 import Profile from "./pages/auth/profile"; // 프로필 페이지 컴포넌트
 import ProfileEdit from "./pages/auth/profile_edit"; // 프로필 페이지 컴포넌트
 import SteamCallback from "./pages/auth/steam_callback";
-import "./App.css";
 import SteamChoose from "./pages/auth/steam_choose";
 import ReviewList from "./pages/review/list";
 import ReviewCreate from "./pages/review/create";
 import ReviewDetail from "./pages/review/detail";
+import "@assets/css/App.css";
 
 export default function App() {
   return (
