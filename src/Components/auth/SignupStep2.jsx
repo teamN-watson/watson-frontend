@@ -11,6 +11,7 @@ export default function SignupStep2({ step, formData, errors, updateFormData, ha
   return (
     <div className={`signupStep2 ${step === 2 ? 'active' : ''}`}>
       <div className="user_input">
+        <label htmlFor="age">나이</label>
         <input
           type="text"
           placeholder="나이를 입력해주세요"
@@ -19,7 +20,7 @@ export default function SignupStep2({ step, formData, errors, updateFormData, ha
           onKeyPress={handleKeyPress}
         />
         {errors.age && <p className="error_msg">{errors.age}</p>}
-
+        <label htmlFor="nickname">닉네임</label>
         <input
           type="text"
           placeholder="닉네임을 입력해주세요"
@@ -28,7 +29,7 @@ export default function SignupStep2({ step, formData, errors, updateFormData, ha
           onKeyPress={handleKeyPress}
         />
         {errors.nickname && <p className="error_msg">{errors.nickname}</p>}
-
+        <label htmlFor="email">이메일</label>
         <input
           type="email"
           placeholder="이메일을 입력해주세요"

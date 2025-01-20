@@ -31,7 +31,9 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
         </label>
       </div>
       <div className="user_input">
+        <label htmlFor="user_id">아이디</label>
         <input
+          id="user_id"
           type="text"
           placeholder="아이디를 입력해주세요"
           value={formData.user_id}
@@ -40,7 +42,9 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
         />
         {errors.user_id && <p className="error_msg">{errors.user_id}</p>}
 
+        <label htmlFor="password">비밀번호</label>
         <input
+          id="password"
           type="password"
           placeholder="비밀번호를 입력해주세요"
           value={formData.password}
@@ -49,7 +53,9 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
         />
         {errors.password && <p className="error_msg">{errors.password}</p>}
 
+        <label htmlFor="confirm_password">비밀번호 확인</label>
         <input
+          id="confirm_password"
           type="password"
           placeholder="비밀번호를 다시 입력해주세요"
           value={formData.confirm_password}

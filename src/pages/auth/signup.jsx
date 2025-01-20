@@ -91,7 +91,6 @@ export default function SignupPage() {
         if (claimedId) {
           const steam_id = claimedId.split("/")[claimedId.split("/").length - 1]
           formData.append('steamId', steam_id);
-
         }
       }
     }
@@ -104,6 +103,7 @@ export default function SignupPage() {
         window.location.href = '/';
       } else {
         nextStep();
+        setErrors({});
       }
     } catch (error) {
       console.error(error);

@@ -80,7 +80,7 @@ function Profile() {
 
             {isMypage && (
               userInfo?.steamId ? (
-                <input type="button" name="steam_profile" className="steam_profile" value="스팀 프로필 이미지 가져오기" onClick={steamProfileAction} />
+                <input type="button" name="steam_profile" className="steam_profile" value="스팀 프로필 이미지 사용" onClick={steamProfileAction} />
               ) : (
                 <button className='btn btn-steam-login' onClick={handleSteamLogin}>스팀 로그인</button>
               )

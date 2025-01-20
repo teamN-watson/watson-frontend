@@ -6,6 +6,7 @@
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     padding: 2rem;
     overflow: hidden;
+    height: 100%;
 }
 
 .signupStepForm {
@@ -14,10 +15,10 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 2.5rem;
-    width: 100%;
+    width: 800px;
     max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
+    /* max-height: 90vh; */
+    /* overflow-y: auto; */
 }
 
 .signupStepForm::-webkit-scrollbar {
@@ -151,7 +152,7 @@ h2 {
 .user_interest {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.2rem;
 }
 
 .interest_txt {
@@ -176,7 +177,6 @@ h2 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1.2rem;
-    margin: 1rem 0;
     padding: 0.5rem;
 }
 
@@ -195,7 +195,7 @@ h2 {
     object-fit: cover;
     border-radius: 12px;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 /* 선택된 이미지 스타일 */
@@ -210,20 +210,20 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
     cursor: pointer;
 }
 
 /* 선택된 상태의 호버 효과 */
 .interest_img.selected + .interest_hover {
     opacity: 1;
-    background: rgba(108, 99, 255, 0.15);
     border: 2px solid #6c63ff;
+    border-radius: 12px;
 }
 
 .interest_hover:hover {
@@ -234,10 +234,10 @@ h2 {
 .interest_hover::after {
     content: '✓';
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
+    top: calc(50% - 18px);
+    right: calc(50% - 18px);
+    width: 36px;
+    height: 36px;
     background: #6c63ff;
     border-radius: 50%;
     display: flex;
@@ -250,10 +250,23 @@ h2 {
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+.signupStepForm .interest_img img {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    object-fit: cover;
+}
 
 .interest_img.selected + .interest_hover::after {
     opacity: 1;
     transform: scale(1);
+}
+
+.signupStepForm .interest_info .interest_hover img {
+    width: 50px;
+    height: 35px;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 /* 호버 시 게임 제목 표시 스타일 수정 */
@@ -274,10 +287,11 @@ h2 {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.error_msg {
+.user_input .error_msg {
     color: #ff6b6b;
     font-size: 0.9rem;
-    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
     display: block;
 }
 
@@ -337,7 +351,6 @@ h2 {
 .step_action {
     display: flex;
     justify-content: flex-end;  /* 오른쪽 정렬 */
-    margin-top: 2rem;
     padding: 0 1rem;
 }
 
