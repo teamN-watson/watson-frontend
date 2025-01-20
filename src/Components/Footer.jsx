@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '@assets/images/watson/watson_banner.jpg';  // .jpeg에서 .jpg로 변경
 
 export default function Footer() {
     return (

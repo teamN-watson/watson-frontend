@@ -1,21 +1,14 @@
 import React from "react";
 import Header from "./Header";  // 헤더 컴포넌트
 import Footer from "./Footer";  // 푸터 컴포넌트
+import "@assets/css/layout.css";
 import { Outlet } from 'react-router-dom'
 
 export default function GlobalLayout() {
     return (
-        <div style={{
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            background: '#121212'
-        }}>
+        <div className="layout">
             <Header />
-            <main id="main" style={{
-                flex: 1,
-                padding: '2rem 0'
-            }}>
+            <main className="layout-content">
                 <div className="container">
                     <Outlet />
                 </div>

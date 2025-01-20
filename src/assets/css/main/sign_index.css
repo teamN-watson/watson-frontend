@@ -8,23 +8,33 @@ body {
 .sign-index {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: calc(100vh - 70px);  /* navbar 높이 고려 */
     display: flex;
-    align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    align-items: center;
+    background-color: #000000;  /* 검은 배경 */
+    margin: 0;
+    padding: 0;
+}
+
+.background-video {
+    position: fixed;  /* fixed로 변경하여 스크롤해도 배경이 고정되게 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
 .content {
     position: relative;
     z-index: 1;
     text-align: center;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    max-width: 600px;
-    margin: 0 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+    padding: 0;
 }
 
 .header, .navigation-section {
@@ -32,20 +42,12 @@ body {
 }
 
 .logo {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: linear-gradient(135deg, #ffffff 0%, #e6e6e6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.2),
-        0 0 20px rgba(255, 255, 255, 0.1);
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    display: inline-block;
+    width: auto;
+    height: 100px;
+    margin-bottom: 3rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .logo::after {
@@ -65,54 +67,76 @@ body {
 }
 
 .subtitle {
-    color: #ffffff;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 2.5rem auto 3.5rem;
+    max-width: 600px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    word-break: keep-all;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(108, 99, 255, 0) 0%,
+        rgba(108, 99, 255, 0.5) 50%,
+        rgba(108, 99, 255, 0) 100%
+    );
 }
 
 /* 기존 스타일 유지 */
 .button-group {
     display: flex;
+    gap: 1.5rem;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 4rem;
 }
 
 .auth-button {
-    padding: 12px 30px;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-/* 로그인 버튼 스타일 */
-.auth-button.login {
-    background: transparent;
-    border: 2px solid #483699;
-    color: #483699;
-}
-
-.auth-button.login:hover {
-    background: rgba(72, 54, 153, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(72, 54, 153, 0.2);
-}
-
-/* 회원가입 버튼 스타일 */
-.auth-button.signup {
-    background: #483699;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
     border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+
+.auth-button.signup {
+    background: #6c63ff;
     color: white;
 }
 
-.auth-button.signup:hover {
-    background: #5b48b6;
+.auth-button.login {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.auth-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(72, 54, 153, 0.3);
+}
+
+.auth-button.signup:hover {
+    background: #5a52d5;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+}
+
+.auth-button.login:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(108, 99, 255, 0.5);
 }
 
 .start-button {
@@ -171,17 +195,6 @@ body {
     transform: scale(1.05);
 }
 
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.3;
-    filter: blur(2px);
-}
-
 .auth-form {
   width: 100%;
   max-width: 450px;
@@ -213,5 +226,34 @@ body {
 .continue-button:hover {
   background-color: #1fdf64;
   transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 80px;
+        margin-bottom: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 2rem auto 3rem;
+        padding: 0 1.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+        padding: 0 2rem;
+        gap: 1rem;
+    }
+
+    .auth-button {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .sign-index {
+        min-height: calc(100vh - 60px);  /* 모바일 navbar 높이 고려 */
+    }
 }
 

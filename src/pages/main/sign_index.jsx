@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@assets/css/main/sign_index.css'; // CSS 파일 import
-import backgroundVideo from "@assets/videos/background.mp4";
+import logo from '@assets/images/watson/watson_banner.gif';  // .png에서 .gif로 변경
 
 function SignInButton({ onClick }) {
   return (
@@ -24,14 +24,8 @@ export default function SignIndex() {
 
   return (
     <main className="sign-index">
-      {/* 배경 영상 */}
-      <video autoPlay loop muted playsInline className="background-video">
-        <source src={backgroundVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
       <div className="content">
-        <h1 className="logo">WATSON</h1>
+        <img src={logo} alt="WATSON" className="logo" />
         <p className="subtitle">
           AI 기반 게임 추천 시스템으로 당신만의 완벽한 게임을 발견하세요. 
           개인화된 분석을 통해 취향에 꼭 맞는 게임을 찾아드립니다.
@@ -44,3 +38,4 @@ export default function SignIndex() {
     </main>
   );
 }
+
