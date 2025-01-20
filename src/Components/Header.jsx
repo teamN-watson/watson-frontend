@@ -4,7 +4,7 @@ import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
 import default_photo from '@assets/images/default_profile.png';
-import logo from '@assets/images/watson/watson_logo.png';  // .gif에서 .png로 변경
+import logo from '@assets/images/watson/watson_logo.gif';  // .gif에서 .png로 변경
 import { Link } from 'react-router-dom';    
 
 export default function Header() {
