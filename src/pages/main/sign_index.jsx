@@ -27,11 +27,11 @@ export default function SignIndex() {
       <div className="content">
         <img src={logo} alt="WATSON" className="logo" />
         <p className="subtitle">
-          AI 기반 게임 추천 시스템으로 당신만의 완벽한 게임을 발견하세요. 
+          AI 기반 게임 추천 시스템으로 당신만의 완벽한 게임을 발견하세요.
           개인화된 분석을 통해 취향에 꼭 맞는 게임을 찾아드립니다.
         </p>
         <div className="button-group">
-          <SignUpButton onClick={() => navigate('/signup')} />
+          <SignUpButton onClick={() => navigate('/steam/choose')} />
           <SignInButton onClick={() => navigate('/signin')} />
         </div>
       </div>
