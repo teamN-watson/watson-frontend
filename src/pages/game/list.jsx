@@ -1,28 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '@assets/css/game/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
+import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
+import { useSearchParams } from 'react-router-dom';
 
 export default function GameList() {
-    const [q, setQ] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [q, setQ] = useState(searchParams.get('query') || '');
     const [games, setGames] = useState([]);
     const [page, setPage] = useState(1);
     const [hasNext, setHasNext] = useState(true);
     const [loading, setLoading] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
 
+
+    const [query, setQuery] = useState(searchParams.get('query') || ''); // 초기값을 URL에서 가져옴
+
     const navigate = useNavigate();
+    const scrollRef = useRef(null);
+    const isFirstRender = useRef(true); // 첫 렌더링 여부를 추적
 
-    useEffect(() => {
+    const pagingInit = () => {
+        setGames([]);
+        setPage(1)
+        setHasNext(true);
+        setIsEmpty(false);
+    }
 
-    }, []);
-
-    const handleSearch = async (e) => {
-        e.preventDefault(); // 기본 제출 동작 방지
-        pagingInit();
-        if (loading) return;
-        setLoading(true);
+    // 검색 요청을 수행하는 함수
+    const fetchResults = async (q) => {
+        if (!q) {
+            setGames([]); // 검색어가 없으면 빈 배열 반환
+            return;
+        }
         if (q) {
             try {
                 const response = await axios.get(
@@ -46,6 +58,29 @@ export default function GameList() {
             }
         }
     };
+
+    // 페이지 로드 시 URL에 있는 쿼리로 검색 실행
+    useEffect(() => {
+        console.log(games)
+        if (isFirstRender.current) {
+            isFirstRender.current = false; // 첫 렌더링 이후 false로 설정
+            if (query) fetchResults(query); // 쿼리가 있을 때만 요청
+        }
+    }, []); // 첫 렌더링 시 한 번 실행
+
+    const handleSearch = async (e) => {
+        e.preventDefault(); // 기본 제출 동작 방지
+        pagingInit();
+        if (loading) return;
+        setLoading(true);
+        fetchResults(q)
+    };
+
+    const onChange = (e) => {
+        const searchQuery = e.target.value;
+        setQ(searchQuery)
+        setSearchParams({ query: searchQuery })
+    }
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -83,28 +118,37 @@ export default function GameList() {
             <div className='titleWrap'>
                 <h1>게임 검색</h1>
             </div>
-            <div className='listWrap'>
-                <form>
-                    <div className="search-bar">
-                        <input type="text" name="q" placeholder="검색어를 입력해주세요" id="id_q" value={q} onChange={(e) => setQ(e.target.value)} className="search-input" onKeyDown={handleKeyPress} />
-                        <input type="submit" value="검색" onClick={handleSearch} className='search-button' />
-                    </div>
-                </form>
+            <div className='GameWrap'>
+                <div className='search'>
+                    <form>
+                        <div className="search-bar">
+                            <input type="text" name="q" placeholder="검색어를 입력해주세요" id="id_q" value={q} onChange={onChange} className="search-input" onKeyDown={handleKeyPress} />
+                            <input type="submit" value="검색" onClick={handleSearch} className='search-button' />
+                        </div>
+                    </form>
+                </div>
                 <div className='game_list'>
-                    {games && games.map((game, index) => {
+                    {games && games.map((game) => {
                         return (
-                            <div key={index} onClick={() => search_click(game)}>
-                                <img src={game.header_image} />
-                                <span>{game.name}</span>
+                            <div key={game.appID} onClick={() => navigate(`/game/${game.appID}`)} className='game_info'>
+                                <div className='game_info1'>
+                                    <img src={game.header_image} />
+
+                                </div>
+                                <div className='game_info2'>
+                                    <h3>{game.name}</h3>
+                                    <div className='game_genres'>
+                                        {game.genres && game.genres.map((genre, genre_index) => {
+                                            return (
+                                                <span key={genre_index}>{genre}</span>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         )
                     })}
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
-                    {games && games.length && hasNext && (
-                        <div className='load_more' ref={scrollRef} style={{ textAlign: 'center' }}>
-                            <img src={search_loading} />
-                        </div>
-                    )}
                 </div>
 
             </div>
