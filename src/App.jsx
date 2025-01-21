@@ -1,40 +1,42 @@
-import React from "react";
+import React, { Suspense, lazy } from 'react';
 import { Route, Routes, Navigate } from "react-router-dom";
 import GlobalLayout from "./Components/Layout"; // 레이아웃 컴포넌트
-import Index from "./pages/index"; // 홈 페이지 컴포넌트
-import Signin from "./pages/auth/signin"; // 로그인 페이지 컴포넌트
-import Signup from "./pages/auth/signup"; // 로그인 페이지 컴포넌트
-import Talk from "./pages/chatbot/talk"; // 챗봇 페이지 컴포넌트
-import Profile from "./pages/auth/profile"; // 프로필 페이지 컴포넌트
-import ProfileEdit from "./pages/auth/profile_edit"; // 프로필 페이지 컴포넌트
-import SteamCallback from "./pages/auth/steam_callback";
-import SteamChoose from "./pages/auth/steam_choose";
-import ReviewList from "./pages/review/list";
-import ReviewCreate from "./pages/review/create";
-import ReviewDetail from "./pages/review/detail";
-import GameList from "./pages/game/list";
-import GameDetail from "./pages/game/detail";
+const Index = lazy(() => import("./pages/index")); // 홈 페이지 컴포넌트
+const Signin = lazy(() => import("./pages/auth/signin")); // 로그인 페이지 컴포넌트
+const Signup = lazy(() => import("./pages/auth/signup")); // 회원가입 페이지 컴포넌트
+const Talk = lazy(() => import("./pages/chatbot/talk")); // 챗봇 페이지 컴포넌트
+const Profile = lazy(() => import("./pages/auth/profile")); // 프로필 페이지 컴포넌트
+const ProfileEdit = lazy(() => import("./pages/auth/profile_edit")); // 프로필 수정 페이지 컴포넌트
+const SteamCallback = lazy(() => import("./pages/auth/steam_callback")); // 스팀 콜백 페이지
+const SteamChoose = lazy(() => import("./pages/auth/steam_choose")); // 스팀 선택 페이지
+const ReviewList = lazy(() => import("./pages/review/list")); // 리뷰 목록 페이지
+const ReviewCreate = lazy(() => import("./pages/review/create")); // 리뷰 작성 페이지
+const ReviewDetail = lazy(() => import("./pages/review/detail")); // 리뷰 상세 페이지
+const GameList = lazy(() => import("./pages/game/list")); // 게임 목록 페이지
+const GameDetail = lazy(() => import("./pages/game/detail")); // 게임 상세 페이지
 import "@assets/css/App.css";
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<GlobalLayout />}>
-        <Route path="/" element={<Index />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/steam/choose" element={<SteamChoose />} />
-        <Route path="/chatbot" element={<Talk />} />
-        <Route exact path="/review" element={<ReviewList />} />
-        <Route path="/review/:id" element={<ReviewDetail />} />
-        <Route path="/review/create" element={<ReviewCreate />} />
-        <Route exact path="/game" element={<GameList />} />
-        <Route path="/game/:id" element={<GameDetail />} />
-        <Route path="/steam/callback" element={<SteamCallback />} />
-        <Route exact path="/profile/:id" element={<Profile />} />
-        <Route path="/profile/:id/edit" element={<ProfileEdit />} />
-        <Route path="/profile" element={<Navigate to="/" />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route element={<GlobalLayout />}>
+          <Route path="/" element={<Index />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/steam/choose" element={<SteamChoose />} />
+          <Route path="/chatbot" element={<Talk />} />
+          <Route path="/review" element={<ReviewList />} />
+          <Route path="/review/:id" element={<ReviewDetail />} />
+          <Route path="/review/create" element={<ReviewCreate />} />
+          <Route path="/game" element={<GameList />} />
+          <Route path="/game/:id" element={<GameDetail />} />
+          <Route path="/steam/callback" element={<SteamCallback />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile/:id/edit" element={<ProfileEdit />} />
+          <Route path="/profile" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }

@@ -99,9 +99,10 @@
     
 }
 .GameWrap .game_list div.game_info  div.game_genres span{
-    padding: 2px 5px;
+    padding: 5px 8px;
     background-color: #5a52d5;
     font-size: 14px;
+    border-radius: 10px;
 }
 
 .GameWrap .game_list div img{

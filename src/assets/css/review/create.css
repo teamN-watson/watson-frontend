@@ -68,6 +68,11 @@
 }
 
 /* game_list */
+.gameModal section .game_list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
 .gameModal section .game_list .empty_list h3{
 	color: #000;
 }
