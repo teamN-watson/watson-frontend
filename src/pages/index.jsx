@@ -7,9 +7,5 @@ import SignIndex from './main/sign_index';
 
 export default function IndexPage() {
     const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
-    return (<main>
-
-        {accessToken ? <MainIndex /> : <SignIndex />}
-
-    </main>)
+    return accessToken ? <MainIndex /> : <SignIndex />
 }

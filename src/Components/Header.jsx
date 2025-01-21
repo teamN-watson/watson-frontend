@@ -69,7 +69,7 @@ export default function Header() {
                     <div>
                         <ul className="menu">
                             <li><a href="/review/">리뷰</a></li>
-                            <li><a href="/search">게임</a></li>
+                            <li><a href="/game">게임</a></li>
                             <li><a href="/chatbot">챗봇</a></li>
                         </ul>
                     </div>

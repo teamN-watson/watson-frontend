@@ -22,21 +22,19 @@ function MainIndex() {
   }, []);
 
   return (
-    <main>
-      <div className="container">
-        <h2>좋아하는 게임을 찾아보세요!</h2>
-        <div className="game-list">
-          {games.map((game) => (
-            <div className="game-item" key={game.id}>
-              <img src={game.image} alt={game.title} />
-              <h3>{game.title}</h3>
-              <p>{game.price}원</p>
-              <p>{game.description}</p>
-            </div>
-          ))}
-        </div>
+    <div className="Maincontainer">
+      <h2>좋아하는 게임을 찾아보세요!</h2>
+      <div className="game-list">
+        {games.map((game) => (
+          <div className="game-item" key={game.id}>
+            <img src={game.image} alt={game.title} />
+            <h3>{game.title}</h3>
+            <p>{game.price}원</p>
+            <p>{game.description}</p>
+          </div>
+        ))}
       </div>
-    </main>
+    </div>
   );
 }
 

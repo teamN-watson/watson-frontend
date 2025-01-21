@@ -23,7 +23,7 @@ export default function SignIndex() {
   const navigate = useNavigate();
 
   return (
-    <main className="sign-index">
+    <div className="sign-index">
       <div className="content">
         <img src={logo} alt="WATSON" className="logo" />
         <p className="subtitle">
@@ -35,7 +35,7 @@ export default function SignIndex() {
           <SignInButton onClick={() => navigate('/signin')} />
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

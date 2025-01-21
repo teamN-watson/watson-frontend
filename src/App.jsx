@@ -12,6 +12,8 @@ import SteamChoose from "./pages/auth/steam_choose";
 import ReviewList from "./pages/review/list";
 import ReviewCreate from "./pages/review/create";
 import ReviewDetail from "./pages/review/detail";
+import GameList from "./pages/game/list";
+import GameDetail from "./pages/game/detail";
 import "@assets/css/App.css";
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
         <Route exact path="/review" element={<ReviewList />} />
         <Route path="/review/:id" element={<ReviewDetail />} />
         <Route path="/review/create" element={<ReviewCreate />} />
+        <Route exact path="/game" element={<GameList />} />
+        <Route path="/game/:id" element={<GameDetail />} />
         <Route path="/steam/callback" element={<SteamCallback />} />
         <Route exact path="/profile/:id" element={<Profile />} />
         <Route path="/profile/:id/edit" element={<ProfileEdit />} />

@@ -1,12 +1,17 @@
-/* listContainer */
-.listContainer {
+/* ReviewlistContainer */
+.ReviewlistContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+.ReviewlistContainer .titleWrap {
+    margin: 50px 0;
+    width: 100%;
+    text-align: center;
+}
 /* .game_row */
-.listContainer .game_row {
+.ReviewlistContainer .game_row {
     display: flex;
     gap: 10px;
     width: 960px;
@@ -15,30 +20,30 @@
     justify-content: space-between;
 }
 /* .game_title */
-.listContainer .game_title {
+.ReviewlistContainer .game_title {
     display: flex;
     gap: 10px;
 }
-.listContainer .game_title .game_img {
+.ReviewlistContainer .game_title .game_img {
     overflow: hidden;
 }
-.listContainer .game_title .game_img img{
+.ReviewlistContainer .game_title .game_img img{
     width: 200px;
 }
 /* .game_info */
-.listContainer .game_info h4 {
+.ReviewlistContainer .game_info h4 {
     font-size: 30px;
 }
-.listContainer .game_info {
+.ReviewlistContainer .game_info {
     display: flex;
     flex-direction: column;
 }
-.listContainer .game_info .categories {
+.ReviewlistContainer .game_info .categories {
     height: 30px;
     display: flex;
     gap: 5px;
 }
-.listContainer .game_info .categories span {
+.ReviewlistContainer .game_info .categories span {
     padding: 10px;
     color: #a5b0b6;
 background-color: rgb(15 25 35);
@@ -48,11 +53,11 @@ background-color: rgb(15 25 35);
     line-height: 10px;
 }
 /* .game_rating */
-.listContainer .game_rating {
+.ReviewlistContainer .game_rating {
     display: flex;
     flex-direction: column;
 }
 
-.listContainer .reviewListAction a{
+.ReviewlistContainer .reviewListAction a{
     color: #fff;
 }

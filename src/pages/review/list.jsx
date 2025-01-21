@@ -27,8 +27,8 @@ export default function ReviewList() {
     }
 
     return (
-        <div className="listContainer">
-            <div>
+        <div className="ReviewlistContainer">
+            <div className='titleWrap'>
                 <h1>리뷰 목록</h1>
             </div>
             <div className='reviewList'>

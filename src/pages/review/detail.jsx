@@ -57,7 +57,7 @@ export default function ReviewDetail() {
     };
 
     return (
-        <div className="detailContainer">
+        <div className="ReviewdetailContainer">
             <h1>게임 상세</h1>
             {review && <div className="game_row">
                 <div className="game_title">

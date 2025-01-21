@@ -1,4 +1,4 @@
-.ReviewdetailContainer {
+.GamedetailContainer {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -7,7 +7,7 @@
     padding-top: 70px;
 }
 
-.ReviewdetailContainer .createForm {
+.GamedetailContainer .createForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
