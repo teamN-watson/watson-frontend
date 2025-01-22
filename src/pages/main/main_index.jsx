@@ -1,275 +1,248 @@
-import React, { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '@assets/css/main/main_index.css';
+import axios from '@src/axiosInstance';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const MainContainer = styled.div`
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #1b2838, #2a475e);
+  color: #c7d5e0;
+`;
+
+const Header = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #66c0f4;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #acb2b8;
+  }
+`;
+
+const GameGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+`;
+
+const GameCard = styled.div`
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+`;
+
+const GameInfo = styled.div`
+  padding: 1rem;
+
+  h3 {
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .genres {
+    color: #66c0f4;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-info {
+    display: flex;
+    justify-content: space-between;
+    color: #8f98a0;
+    font-size: 0.9rem;
+
+    .price {
+      color: #a4d007;
+    }
+  }
+`;
+
+const LoadingSpinner = styled.div`
+  text-align: center;
+  padding: 2rem;
+  color: #66c0f4;
+  font-size: 1.2rem;
+`;
+
+const CarouselContainer = styled.div`
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+  
+  .slick-slide {
+    padding: 0 10px;
+  }
+  
+  .slick-prev, .slick-next {
+    z-index: 1;
+    &:before {
+      color: #66c0f4;
+      font-size: 30px;
+    }
+  }
+  
+  .slick-prev {
+    left: -5px;
+  }
+  
+  .slick-next {
+    right: -5px;
+  }
+`;
+
+const FeaturedGameCard = styled(GameCard)`
+  img {
+    height: 300px;
+  }
+`;
 
 function MainIndex() {
-  const containerRef = useRef(null);
-  const [mainGames, setMainGames] = useState([]);
-  const [relatedGames, setRelatedGames] = useState([]);
+  const [recommendedGames, setRecommendedGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Three.js 초기화
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    containerRef.current.appendChild(renderer.domElement);
-
-    // 배경색 설정 (#0A0E1A - 진한 남색)
-    scene.background = new THREE.Color('#0A0E1A');
-
-    // OrbitControls 설정
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.minDistance = 20;
-    controls.maxDistance = 50;
-
-    // 더미 데이터 업데이트 - 이미지 URL 추가
-    const mainGameNodes = [
-      { 
-        id: 1, 
-        title: "Cyberpunk 2077", 
-        popularity: 1.5, 
-        genre: "RPG",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg"
-      },
-      { 
-        id: 2, 
-        title: "Elden Ring", 
-        popularity: 1.8, 
-        genre: "Action",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg"
-      },
-      { 
-        id: 3, 
-        title: "Baldur's Gate 3", 
-        popularity: 1.6, 
-        genre: "RPG",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg"
-      },
-      { 
-        id: 4, 
-        title: "Red Dead Redemption 2", 
-        popularity: 1.7, 
-        genre: "Action",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg"
-      },
-      { 
-        id: 5, 
-        title: "The Witcher 3", 
-        popularity: 1.4, 
-        genre: "RPG",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg"
-      }
-    ];
-
-    const relatedGameNodes = [
-      { 
-        id: 6, 
-        title: "Mass Effect", 
-        mainNode: 1, 
-        genre: "RPG",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1328670/header.jpg"
-      },
-      { 
-        id: 7, 
-        title: "Dark Souls 3", 
-        mainNode: 2, 
-        genre: "Action",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/374320/header.jpg"
-      },
-      { 
-        id: 8, 
-        title: "Divinity: OS 2", 
-        mainNode: 3, 
-        genre: "RPG",
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/435150/header.jpg"
-      }
-    ];
-
-    // 텍스처 로더 생성
-    const textureLoader = new THREE.TextureLoader();
-
-    // 노드 생성 함수 수정
-    const createNode = (game, isMain = false) => {
-      const geometry = new THREE.SphereGeometry(isMain ? 1.5 : 0.8, 32, 32);
-      
-      // 텍스처 로드 및 적용
-      const texture = textureLoader.load(game.image);
-      const material = new THREE.MeshPhongMaterial({
-        map: texture,
-        transparent: true,
-        opacity: 0.9,
-        emissive: isMain ? 0x4A9DFF : 0x2A6DDF,
-        emissiveIntensity: 0.2
-      });
-
-      const node = new THREE.Mesh(geometry, material);
-      
-      // 게임 제목 스프라이트 생성
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = 256;
-      canvas.height = 64;
-      context.fillStyle = '#ffffff';
-      context.font = 'bold 24px Arial';
-      context.textAlign = 'center';
-      context.fillText(game.title, 128, 32);
-      
-      const titleTexture = new THREE.CanvasTexture(canvas);
-      const titleMaterial = new THREE.SpriteMaterial({ 
-        map: titleTexture,
-        transparent: true 
-      });
-      const titleSprite = new THREE.Sprite(titleMaterial);
-      
-      // 스프라이트 위치 조정
-      titleSprite.position.y = isMain ? 2 : 1.2;
-      titleSprite.scale.set(4, 1, 1);
-      
-      // 스프라이트를 노드의 자식으로 추가
-      node.add(titleSprite);
-      
-      node.userData = { ...game, isMain };
-      return node;
-    };
-
-    // 메인 노드 생성 및 배치
-    const mainNodes = mainGameNodes.map((game, i) => {
-      const angle = (i / mainGameNodes.length) * Math.PI * 2;
-      const node = createNode(game, true);
-      const radius = 10;
-      node.position.x = Math.cos(angle) * radius;
-      node.position.y = Math.sin(angle) * radius;
-      scene.add(node);
-      return node;
-    });
-
-    // 관련 게임 노드 생성 및 연결
-    const relatedNodes = relatedGameNodes.map(game => {
-      const node = createNode(game);
-      const mainNode = mainNodes[game.mainNode - 1];
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 5;
-      node.position.x = mainNode.position.x + Math.cos(angle) * radius;
-      node.position.y = mainNode.position.y + Math.sin(angle) * radius;
-      node.position.z = Math.random() * 4 - 2;
-      scene.add(node);
-
-      // 연결선 생성
-      const points = [mainNode.position, node.position];
-      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x4A9DFF,
-        transparent: true,
-        opacity: 0.3
-      });
-      const line = new THREE.Line(lineGeometry, lineMaterial);
-      scene.add(line);
-
-      return node;
-    });
-
-    // 조명 설정
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0x00FFFF, 1);
-    pointLight.position.set(10, 10, 10);
-    scene.add(pointLight);
-
-    camera.position.z = 30;
-
-    // 마우스 인터랙션
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    const onMouseMove = (event) => {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects([...mainNodes, ...relatedNodes]);
-
-      [...mainNodes, ...relatedNodes].forEach(node => {
-        node.material.opacity = 0.9;
-        node.material.emissiveIntensity = 0.2;
-      });
-
-      if (intersects.length > 0) {
-        const hovered = intersects[0].object;
-        hovered.material.opacity = 1;
-        hovered.material.emissiveIntensity = 0.5;
-        
-        // 호버 시 게임 제목 표시
-        document.body.style.cursor = 'pointer';
-      } else {
-        document.body.style.cursor = 'default';
+    const fetchRecommendedGames = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('http://localhost:8000/api/account/recommended_games/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setRecommendedGames(response.data.games);
+      } catch (error) {
+        console.error('게임 추천 데이터를 가져오는데 실패했습니다:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    const onClick = (event) => {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    fetchRecommendedGames();
+  }, []);
 
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects([...mainNodes, ...relatedNodes]);
+  const handleGameClick = (appID) => {
+    navigate(`/game/${appID}`);
+  };
 
-      if (intersects.length > 0) {
-        const clicked = intersects[0].object;
-        navigate(`/game/${clicked.userData.id}`);
+  const formatPrice = (price) => {
+    if (!price) return '무료';
+    return `₩ ${price.toLocaleString()}`;
+  };
+
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        }
       }
-    };
+    ]
+  };
 
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('click', onClick);
-
-    // 애니메이션
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update();
-
-      // 노드 자체 회전
-      [...mainNodes, ...relatedNodes].forEach(node => {
-        node.rotation.x += 0.01;
-        node.rotation.y += 0.01;
-      });
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // 창 크기 변경 대응
-    const onWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', onWindowResize);
-
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('click', onClick);
-      window.removeEventListener('resize', onWindowResize);
-      containerRef.current?.removeChild(renderer.domElement);
-    };
-  }, [navigate]);
+  if (isLoading) {
+    return (
+      <MainContainer>
+        <LoadingSpinner>게임 추천 목록을 불러오는 중...</LoadingSpinner>
+      </MainContainer>
+    );
+  }
 
   return (
-    <div className="network-container">
-      <div ref={containerRef} className="canvas-container" />
-      <div className="overlay">
-        <h1>Watson Game Network</h1>
+    <MainContainer>
+      <Header>
+        <h1>Watson Game Recommendations</h1>
         <p>당신의 취향에 맞는 게임을 발견하세요</p>
-      </div>
-    </div>
+      </Header>
+      
+      <CarouselContainer>
+        <Slider {...carouselSettings}>
+          {recommendedGames.slice(0, 6).map((game) => (
+            <FeaturedGameCard key={game.appID} onClick={() => handleGameClick(game.appID)}>
+              <img 
+                src={game.header_image} 
+                alt={game.name}
+                onError={(e) => {
+                  e.target.src = '/default-game-image.jpg';
+                }}
+              />
+              <GameInfo>
+                <h3>{game.name}</h3>
+                <div className="genres">
+                  {game.genres_kr ? game.genres_kr.slice(0, 3).join(', ') : '장르 정보 없음'}
+                </div>
+                <div className="meta-info">
+                  <span>평점: {game.metacritic_score || 'N/A'}</span>
+                  <span className="price">{formatPrice(game.price)}</span>
+                </div>
+              </GameInfo>
+            </FeaturedGameCard>
+          ))}
+        </Slider>
+      </CarouselContainer>
+
+      <GameGrid>
+        {recommendedGames.map((game) => (
+          <GameCard key={game.appID} onClick={() => handleGameClick(game.appID)}>
+            <img 
+              src={game.header_image} 
+              alt={game.name}
+              onError={(e) => {
+                e.target.src = '/default-game-image.jpg';
+              }}
+            />
+            <GameInfo>
+              <h3>{game.name}</h3>
+              <div className="genres">
+                {game.genres_kr ? game.genres_kr.slice(0, 3).join(', ') : '장르 정보 없음'}
+              </div>
+              <div className="meta-info">
+                <span>평점: {game.metacritic_score || 'N/A'}</span>
+                <span className="price">{formatPrice(game.price)}</span>
+              </div>
+            </GameInfo>
+          </GameCard>
+        ))}
+      </GameGrid>
+    </MainContainer>
   );
 }
 
