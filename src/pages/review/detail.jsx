@@ -67,7 +67,7 @@ export default function ReviewDetail() {
                     <div className="game_info">
                         <h4>{review.game_name}</h4>
                         <div className="categories">
-                            {review.categories && review.categories.length && review.categories.map((category, cIndex) => {
+                            {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
                                 return (
                                     <span className="category" key={cIndex}>{category}</span>
                                 )

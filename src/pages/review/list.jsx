@@ -21,11 +21,6 @@ export default function ReviewList() {
         });
     }, []);
 
-    const reviewClick = (id) => {
-        navigate(`/review/${id}`);
-
-    }
-
     return (
         <div className="ReviewlistContainer">
             <div className='titleWrap'>
@@ -40,7 +35,7 @@ export default function ReviewList() {
                     const year = objectDate.getFullYear();
 
                     return (
-                        <div className="game_row" key={review.id || review.game_name} onClick={() => reviewClick(review.id)}>
+                        <div className="game_row" key={review.id || review.game_name} onClick={() => navigate(`/game/${review.app_id}?review_id=${review.id}`)}>
                             <div className="game_title">
                                 <div className="game_img">
                                     {review.header_image && <img src={review.header_image} alt={review.game_name} />}
@@ -48,7 +43,7 @@ export default function ReviewList() {
                                 <div className="game_info">
                                     <h4>{review.game_name}</h4>
                                     <div className="categories">
-                                        {review.categories && review.categories.length && review.categories.map((category, cIndex) => {
+                                        {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
                                             return (
                                                 <span className="category" key={cIndex}>{category}</span>
                                             )

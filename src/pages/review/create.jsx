@@ -206,7 +206,7 @@ export default function ReviewCreate() {
                         )
                     })}
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
-                    {games && games.length && hasNext && (
+                    {games && games.length > 0 && hasNext && (
                         <div className='load_more' ref={scrollRef} style={{ textAlign: 'center' }}>
                             <img src={search_loading} />
                         </div>
