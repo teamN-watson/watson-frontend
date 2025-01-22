@@ -40,3 +40,16 @@ export function dateformat(date){
 
     return `${year}-${monthMap[month]}-${day}`
 }
+
+// ex date = "2025-01-20T12:26:08.485377Z";
+export function dateformat2(date) {
+    const formatdate = new Date(date);
+
+    // 연, 월, 일 추출
+    const year = formatdate.getFullYear();
+    const month = String(formatdate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
+    const day = String(formatdate.getDate()).padStart(2, '0');
+
+    // 원하는 형식으로 결합
+    return `${year}년 ${month}월 ${day}일`;
+}

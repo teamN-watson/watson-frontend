@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '@assets/css/review/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
+import { Rating } from '@mantine/core';
+import { dateformat, dateformat2 } from '@src/utils';
 
 export default function ReviewList() {
     const [message, setMessage] = useState('');
@@ -21,11 +23,6 @@ export default function ReviewList() {
         });
     }, []);
 
-    const reviewClick = (id) => {
-        navigate(`/review/${id}`);
-
-    }
-
     return (
         <div className="ReviewlistContainer">
             <div className='titleWrap'>
@@ -33,14 +30,8 @@ export default function ReviewList() {
             </div>
             <div className='reviewList'>
                 {reviews && reviews.map((review) => {
-                    const objectDate = new Date(review.created_at);
-
-                    const day = objectDate.getDate();
-                    const month = objectDate.getMonth(); // 0부터 시작하므로 +1 필요
-                    const year = objectDate.getFullYear();
-
                     return (
-                        <div className="game_row" key={review.id || review.game_name} onClick={() => reviewClick(review.id)}>
+                        <div className="game_row" key={review.id || review.game_name} onClick={() => navigate(`/game/${review.app_id}?review_id=${review.id}`)}>
                             <div className="game_title">
                                 <div className="game_img">
                                     {review.header_image && <img src={review.header_image} alt={review.game_name} />}
@@ -48,18 +39,18 @@ export default function ReviewList() {
                                 <div className="game_info">
                                     <h4>{review.game_name}</h4>
                                     <div className="categories">
-                                        {review.categories && review.categories.length && review.categories.map((category, cIndex) => {
+                                        {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
                                             return (
                                                 <span className="category" key={cIndex}>{category}</span>
                                             )
                                         })}
                                     </div>
-                                    <span>{`${year}년 ${month + 1}월 ${day}일`}</span>
+                                    <span>{ dateformat2(review.created_at)}</span>
                                     <span>{review.nickname}</span>
                                 </div>
                             </div>
                             <div className="game_rating">
-                                <span>{'⭐'.repeat(review.score)}</span>
+                                <Rating value={review.score} fractions={2} readOnly />
                                 <span>좋아요 수 {review.total_likes}</span>
                             </div>
                         </div>

@@ -10,11 +10,18 @@
     width: 100%;
     text-align: center;
 }
+.ReviewlistContainer .reviewList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 /* .game_row */
 .ReviewlistContainer .game_row {
     display: flex;
     gap: 10px;
-    width: 960px;
+    /* width: 960px; */
+    width: 100%;
     margin: 0 auto;
     height: 150px;
     justify-content: space-between;
@@ -28,7 +35,7 @@
     overflow: hidden;
 }
 .ReviewlistContainer .game_title .game_img img{
-    width: 200px;
+    width: 300px;
 }
 /* .game_info */
 .ReviewlistContainer .game_info h4 {

@@ -47,7 +47,7 @@ export default function ReviewCreate() {
             console.log(response)
             if (response.status == 201) {
                 const data = response.data;
-                navigate(`/review/${data.id}`)
+                navigate(`/game/${app_id}`)
             }
 
         } catch (error) {
@@ -159,25 +159,25 @@ export default function ReviewCreate() {
             <form>
                 <div className="reviewForm">
                     <div className="input-group">
-                        <label htmlFor="id_age">내용</label>
-                        <input type="text" name="content" placeholder="내용을 입력해주세요" id="id_content" value={content} onChange={(e) => setContent(e.target.value)} />
-                    </div>
-                    <p className="error-message content"></p>
-                    <div className="input-group">
                         <label onClick={open}>게임</label>
                         {
                             selectGame &&
                             <div className='game_info'>
-                                <img src={selectGame.header_image} />
                                 <span>{selectGame.name}</span>
+                                <img src={selectGame.header_image} />
                             </div>
                         }
-                        <Button variant="default" onClick={open}>
+                        <Button variant="default" onClick={open} className="action-button game_selectBtn">
                             게임 선택
                         </Button>
                         <input type="hidden" name="app_id" placeholder="app id를 입력해주세요" id="id_app_id" value={app_id} onChange={(e) => setAppId(e.target.value)} />
                     </div>
                     <p className="error-message app_id"></p>
+                    <div className="input-group">
+                        <label htmlFor="id_age">내용</label>
+                        <input type="text" name="content" placeholder="내용을 입력해주세요" id="id_content" value={content} onChange={(e) => setContent(e.target.value)} />
+                    </div>
+                    <p className="error-message content"></p>
                     <div className="input-group">
                         <label htmlFor="id_age">점수</label>
                         <Rating defaultValue={2} fractions={2} onChange={setScore} size={'xl'} />
@@ -206,7 +206,7 @@ export default function ReviewCreate() {
                         )
                     })}
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
-                    {games && games.length && hasNext && (
+                    {games && games.length > 0 && hasNext && (
                         <div className='load_more' ref={scrollRef} style={{ textAlign: 'center' }}>
                             <img src={search_loading} />
                         </div>
