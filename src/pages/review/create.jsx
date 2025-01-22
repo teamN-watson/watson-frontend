@@ -46,7 +46,8 @@ export default function ReviewCreate() {
 
             console.log(response)
             if (response.status == 201) {
-                // navigate(`/game/${app_id}`)
+                const data = response.data;
+                navigate(`/review/${data.id}`)
             }
 
         } catch (error) {
