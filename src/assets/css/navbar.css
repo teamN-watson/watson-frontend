@@ -7,7 +7,7 @@ nav.navbar {
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 100;
 }
 
 nav.navbar .container {
@@ -101,8 +101,8 @@ ul.menu a:hover {
 }
 
 .nav_auth .user_photo {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .nav_auth .user_photo img {

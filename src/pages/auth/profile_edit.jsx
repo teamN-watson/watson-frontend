@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
+import '@assets/css/input.css';
 import '@assets/css/account/edit.css';
 import default_photo from '@assets/images/default_profile.png';
 function ProfileEdit() {

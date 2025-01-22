@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@assets/css/review/create.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
+import '@assets/css/input.css';
 import axios from '@src/axiosInstance';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';

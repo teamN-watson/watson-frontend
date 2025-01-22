@@ -2,9 +2,12 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '@src/axiosInstance';
 import loading from '@assets/images/search_loading.gif';
+import useStore from '@store/zustore';
+import { getProfilePhotoUrl } from '@src/utils';
 import '@assets/css/account/callback.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 
 const SteamCallback = () => {
+  const [status, setStatus] = useState('로딩중입니다...');
   const navigate = useNavigate();
   const { login } = useStore();
   const isExecuted = useRef(false); // 중복 실행 방지용 ref
@@ -29,7 +32,7 @@ const SteamCallback = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ steamId, userId }),
+          body: JSON.stringify({ steamId, userId, page }),
         }).then((response) => {
           if (response.status === 200) {
             console.log(response)
@@ -65,6 +68,14 @@ const SteamCallback = () => {
             }
           }
         }).catch((error) => {
+          if(error.response?.data?.error){
+            setStatus(error.response?.data?.error)
+          } else if(error.response?.data?.message){
+            setStatus(error.response?.data?.message)
+          }
+          setTimeout(() => {
+            navigate(`/`)
+          }, 3000)
           console.error('Error fetching user info:', error);
         });
 
@@ -78,7 +89,7 @@ const SteamCallback = () => {
   return (
     <div className="callback_loading">
       <img src={loading} />
-      <h2>로딩 중입니다...</h2>
+      <h2>{status}</h2>
     </div>
   )
 };
