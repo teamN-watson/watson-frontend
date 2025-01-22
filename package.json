@@ -21,6 +21,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "slick-carousel": "^1.8.1",
     "three": "^0.172.0",
     "vite-plugin-next-react-router": "^0.7.1",
     "zustand": "^5.0.3"
