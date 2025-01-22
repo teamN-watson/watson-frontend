@@ -4,7 +4,7 @@ import '@assets/css/review/create.css';  // '@assets' 별칭을 사용하여 CSS
 import '@assets/css/input.css';
 import axios from '@src/axiosInstance';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button } from '@mantine/core';
+import { Modal, Button, Rating } from '@mantine/core';
 import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 
 export default function ReviewCreate() {
@@ -179,7 +179,7 @@ export default function ReviewCreate() {
                     <p className="error-message app_id"></p>
                     <div className="input-group">
                         <label htmlFor="id_age">점수</label>
-                        <input type="text" name="score" placeholder="score를 입력해주세요" id="id_score" value={score} onChange={(e) => setScore(e.target.value)} />
+                        <Rating defaultValue={2} fractions={2} onChange={setScore} size={'xl'} />
                     </div>
                     <p className="error-message score"></p>
                     <span className="error-message"></span>
