@@ -188,7 +188,7 @@ export default function ReviewCreate() {
                 </div>
             </form>
 
-            <Modal opened={opened} onClose={onClose} title="게임 검색" className='gameModal'>
+            <Modal opened={opened} onClose={onClose} title="게임 검색" className='gameModal' centered>
                 <form>
                     <div className="search-bar">
                         <input type="text" name="q" placeholder="검색어를 입력해주세요" id="id_q" value={q} onChange={(e) => setQ(e.target.value)} className="search-input" onKeyDown={handleKeyPress} />
