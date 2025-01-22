@@ -18,8 +18,12 @@ nav.navbar .container {
     padding: 0;
 }
 
+.logo_wrap {
+    position: relative;
+    height: 100%;
+}
 .logo {
-    height: 45px;
+    height: calc(100% - 10px);
     display: flex;
     align-items: center;
     padding: 0;
