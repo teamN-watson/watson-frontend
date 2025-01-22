@@ -10,7 +10,7 @@
     height: 100%;
 }
 
-.signupStepForm {
+.signContainer .signupStepForm {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -22,25 +22,25 @@
     /* overflow-y: auto; */
 }
 
-.signupStepForm::-webkit-scrollbar {
+.signContainer .signupStepForm::-webkit-scrollbar {
     width: 8px;
 }
 
-.signupStepForm::-webkit-scrollbar-track {
+.signContainer .signupStepForm::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
 }
 
-.signupStepForm::-webkit-scrollbar-thumb {
+.signContainer .signupStepForm::-webkit-scrollbar-thumb {
     background: rgba(108, 99, 255, 0.3);
     border-radius: 4px;
 }
 
-.signupStepForm::-webkit-scrollbar-thumb:hover {
+.signContainer .signupStepForm::-webkit-scrollbar-thumb:hover {
     background: rgba(108, 99, 255, 0.5);
 }
 
-h2 {
+.signContainer h2 {
     color: #fff;
     text-align: center;
     font-size: 2.2rem;
@@ -50,20 +50,20 @@ h2 {
 
 
 /* 이미지가 없을 때 카메라 아이콘 표시 */
-.user_photo:empty::before {
+.signContainer .user_photo:empty::before {
     content: '📷';
     font-size: 2.5rem;
     color: rgba(255, 255, 255, 0.7);
 }
 
 /* 호버 효과 */
-.user_photo:hover {
+.signContainer .user_photo:hover {
     border-color: #6c63ff;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
 }
 
-.user_photo_overlay {
+.signContainer .user_photo_overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -78,47 +78,47 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.user_photo:hover .user_photo_overlay {
+.signContainer .user_photo:hover .user_photo_overlay {
     opacity: 1;
 }
 
-.user_photo_icon {
+.signContainer .user_photo_icon {
     color: white;
     font-size: 24px;
 }
 
-.user_interest {
+.signContainer .user_interest {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
 
-.interest_txt {
+.signContainer .interest_txt {
     text-align: center;
     color: #fff;
     padding: 0 1rem;
 }
 
-.interest_txt h2 {
+.signContainer .interest_txt h2 {
     font-size: 1.6rem;
     margin-bottom: 0.8rem;
 }
 
-.interest_txt span {
+.signContainer .interest_txt span {
     display: block;
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.9rem;
     line-height: 1.5;
 }
 
-.interest_list {
+.signContainer .interest_list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1.2rem;
     padding: 0.5rem;
 }
 
-.interest_info {
+.signContainer .interest_info {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
@@ -127,7 +127,7 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.interest_img {
+.signContainer .interest_img {
     width: 100%;
     height: 120px;
     object-fit: cover;
@@ -137,12 +137,12 @@ h2 {
 }
 
 /* 선택된 이미지 스타일 */
-.interest_img.selected {
+.signContainer .interest_img.selected {
     border-color: #6c63ff;
     transform: scale(1.02);
 }
 
-.interest_info .interest_hover {
+.signContainer .interest_info .interest_hover {
     position: absolute;
     top: 0;
     left: 0;
@@ -158,18 +158,18 @@ h2 {
 }
 
 /* 선택된 상태의 호버 효과 */
-.interest_img.selected + .interest_hover {
+.signContainer .interest_img.selected + .interest_hover {
     opacity: 1;
     border: 2px solid #6c63ff;
     border-radius: 12px;
 }
 
-.interest_hover:hover {
+.signContainer .interest_hover:hover {
     opacity: 1;
 }
 
 /* 선택 표시 아이콘 */
-.interest_hover::after {
+.signContainer .interest_hover::after {
     content: '✓';
     position: absolute;
     top: calc(50% - 18px);
@@ -188,19 +188,19 @@ h2 {
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.signupStepForm .interest_img img {
+.signContainer .signupStepForm .interest_img img {
     width: 100%;
     height: 140px;
     overflow: hidden;
     object-fit: cover;
 }
 
-.interest_img.selected + .interest_hover::after {
+.signContainer .interest_img.selected + .interest_hover::after {
     opacity: 1;
     transform: scale(1);
 }
 
-.signupStepForm .interest_info .interest_hover img {
+.signContainer .signupStepForm .interest_info .interest_hover img {
     width: 50px;
     height: 35px;
     overflow: hidden;
@@ -208,7 +208,7 @@ h2 {
 }
 
 /* 호버 시 게임 제목 표시 스타일 수정 */
-.interest_hover .game_title {
+.signContainer .interest_hover .game_title {
     color: white;
     font-size: 1rem;
     font-weight: 500;
@@ -219,20 +219,20 @@ h2 {
 }
 
 /* 선택된 상태에서도 게임 제목이 잘 보이도록 */
-.interest_img.selected + .interest_hover .game_title {
+.signContainer .interest_img.selected + .interest_hover .game_title {
     opacity: 1;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* 스텝 표시 */
-.step_indicator {
+.signContainer .step_indicator {
     display: flex;
     justify-content: center;
     margin: 2rem 0 3rem;
 }
 
-.step_dot {
+.signContainer .step_dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -241,7 +241,7 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.step_dot.active {
+.signContainer .step_dot.active {
     background: #6c63ff;
     transform: scale(1.2);
 }
@@ -252,39 +252,39 @@ h2 {
         padding: 1rem;
     }
 
-    .signupStepForm {
+    .signContainer .signupStepForm {
         padding: 1.5rem;
         max-height: 85vh;
     }
 
-    .interest_list {
+    .signContainer .interest_list {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 1rem;
     }
 
-    .interest_txt h2 {
+    .signContainer .interest_txt h2 {
         font-size: 1.4rem;
     }
 
-    .user_photo_wrap {
+    .signContainer .user_photo_wrap {
         width: 120px;
         height: 120px;
     }
 }
 
 /* 마지막 입력칸의 마진 제거 */
-.user_input:last-child {
+.signContainer .user_input:last-child {
     margin-bottom: 0;
 }
 
 /* 버튼 스타일 추가 */
-.step_action {
+.signContainer .step_action {
     display: flex;
     justify-content: flex-end;  /* 오른쪽 정렬 */
     padding: 0 1rem;
 }
 
-.step_action button {
+.signContainer .step_action button {
     background: #6c63ff;
     color: white;
     padding: 14px 28px;
@@ -297,21 +297,21 @@ h2 {
     min-width: 120px;
 }
 
-.step_action button:hover {
+.signContainer .step_action button:hover {
     background: #5a52d5;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
 }
 
-.step_action .prevButton {
+.signContainer .step_action .prevButton {
     background: rgba(255, 255, 255, 0.1);
     margin-right: 1rem;
 }
 
-.step_action .prevButton:hover {
+.signContainer .step_action .prevButton:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.step_action .nextButton {
+.signContainer .step_action .nextButton {
     background: #6c63ff;
 }

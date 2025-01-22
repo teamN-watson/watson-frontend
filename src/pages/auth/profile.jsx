@@ -36,7 +36,7 @@ function Profile() {
   const handleSteamLogin = async () => {
     try {
       // 백엔드 API 호출
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_login?user_id=${userInfo.user_id}`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_login?page=mypage&user_id=${userInfo.user_id}`);
       const { auth_url } = await response.json();
 
       // 스팀 로그인 URL로 리다이렉트

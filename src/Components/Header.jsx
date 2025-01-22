@@ -61,7 +61,7 @@ export default function Header() {
         <header>
             <nav className="navbar">
                 <div className="container">
-                    <div>
+                    <div className='logo_wrap'>
                         <a href="/" className="logo">
                             <img src={logo} alt="Watson" />
                         </a>

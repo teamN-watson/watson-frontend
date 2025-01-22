@@ -5,6 +5,7 @@ import useStore from '@store/zustore';
 import '@assets/css/input.css';
 import '@assets/css/account/signin.css';
 import { getProfilePhotoUrl } from '@src/utils';
+import steam_sign from '@assets/images/steam_sign.png';  // .png에서 .gif로 변경
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -30,6 +31,19 @@ export default function SignIn() {
     } catch (error) {
       console.error(error);
       setError(error.response?.data?.message || '로그인에 실패했습니다.');
+    }
+  };
+
+  const handleSteamLogin = async () => {
+    try {
+      // 백엔드 API 호출
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_login?page=signin`);
+      const { auth_url } = await response.json();
+
+      // 스팀 로그인 URL로 리다이렉트
+      window.location.href = auth_url;
+    } catch (error) {
+      console.error("Failed to redirect to Steam login:", error);
     }
   };
 
@@ -68,6 +82,10 @@ export default function SignIn() {
         <button type="submit" className="action-button">
           로그인
         </button>
+
+        <div className='steamloginBtn'>
+          <img src={steam_sign} onClick={handleSteamLogin} />
+        </div>
 
         <div className="signin-footer">
           <Link to="/steam/choose">아직 계정이 없으신가요? 회원가입</Link>
