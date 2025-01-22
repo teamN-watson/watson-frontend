@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import '@assets/css/game/detail.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
-import { dateformat } from '@src/utils';
+import { dateformat, dateformat2 } from '@src/utils';
 import YouTubePlayer from '../../Components/game/YoutubePlayer';
-import { dateformat2 } from '../../utils';
 import { Rating } from '@mantine/core';
 
 export default function GameDetail() {
@@ -13,7 +12,7 @@ export default function GameDetail() {
     const [video, setVideo] = useState({});
     const [reviews, setReviews] = useState([]);
     const [my_review, setMyReview] = useState({});
-    const [clicked_review, setClickedReview] = useState({});
+    const [clicked_review, setClickedReview] = useState(null);
 
     const [gameData, setGameData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -21,7 +20,7 @@ export default function GameDetail() {
     const isFirstRender = useRef(true); // 첫 렌더링 여부를 추적
 
     const query = new URLSearchParams(window.location.search);
-    const review_id = query.get("review_id", 0);
+    const review_id = query.get("review_id") || 0;
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -64,7 +63,7 @@ export default function GameDetail() {
                     </div>
                     <div className='game_subtitle'>
                         <span>{gameData.developers && gameData.developers[0]}</span>
-                        <span>{gameData?.coming_soon ? "출시전" : gameData?.release_date?.date}</span>
+                        <span>{gameData?.coming_soon ? "출시전" : gameData?.release_date?.date + " 출시"}</span>
                     </div>
 
                 </div>
@@ -127,6 +126,11 @@ export default function GameDetail() {
                                         </div>
                                     )
                                 })
+                            }
+                            {
+                                clicked_review == null && reviews?.length == 0 && <div className='review_wrap'>
+                                    <h2>등록된 리뷰가 없습니다.</h2>
+                                </div>
                             }
                         </div>
                     </div>

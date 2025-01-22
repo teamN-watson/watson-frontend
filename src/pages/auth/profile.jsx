@@ -5,12 +5,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getProfilePhotoUrl } from '@src/utils';
 import '@assets/css/account/profile.css';
 import default_photo from '@assets/images/default_profile.png';
+import { Rating } from '@mantine/core';
+import { dateformat2 } from '../../utils';
+
 function Profile() {
   const { id } = useParams(); // URL에서 id 파라미터 가져오기
   const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
   const [ownedGames, setOwnedGames] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isMypage, setIsMypage] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     console.log(id)
     if (id) {
@@ -26,6 +33,9 @@ function Profile() {
           }
           if (data.recent_games?.total_count) {
             setRecentGames(data.recent_games.games)
+          }
+          if (data.reviews_data) {
+            setReviews(data.reviews_data)
           }
         }
       });
@@ -153,6 +163,34 @@ function Profile() {
             </div>
           </div>
         </div>
+      </div>
+      <div className='reviewWrap'>{ reviews?.length > 0 && reviews.map((review) => {
+          return (
+            <div className="game_row" key={review.id || review.game_name} onClick={() => navigate(`/game/${review.app_id}?review_id=${review.id}`)}>
+              <div className="game_title">
+                  <div className="game_img">
+                      {review.header_image && <img src={review.header_image} alt={review.game_name} />}
+                  </div>
+                  <div className="game_info">
+                      <h4>{review.game_name}</h4>
+                      <div className="categories">
+                          {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
+                              return (
+                                  <span className="category" key={cIndex}>{category}</span>
+                              )
+                          })}
+                      </div>
+                      <span>{dateformat2(review.created_at)}</span>
+                      <span>{review.nickname}</span>
+                  </div>
+              </div>
+              <div className="game_rating">
+                  <Rating value={review.score} fractions={2} readOnly />
+                  <span>좋아요 수 {review.total_likes}</span>
+              </div>
+          </div>
+          )})
+        }
       </div>
     </div>
   );

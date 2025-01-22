@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '@assets/css/review/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
+import { Rating } from '@mantine/core';
+import { dateformat, dateformat2 } from '@src/utils';
 
 export default function ReviewList() {
     const [message, setMessage] = useState('');
@@ -28,12 +30,6 @@ export default function ReviewList() {
             </div>
             <div className='reviewList'>
                 {reviews && reviews.map((review) => {
-                    const objectDate = new Date(review.created_at);
-
-                    const day = objectDate.getDate();
-                    const month = objectDate.getMonth(); // 0부터 시작하므로 +1 필요
-                    const year = objectDate.getFullYear();
-
                     return (
                         <div className="game_row" key={review.id || review.game_name} onClick={() => navigate(`/game/${review.app_id}?review_id=${review.id}`)}>
                             <div className="game_title">
@@ -49,12 +45,12 @@ export default function ReviewList() {
                                             )
                                         })}
                                     </div>
-                                    <span>{`${year}년 ${month + 1}월 ${day}일`}</span>
+                                    <span>{ dateformat2(review.created_at)}</span>
                                     <span>{review.nickname}</span>
                                 </div>
                             </div>
                             <div className="game_rating">
-                                <span>{'⭐'.repeat(review.score)}</span>
+                                <Rating value={review.score} fractions={2} readOnly />
                                 <span>좋아요 수 {review.total_likes}</span>
                             </div>
                         </div>

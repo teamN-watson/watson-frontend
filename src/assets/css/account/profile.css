@@ -1,5 +1,7 @@
 .profileContainer {
     display: flex;
+    flex-direction: column;
+    gap: 40px;
     justify-content: center;
     min-height: 100vh;
     padding: 3rem 2rem;
@@ -237,4 +239,66 @@
     .profileContainer .game_info .game_name {
         font-size: 1rem;
     }
+}
+
+
+/* review_wrap */
+.profileContainer .reviewWrap {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.profileContainer .reviewWrap .game_row {
+    display: flex;
+    gap: 10px;
+    /* width: 960px; */
+    width: 100%;
+    margin: 0 auto;
+    height: 150px;
+    justify-content: space-between;
+}
+/* .game_title */
+.profileContainer .reviewWrap .game_title {
+    display: flex;
+    gap: 10px;
+}
+.profileContainer .reviewWrap .game_title .game_img {
+    overflow: hidden;
+}
+.profileContainer .reviewWrap .game_title .game_img img{
+    width: 300px;
+}
+/* .game_info */
+.profileContainer .reviewWrap .game_info h4 {
+    font-size: 30px;
+}
+.profileContainer .reviewWrap .game_info {
+    display: flex;
+    flex-direction: column;
+}
+.profileContainer .reviewWrap .game_info .categories {
+    height: 30px;
+    display: flex;
+    gap: 5px;
+}
+.profileContainer .reviewWrap .game_info .categories span {
+    padding: 10px;
+    color: #a5b0b6;
+    background-color: rgb(15 25 35);
+    border-radius: 5px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 10px;
+}
+/* .game_rating */
+.profileContainer .reviewWrap .game_rating {
+    display: flex;
+    flex-direction: column;
 }
