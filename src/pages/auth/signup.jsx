@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 export default function SignupPage() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const claimedId = params.get("openid.claimed_id");
+  const steam_id = params.get("steam_id");
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     user_id: '',
@@ -89,8 +89,7 @@ export default function SignupPage() {
         return;
       } else {
         formData.append('select_id', Array.from(selectedGames, value => value - 1).join(','));
-        if (claimedId) {
-          const steam_id = claimedId.split("/")[claimedId.split("/").length - 1]
+        if (steam_id) {
           formData.append('steamId', steam_id);
         }
       }

@@ -36,13 +36,28 @@ function Profile() {
   const handleSteamLogin = async () => {
     try {
       // 백엔드 API 호출
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_login?user_id=${userInfo.user_id}`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_login?page=mypage&user_id=${userInfo.user_id}`);
       const { auth_url } = await response.json();
 
       // 스팀 로그인 URL로 리다이렉트
       window.location.href = auth_url;
     } catch (error) {
       console.error("Failed to redirect to Steam login:", error);
+    }
+  };
+  const handleUserDelete = async () => {
+    if (window.confirm('탈퇴하시겠습니까?')) {
+      axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/account/mypage/`).then((response) => {
+        if (response.status === 200) {
+            console.log(response.data)
+            logout(); // zustand 상태에서 로그아웃 처리
+            sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem('refresh_token');
+            window.location.href = '/'; // 로그아웃 후 리다이렉트
+        }
+      }).catch((error) => {
+          console.error('Error user delete:', error);
+      });
     }
   };
 
@@ -85,6 +100,10 @@ function Profile() {
                 <button className='btn btn-steam-login' onClick={handleSteamLogin}>스팀 로그인</button>
               )
             )}
+          </div>
+          <div className="user_delete">
+            <h3>회원탈퇴</h3>
+            <button className='btn btn-steam-login' onClick={handleUserDelete}>회원탈퇴</button>
           </div>
         </div>
 

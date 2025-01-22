@@ -76,7 +76,11 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
 }
-
+/* 회원탈퇴 */
+.profileContainer .user_delete {
+    margin-top: 50px;
+    text-align: center;
+}
 /* 게임 섹션 - 오른쪽 컨텐츠 */
 .profileContainer .games_content {
     display: grid;
