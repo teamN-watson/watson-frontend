@@ -4,6 +4,7 @@ import axios from '@src/axiosInstance';
 
 export default function IndexPage() {
     const [message, setMessage] = useState('');
+    const [isStart, setIsStart] = useState(false);
     const [chatHistory, setChatHistory] = useState([]);  // 채팅 기록 상태
     const chatEndRef = useRef(null);  // 스크롤을 위한 ref 추가
 
@@ -22,53 +23,56 @@ export default function IndexPage() {
         }
     }, [chatHistory]);
 
-    useEffect(() => {
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/record/`).then((response) => {
+    const message_setting = (data) => {
+        let newChatHistory = []
+        data.forEach((chat, index) => {
+            if (chat.is_user) {
+                newChatHistory.push({content: { message: chat.content.message },is_user: chat.is_user,});
+            } else {
+                if (chat.content.game_data) {
+                    let game_history = [];
+                    chat.content.game_data.forEach((game, index) => {
+                        game_history.push({title: `${index + 1}번 게임: ${game.title}`,content: game.description,})
+
+                    });
+                    newChatHistory.push({content: { message: chat.content.message },game_history: game_history,is_user: false,});
+                } else {
+                    newChatHistory.push({content: { message: chat.content.message },is_user: false,});
+                }
+
+            }
+
+        });
+
+        // 채팅 기록 상태 업데이트
+        setChatHistory(newChatHistory);
+    }
+    const chatbot_init = async () => {
+        await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/record/`).then((response) => {
             if (response.status === 200) {
                 console.log(response.data)
-                const data = response.data;
-                let newChatHistory = []
+                message_setting(response.data);
+                setIsStart(true);
+            } else if(response.status === 204){
 
-                data.forEach((chat, index) => {
-                    if (chat.is_user) {
-                        newChatHistory.push({
-                            content: { message: chat.content.message },
-                            is_user: chat.is_user,
-                        });
-                    } else {
-                        if (chat.content.game_data) {
-                            let game_history = [];
-                            chat.content.game_data.forEach((game, index) => {
-                                game_history.push(
-                                    {
-                                        title: `${index + 1}번 게임: ${game.title}`,
-                                        content: game.description,
-                                    }
-                                )
-
-                            });
-                            newChatHistory.push({
-                                content: { message: chat.content.message },
-                                game_history: game_history,
-                                is_user: false,
-                            });
-                        } else {
-                            newChatHistory.push({
-                                content: { message: chat.content.message },
-                                is_user: false,
-                            });
-                        }
-
-                    }
-
-                });
-
-                // 채팅 기록 상태 업데이트
-                setChatHistory(newChatHistory);
             }
         }).catch((error) => {
             console.error('Error fetching user info:', error);
         });
+    }
+    const chatbot_start = async () => {
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/record/`).then((response) => {
+            if (response.status === 200) {
+                console.log(response.data);
+                message_setting(response.data);
+                setIsStart(true);
+            }
+        }).catch((error) => {
+            console.error('Error fetching user info:', error);
+        });
+    }
+    useEffect(() => {
+        chatbot_init();
     }, []);
 
     const handleSubmit = async (e) => {
@@ -83,33 +87,18 @@ export default function IndexPage() {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data)
 
-                    let newChatHistory = [
-                        ...chatHistory,
-                        {
-                            content: { message: data.user_message.message },
-                            is_user: true,
-                        },
+                    let newChatHistory = [...chatHistory,
+                        {content: { message: data.user_message.message },is_user: true,},
                     ];
 
                     // 게임 데이터가 있을 경우, 게임별 메시지 추가
                     let game_history = [];
                     if (data.bot_message.game_data) {
                         data.bot_message.game_data.forEach((game, index) => {
-                            game_history.push(
-                                {
-                                    title: `${index + 1}번 게임: ${game.title}`,
-                                    content: game.description,
-                                }
-                            )
-                        });
+                            game_history.push({title: `${index + 1}번 게임: ${game.title}`,content: game.description,})});
                     }
-                    newChatHistory = [
-                        ...newChatHistory,
-                        {
-                            content: { message: data.bot_message.message },
-                            game_history: game_history,
-                            is_user: false,
-                        },
+                    newChatHistory = [...newChatHistory,
+                        {content: { message: data.bot_message.message },game_history: game_history,is_user: false,},
                     ];
 
                     setChatHistory(newChatHistory);  // 상태 업데이트
@@ -121,8 +110,22 @@ export default function IndexPage() {
         } catch (error) {
             console.error('채팅 시작하는데 실패했습니다:', error);
         }
-
     };
+    
+    const handleReset = async (e) => {
+        e.preventDefault();
+        axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/chatbot/`).then((response) => {
+            if (response.status === 200) {
+                console.log(response.data)
+
+                // 채팅 기록 상태 업데이트
+                setChatHistory([]);
+                setIsStart(false);
+            }
+        }).catch((error) => {
+            console.error('Error fetching user info:', error);
+        });
+    }
 
     return (
         <div className="chatbotContainer">
@@ -144,16 +147,30 @@ export default function IndexPage() {
                     <div /> {/* 스크롤 위치용 ref */}
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className="chatbot_input" ref={chatEndRef}>
-                        <input
-                            onChange={(e) => setMessage(e.target.value)}
-                            type="text"
-                            name="message"
-                            placeholder="메시지를 입력해주세요."
-                            value={message}
-                        />
-                    </div>
+                    {isStart ?
+                        <div className="chatbot_input" ref={chatEndRef}>
+                            <input
+                                onChange={(e) => setMessage(e.target.value)}
+                                type="text"
+                                name="message"
+                                placeholder="메시지를 입력해주세요."
+                                value={message}
+                            />
+                        </div>
+                        :
+                        <div className="chatbot_input" ref={chatEndRef}>
+                            <input
+                                type="button"
+                                name="start"
+                                value="챗봇 시작하기" 
+                                onClick={chatbot_start}
+                            />
+                        </div>
+                    }
                 </form>
+                <div className='popup_btn'>
+                    <button onClick={handleReset}>초기화</button>
+                </div>
             </div>
         </div>)
 }
