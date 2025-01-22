@@ -14,13 +14,34 @@ function MainIndex() {
   useEffect(() => {
     const fetchRecommendedGames = async () => {
       try {
+        // 세션스토리지에서 데이터 확인
+        const cachedGames = sessionStorage.getItem('recommendedGames');
+        const cachedTimestamp = sessionStorage.getItem('recommendedGamesTimestamp');
+        
+        // 캐시가 있고 1시간 이내의 데이터인 경우
+        if (cachedGames && cachedTimestamp) {
+          const now = new Date().getTime();
+          const cacheAge = now - parseInt(cachedTimestamp);
+          
+          if (cacheAge < 3600000) { // 1시간 = 3600000 밀리초
+            setRecommendedGames(JSON.parse(cachedGames));
+            setIsLoading(false);
+            return;
+          }
+        }
+
+        // 캐시가 없거나 오래된 경우 API 호출
         const token = localStorage.getItem('accessToken');
         const response = await axios.get('http://localhost:8000/api/account/recommended_games/', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
+        
+        // 새로운 데이터를 상태와 세션스토리지에 저장
         setRecommendedGames(response.data.games);
+        sessionStorage.setItem('recommendedGames', JSON.stringify(response.data.games));
+        sessionStorage.setItem('recommendedGamesTimestamp', new Date().getTime().toString());
       } catch (error) {
         console.error('게임 추천 데이터를 가져오는데 실패했습니다:', error);
       } finally {
