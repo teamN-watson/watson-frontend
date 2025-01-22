@@ -9,12 +9,36 @@
     margin: 50px 0;
     width: 100%;
     text-align: center;
+    position: relative;
 }
+.ReviewlistContainer .titleWrap button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    padding: 0.7rem;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ReviewlistContainer .titleWrap button:hover{
+    background: #5a52d5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+/* reviewList */
 .ReviewlistContainer .reviewList {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 40px;
 }
 /* .game_row */
 .ReviewlistContainer .game_row {
@@ -63,8 +87,4 @@ background-color: rgb(15 25 35);
 .ReviewlistContainer .game_rating {
     display: flex;
     flex-direction: column;
-}
-
-.ReviewlistContainer .reviewListAction a{
-    color: #fff;
 }

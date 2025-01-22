@@ -164,7 +164,11 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className='reviewWrap'>{ reviews?.length > 0 && reviews.map((review) => {
+      <div className='reviewWrap'>
+        <div>
+          <h1>작성한 리뷰</h1>
+        </div>
+        <div className='review_list'>{ reviews?.length > 0 && reviews.map((review) => {
           return (
             <div className="game_row" key={review.id || review.game_name} onClick={() => navigate(`/game/${review.app_id}?review_id=${review.id}`)}>
               <div className="game_title">
@@ -191,6 +195,7 @@ function Profile() {
           </div>
           )})
         }
+        </div>
       </div>
     </div>
   );

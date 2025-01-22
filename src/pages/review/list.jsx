@@ -7,7 +7,6 @@ import { Rating } from '@mantine/core';
 import { dateformat, dateformat2 } from '@src/utils';
 
 export default function ReviewList() {
-    const [message, setMessage] = useState('');
     const [reviews, setReviews] = useState([]);  // 채팅 기록 상태
     const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
 
@@ -27,6 +26,7 @@ export default function ReviewList() {
         <div className="ReviewlistContainer">
             <div className='titleWrap'>
                 <h1>리뷰 목록</h1>
+                {userInfo && <button className="create-button" onClick={() => navigate("/review/create")}>새 리뷰 작성</button>}
             </div>
             <div className='reviewList'>
                 {reviews && reviews.map((review) => {
@@ -57,11 +57,6 @@ export default function ReviewList() {
                     )
                 })}
             </div>
-            <div className='reviewListAction'>
-                {userInfo && <a href="/review/create">새 리뷰 작성</a>}
-            </div>
-
-
         </div>
     )
 }
