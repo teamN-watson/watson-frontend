@@ -122,10 +122,10 @@
     padding: 0 10px;
     border-radius: 15px;
     background-color: #5a52d5;
-    height: 42px;
+    height: 36px;
 }
 .GamedetailContainer .game_row .game_genres span {
-    line-height: 42px;
+    line-height: 36px;
     font-size: 13px;
 }
 

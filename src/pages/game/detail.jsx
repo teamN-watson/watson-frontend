@@ -62,7 +62,7 @@ export default function GameDetail() {
                     <div className='game_subtitle'>
                         <span>{'⭐ 1.0'}</span>
                         <span>{gameData.developers && gameData.developers[0]}</span>
-                        <span>{gameData?.coming_soon ? "출시전" : dateformat(gameData?.release_date?.date)}</span>
+                        <span>{gameData?.coming_soon ? "출시전" : gameData?.release_date?.date}</span>
                     </div>
 
                 </div>
@@ -102,10 +102,10 @@ export default function GameDetail() {
                     <div className='game_genres'>
                         <h2>장르</h2>
                         <div className='genres_container'>
-                        {game.genres && game.genres.map((genre, genre_index) => {
+                        {gameData?.genres && gameData?.genres.map((genre, genre_index) => {
                             return (
                                 <div className='genre_wrap' key={genre_index}>
-                                    <span>{genre}</span>
+                                    <span>{genre.description}</span>
                                 </div>
                             )
                         })}
