@@ -81,15 +81,23 @@ function MainIndex() {
       
       <div className="carousel-wrapper">
         <Slider {...carouselSettings}>
-          {recommendedGames.slice(0, 6).map((game) => (
+          {recommendedGames.map((game, index) => (
             <div className="featured-game-card" key={game.appID} onClick={() => handleGameClick(game.appID)}>
-              <img 
-                src={game.header_image} 
-                alt={game.name}
-                onError={(e) => {
-                  e.target.src = '/default-game-image.jpg';
-                }}
-              />
+              <div className="image-container">
+                <img 
+                  src={game.header_image} 
+                  alt={game.name}
+                  onError={(e) => {
+                    e.target.src = '/default-game-image.jpg';
+                  }}
+                />
+                <div className="watson-score">
+                  {Math.round(game.score)}점
+                </div>
+                <div className={`rank-overlay ${index < 3 ? `rank-${index + 1}` : ''}`}>
+                  {index + 1}위
+                </div>
+              </div>
               <div className="game-info">
                 <h3>{game.name}</h3>
                 <div className="genres">
