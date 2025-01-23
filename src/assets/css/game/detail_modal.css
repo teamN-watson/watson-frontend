@@ -1,0 +1,94 @@
+.review_modal {
+    color: #000;
+
+}
+.review_modal header h2{
+    font-size: 25px;
+    font-weight: bold;
+
+}
+.review_modal .review_wrap {
+    display: flex;
+    width: 100%;
+    min-height: 80px;
+    gap: 10px;
+}
+/* review_img */
+.review_modal .review_wrap .review_img {
+    width: 80px;
+    height: 80px;
+}
+.review_modal .review_wrap .review_img img{
+    width: 100%;
+    height: auto;
+}
+/* review_detail */
+.review_modal .review_wrap .review_detail {
+    flex: 1;
+}
+.review_modal .review_wrap .review_detail .review_profile {
+    display: flex;
+    gap: 20px;
+    height: 30px;
+    line-height: 30px;
+    align-items: center;
+}
+.review_modal .review_wrap .review_detail .review_nickname {
+    font-weight: bold;
+    font-size: 20px;
+}
+.review_modal .review_wrap .review_detail .review_info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.review_modal .review_wrap .review_detail .review_text {
+    font-size: 20px;
+}
+/* review_comment */
+.review_modal .review_wrap .review_comment {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+    padding-top: 10px;
+}
+.review_modal .review_wrap .review_comment button{
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+/* commentContainer */
+
+.review_modal .commentContainer {
+    margin-top: 20px;
+}
+
+/* commentInput */
+.review_modal .commentInput form {
+    display: flex;
+    gap: 10px;
+    height: 50px;
+}
+.review_modal .commentInput input[type="text"]{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    flex: 1;
+    font-size: 20px;
+}
+
+.review_modal .commentInput input[type="submit"]{
+    border-radius: 8px;
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    width: 80px;
+}

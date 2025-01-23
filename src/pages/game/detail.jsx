@@ -1,22 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '@assets/css/game/detail.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
+import '@assets/css/game/detail_modal.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dateformat, dateformat2 } from '@src/utils';
 import YouTubePlayer from '../../Components/game/YoutubePlayer';
-import { Rating } from '@mantine/core';
+import { Modal, Rating } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import Review from '../../Components/review/Review';
+import useStore from '@store/zustore';
 
 export default function GameDetail() {
+    const { isLoggedIn } = useStore();
     const { id } = useParams(); // URL에서 id 파라미터 가져오기
     const [game, setGame] = useState({});
     const [video, setVideo] = useState({});
     const [reviews, setReviews] = useState([]);
     const [my_review, setMyReview] = useState(null);
     const [clicked_review, setClickedReview] = useState(null);
-
+    const [select_review, setSelectReview] = useState(null);
+    
+    const [content, setContent] = useState(""); // 댓글 값
+    
     const [gameData, setGameData] = useState({});
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+    
+    const [opened, { open, close }] = useDisclosure(false); // 모달 상태
 
     const isFirstRender = useRef(true); // 첫 렌더링 여부를 추적
 
@@ -53,6 +63,44 @@ export default function GameDetail() {
             fetchGame();
         }
     }, [id]);
+
+    const reviewClick = (review) => {
+        console.log(review)
+        setContent("");
+        setSelectReview(review);
+        open();
+    }
+
+    const new_comment = async (e) => {
+        console.log(select_review.id);
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/reviews/${select_review.id}/comments/`,
+                { content: content },
+            );
+
+            if (response.status == 201) {
+                const newComment = response.data;
+                setSelectReview((prev) => ({
+                    ...prev,
+                    comments: [newComment, ...prev.comments],
+                }));
+
+                setContent("")
+                
+            }
+
+            console.log(response)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const onClose = () => {
+        close();
+    }
     
     return (
         <div className="GamedetailContainer">
@@ -91,9 +139,9 @@ export default function GameDetail() {
                         </div>
                         <div className='section game_video'>
                             <h1>게임 관련 영상</h1>
-                            {video && 
+                            {/* {video && 
                             <YouTubePlayer videoId={video?.id} className="youtube_embed" />
-                            }
+                            } */}
 
                         </div>
 
@@ -102,40 +150,20 @@ export default function GameDetail() {
                     <div className='section_wrap review'>
                         { my_review && <div className='section my_review'>
                             <h1>내 리뷰</h1>
-                            <div className='review_wrap'>
-                                <span>{my_review.nickname}</span>
-                                <span>{my_review.content}</span>
-                                <Rating value={my_review.score} fractions={2} readOnly />
-                                <span>{dateformat2(my_review.created_at)}</span>
-                            </div>
+                            <Review review={my_review} key={my_review.id} click={() => reviewClick(my_review) } />
                         </div>
 
                         }
                         <div className='section reviews'>
                             <h1>리뷰</h1>
-                            {   clicked_review && 
-                            <div className='review_wrap click_review' key={clicked_review.id}>
-                                <span>{clicked_review.nickname}</span>
-                                <span>{clicked_review.content}</span>
-                                <Rating value={clicked_review.score} fractions={2} readOnly />
-                                <span>{dateformat2(clicked_review.created_at)}</span>
-                            </div>
-                            }{  reviews?.length > 0 && reviews.map((review) => {
-                                    return (
-                                        <div className='review_wrap' key={review.id}>
-                                            <div>
-                                                <span>{review.content}</span>
-                                                <Rating value={review.score} fractions={2} readOnly />
-                                            </div>
-                                            <div>
-                                                <span>{review.nickname}</span>
-                                                <span>{dateformat2(review.created_at)}</span>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }{
-                                clicked_review == null && reviews?.length == 0 && <div className='review_wrap'>
+                            { clicked_review && <Review  review={clicked_review} isActive={true} click={() => reviewClick(clicked_review) } />}
+                            { reviews?.length > 0 && reviews.map((review) => {
+                                return (
+                                    <Review review={review} key={review.id} click={() => reviewClick(review)} />
+                                )
+                            })
+                            }{ clicked_review == null && reviews?.length == 0 && 
+                                <div className='review_wrap'>
                                     <h2>등록된 리뷰가 없습니다.</h2>
                                 </div>
                             }
@@ -177,6 +205,66 @@ export default function GameDetail() {
             <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
                 <img src={"/images/search_loading.gif"} />
             </div>
+
+            <Modal opened={opened} onClose={onClose} title="댓글 쓰기" className='review_modal' centered size={'lg'}>
+                {  select_review && <div>
+                    <div className={`review_wrap`}>
+                        <div className='review_img'>
+                            <img src={select_review?.photo ? select_review.photo : "/images/default_profile.png"} alt="User Photo" />
+                        </div>
+                        <div className='review_detail'>
+                            <div className='review_profile'>
+                                <span className='review_nickname'>@{select_review.nickname}</span>
+                            </div>
+                            <div className='review_content'>
+                                <div className='review_info'>
+                                    <Rating value={select_review.score} fractions={2} readOnly />
+                                    <span className='review_date'>{dateformat2(select_review.created_at)}</span>
+                                </div>
+                            </div>
+                            <div className='review_text'>
+                                <span>{select_review.content}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h1>댓글 {select_review.comments?.length} 개</h1>
+                        <div>
+                            { isLoggedIn ? <div className='commentInput'>
+                                <form>
+                                    <input type="text" value={content} placeholder='댓글 쓰기' onChange={(e) => setContent(e.target.value)} />
+                                    <input type='submit' value={"등록"} onClick={new_comment} />
+                                </form>
+                            </div> : <div><h1>로그인이 필요합니다.</h1></div>}
+                            
+                        </div>
+                    </div>
+                    <div className="commentContainer">
+                        {select_review.comments && select_review.comments.map((comment, index) => {
+                            return (
+                                <div className='review_wrap' key={index}>
+                                    <div key={index} className='review_img'>
+                                        <img src={comment?.photo ? comment.photo : "/images/default_profile.png"} alt="User Photo" />
+                                    </div>
+                                    <div className='review_detail'>
+                                        <div className='review_profile'>
+                                            <span className='review_nickname'>@{comment.nickname}</span>
+                                        </div>
+                                        <div className='review_content'>
+                                            <div className='review_info'>
+                                                <span className='review_date'>{dateformat2(comment.created_at)}</span>
+                                            </div>
+                                        </div>
+                                        <div className='review_text'>
+                                            <span>{comment.content}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div> }
+            </Modal>
 
         </div>
     )

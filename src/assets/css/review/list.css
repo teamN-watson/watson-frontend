@@ -77,6 +77,8 @@
 .ReviewlistContainer .game_info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    overflow: hidden;
 }
 .ReviewlistContainer .game_info .categories {
     height: 30px;
