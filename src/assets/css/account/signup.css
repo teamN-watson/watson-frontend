@@ -315,3 +315,21 @@
 .signContainer .step_action .nextButton {
     background: #6c63ff;
 }
+
+
+/* loading */
+.loadingWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.loadingWrap.loading {
+    display: flex;
+}

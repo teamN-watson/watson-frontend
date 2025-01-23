@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import SignupStep1 from '@Components/auth/SignupStep1';
 import SignupStep2 from '@Components/auth/SignupStep2';
 import SignupStep3 from '@Components/auth/SignupStep3';
@@ -6,12 +7,13 @@ import useStore from '@store/zustore';
 import axios from '@src/axiosInstance';
 import '@assets/css/account/signup.css';
 import '@assets/css/input.css';
-import { useLocation } from "react-router-dom";
+import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 
 export default function SignupPage() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const steam_id = params.get("steam_id");
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     user_id: '',
@@ -88,12 +90,15 @@ export default function SignupPage() {
         }));
         return;
       } else {
+        setErrors({});
         formData.append('select_id', Array.from(selectedGames, value => value - 1).join(','));
         if (steam_id) {
           formData.append('steamId', steam_id);
         }
+        setIsLoading(true);  // 로딩 시작
       }
     }
+
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/account/signup/`, formData);
@@ -108,6 +113,8 @@ export default function SignupPage() {
     } catch (error) {
       console.error(error);
       setErrors(error.response?.data || {});
+    } finally {
+      setIsLoading(false);  // 로딩 종료
     }
   };
 
@@ -163,6 +170,9 @@ export default function SignupPage() {
           )}
         </div>
       </form>
+      <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
+          <img src={search_loading} />
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function GameDetail() {
     const [game, setGame] = useState({});
     const [video, setVideo] = useState({});
     const [reviews, setReviews] = useState([]);
-    const [my_review, setMyReview] = useState({});
+    const [my_review, setMyReview] = useState(null);
     const [clicked_review, setClickedReview] = useState(null);
 
     const [gameData, setGameData] = useState({});
