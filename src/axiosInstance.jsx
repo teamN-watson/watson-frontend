@@ -93,4 +93,4 @@ axiosInstance.interceptors.response.use(
 );
 
 // axiosInstance를 export하여 다른 파일에서 사용하도록 함
-export default axiosInstance;
+export default axios;
