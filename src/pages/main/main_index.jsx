@@ -111,6 +111,38 @@ function MainIndex() {
     </div>
   );
 
+  // 상위 3개 게임을 위한 컴포넌트
+  const TopGameCard = ({ game, rank }) => (
+    <div className={`top-game-card rank-${rank}`} onClick={() => navigate(`/game/${game.appID}`)}>
+      <div className="image-container">
+        <img 
+          src={game.header_image} 
+          alt={game.name}
+          onError={(e) => { e.target.src = '/default-game-image.jpg'; }}
+        />
+        <div className="watson-score">
+          {Math.round(game.score)}점
+        </div>
+        <div className={`top-rank-badge rank-${rank}`}>
+          {rank}위
+        </div>
+      </div>
+      <div className="game-info">
+        <h3>{game.name}</h3>
+        <div className="genres">
+          {game.genres_kr ? game.genres_kr.slice(0, 3).join(', ') : '장르 정보 없음'}
+        </div>
+        <div className="meta-info">
+          <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
+            <img src="/metacritic-icon.svg" alt="Metacritic" className="metacritic-icon" />
+            {game.metacritic_score || 'N/A'}
+          </div>
+          <span className="price">{formatPrice(game.price)}</span>
+        </div>
+      </div>
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="main-container">
@@ -119,19 +151,34 @@ function MainIndex() {
     );
   }
 
+  const topThreeGames = recommendedGames.slice(0, 3);
+  const remainingGames = recommendedGames.slice(3);
+
   return (
     <div className="main-container">
       <div className="header">
         <h1>Watson Game Recommendations</h1>
         <p>당신의 취향에 맞는 게임을 발견하세요</p>
       </div>
-      
-      <div className="carousel-wrapper">
-        <Slider {...carouselSettings}>
-          {recommendedGames.map((game, index) => (
-            <GameCard key={game.appID} game={game} index={index} />
+
+      <div className="top-games-section">
+        <h2>TOP 3 추천 게임</h2>
+        <div className="top-games-container">
+          {topThreeGames.map((game, index) => (
+            <TopGameCard key={game.appID} game={game} rank={index + 1} />
           ))}
-        </Slider>
+        </div>
+      </div>
+      
+      <div className="other-recommendations">
+        <h2>다른 추천 게임</h2>
+        <div className="carousel-wrapper">
+          <Slider {...carouselSettings}>
+            {remainingGames.map((game, index) => (
+              <GameCard key={game.appID} game={game} index={index + 3} />
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );
