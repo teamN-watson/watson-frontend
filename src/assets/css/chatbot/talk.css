@@ -197,7 +197,7 @@ footer {
 
 
 /* loading */
-.loadingWrap {
+/* .loadingWrap {
     position: fixed;
     top: 0;
     left: 0;
@@ -211,7 +211,7 @@ footer {
 
 .loadingWrap.loading {
     display: flex;
-}
+} */
 
 /* description_wrap */
 .description_wrap {

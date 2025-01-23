@@ -4,7 +4,7 @@ import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/input.css';
 import '@assets/css/account/edit.css';
-import default_photo from '@assets/images/default_profile.png';
+
 function ProfileEdit() {
   const { id } = useParams(); // URL에서 id 파라미터 가져오기
   const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
@@ -81,7 +81,7 @@ function ProfileEdit() {
         <div className="editForm">
           <div className="user_photo_wrap">
             <label className="user_photo" htmlFor="photo_upload">
-              <img src={photo !== '' ? photo : default_photo} alt="프로필 사진" />
+              <img src={photo !== '' ? photo : "/images/default_profile.png"} alt="프로필 사진" />
               <div className="user_photo_overlay">
                 <span className="user_photo_icon">📷</span>
               </div>

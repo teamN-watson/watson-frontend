@@ -7,7 +7,6 @@ import useStore from '@store/zustore';
 import axios from '@src/axiosInstance';
 import '@assets/css/account/signup.css';
 import '@assets/css/input.css';
-import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 
 export default function SignupPage() {
   const location = useLocation();
@@ -171,7 +170,7 @@ export default function SignupPage() {
         </div>
       </form>
       <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
-          <img src={search_loading} />
+          <img src={"/images/search_loading.gif"} />
       </div>
     </div>
   );

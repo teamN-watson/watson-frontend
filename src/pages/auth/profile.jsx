@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getProfilePhotoUrl } from '@src/utils';
+import { getProfilePhotoUrl, dateformat2 } from '@src/utils';
 import '@assets/css/account/profile.css';
-import default_photo from '@assets/images/default_profile.png';
 import { Rating } from '@mantine/core';
-import { dateformat2 } from '../../utils';
 
 function Profile() {
   const { id } = useParams(); // URL에서 id 파라미터 가져오기
@@ -92,7 +90,7 @@ function Profile() {
       <div className="profile_wrap">
         <div className="profile_sidebar">
           <div className="user_photo">
-            <img src={userInfo?.photo ? userInfo?.photo : default_photo} alt="Profile" />
+            <img src={userInfo?.photo ? userInfo?.photo : "/images/default_profile.png"} alt="Profile" />
           </div>
 
           <div className="user_info">

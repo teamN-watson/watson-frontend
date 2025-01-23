@@ -167,3 +167,10 @@
     gap: 20px;
     width: 500px;
 }
+
+
+.GamedetailContainer .review_wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

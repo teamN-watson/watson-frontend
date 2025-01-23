@@ -318,7 +318,7 @@
 
 
 /* loading */
-.loadingWrap {
+/* .loadingWrap {
     position: fixed;
     top: 0;
     left: 0;
@@ -332,4 +332,4 @@
 
 .loadingWrap.loading {
     display: flex;
-}
+} */

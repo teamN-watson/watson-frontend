@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '@assets/css/chatbot/talk.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
-import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 import useStore from '@store/zustore';
 import { notifications } from '@mantine/notifications';
 
@@ -282,7 +281,7 @@ export default function IndexPage() {
                 </div>
             </div>}
             <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
-                <img src={search_loading} />
+                <img src={"/images/search_loading.gif"} />
             </div>
         </div>)
 }

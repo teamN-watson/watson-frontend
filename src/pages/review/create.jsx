@@ -5,7 +5,6 @@ import '@assets/css/input.css';
 import axios from '@src/axiosInstance';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Rating } from '@mantine/core';
-import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 
 export default function ReviewCreate() {
     const [content, setContent] = useState("");
@@ -208,7 +207,7 @@ export default function ReviewCreate() {
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
                     {games && games.length > 0 && hasNext && (
                         <div className='load_more' ref={scrollRef} style={{ textAlign: 'center' }}>
-                            <img src={search_loading} />
+                            <img src={"/images/search_loading.gif"} />
                         </div>
                     )}
                 </div>

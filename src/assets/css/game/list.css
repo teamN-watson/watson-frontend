@@ -64,6 +64,24 @@
     color: #fff;
     font-size: 20px;
 }
+
+.GameWrap button{
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.GameWrap .game_list button{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 60px;
+    padding: 0.7rem;
+}
+
 /* game list */
 .GameWrap .game_list {
     display: flex;

@@ -15,8 +15,9 @@ export default function GameDetail() {
     const [clicked_review, setClickedReview] = useState(null);
 
     const [gameData, setGameData] = useState({});
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+
     const isFirstRender = useRef(true); // 첫 렌더링 여부를 추적
 
     const query = new URLSearchParams(window.location.search);
@@ -24,6 +25,7 @@ export default function GameDetail() {
 
     useEffect(() => {
         const fetchGame = async () => {
+            setIsLoading(true)
             axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/reviews/game?game_id=${id}&review_id=${review_id}`).then((response) => {
                 if (response.status === 200) {
                     const data = response.data;
@@ -42,6 +44,8 @@ export default function GameDetail() {
                 }
             }).catch((error) => {
                 console.error('Error fetching user info:', error);
+            }).finally(()=>{
+                setIsLoading(false);
             });
         }
         if (isFirstRender.current && id) {
@@ -63,7 +67,7 @@ export default function GameDetail() {
                     </div>
                     <div className='game_subtitle'>
                         <span>{gameData.developers && gameData.developers[0]}</span>
-                        <span>{gameData?.coming_soon ? "출시전" : gameData?.release_date?.date + " 출시"}</span>
+                        <span>{gameData?.coming_soon ? "출시전" : (gameData?.release_date?.date ? gameData?.release_date?.date + " 출시" : "")}</span>
                     </div>
 
                 </div>
@@ -119,15 +123,18 @@ export default function GameDetail() {
                             }{  reviews?.length > 0 && reviews.map((review) => {
                                     return (
                                         <div className='review_wrap' key={review.id}>
-                                            <span>{review.nickname}</span>
-                                            <span>{review.content}</span>
-                                            <Rating value={review.score} fractions={2} readOnly />
-                                            <span>{dateformat2(review.created_at)}</span>
+                                            <div>
+                                                <span>{review.content}</span>
+                                                <Rating value={review.score} fractions={2} readOnly />
+                                            </div>
+                                            <div>
+                                                <span>{review.nickname}</span>
+                                                <span>{dateformat2(review.created_at)}</span>
+                                            </div>
                                         </div>
                                     )
                                 })
-                            }
-                            {
+                            }{
                                 clicked_review == null && reviews?.length == 0 && <div className='review_wrap'>
                                     <h2>등록된 리뷰가 없습니다.</h2>
                                 </div>
@@ -165,6 +172,10 @@ export default function GameDetail() {
                         </div>
                     </div> }
                 </div>
+            </div>
+
+            <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
+                <img src={"/images/search_loading.gif"} />
             </div>
 
         </div>

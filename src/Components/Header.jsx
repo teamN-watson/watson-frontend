@@ -1,12 +1,8 @@
-// src/components/Header.jsx
 import React, { useEffect } from 'react';
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/navbar.css';
-import default_photo from '@assets/images/default_profile.png';
-import logo from '@assets/images/watson/watson_logo.gif';  // .gif에서 .png로 변경
 import { getProfilePhotoUrl } from '@src/utils';
-import { Link } from 'react-router-dom';
 
 export default function Header() {
     const { isLoggedIn, setIsLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
@@ -34,7 +30,6 @@ export default function Header() {
         }
         if (refreshToken) {
             setRefreshToken(refreshToken);
-            console.log(refreshToken)
         }
     }, []);
 
@@ -65,7 +60,7 @@ export default function Header() {
                 <div className="container">
                     <div className='logo_wrap'>
                         <a href="/" className="logo">
-                            <img src={logo} alt="Watson" />
+                            <img src={"/images/watson/watson_logo.gif"} alt="Watson" />
                         </a>
                     </div>
                     <div>
@@ -80,7 +75,7 @@ export default function Header() {
                             {isLoggedIn ? (
                                 <>
                                     <div className="user_photo">
-                                        <img src={userInfo?.photo ? userInfo.photo : default_photo} alt="User Photo" />
+                                        <img src={userInfo?.photo ? userInfo.photo : "/images/default_profile.png"} alt="User Photo" />
                                     </div>
                                     <h3>{userInfo?.nickname}님</h3>
                                     <a href={`/profile/${userInfo?.id}`}>마이페이지</a>
@@ -89,7 +84,6 @@ export default function Header() {
                             ) : (
                                 <>
                                     <a href="/signin">로그인</a>
-                                    {/* <a href="/signup">회원가입</a> */}
                                 </>
                             )}
                         </div>

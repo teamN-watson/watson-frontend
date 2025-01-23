@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from '@src/axiosInstance';
-import loading from '@assets/images/search_loading.gif';
 import useStore from '@store/zustore';
 import { getProfilePhotoUrl } from '@src/utils';
 import '@assets/css/account/callback.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
@@ -88,7 +87,7 @@ const SteamCallback = () => {
 
   return (
     <div className="callback_loading">
-      <img src={loading} />
+      <img src={"/images/search_loading.gif"} />
       <h2>{status}</h2>
     </div>
   )
