@@ -239,6 +239,10 @@ footer {
     text-align: center;
     flex: 1;
     font-size: 30px;
+    padding: 0 1rem;
+}
+.description_wrap .descriptionHeader span:first-child {
+    flex: 2;
 }
 .description_wrap .descriptionRow {
     display: flex;
@@ -255,10 +259,11 @@ footer {
 /* 게임 세부정보 */
 .description_wrap .descriptionRow .gameWrap > div {
     flex: 1; /* 남은 공간 차지 */
-    padding: 1rem;
+    padding: 1rem 0.5rem;
 }
 .description_wrap .descriptionRow .gameWrap .imgWrap {
     padding: 1rem;
+    flex: 2;
 }
 
 /* 이미지 */
@@ -272,5 +277,5 @@ footer {
 
 .description_wrap .descriptionRow .gameWrap .gameDetails span {
     line-height: 1.5;
-    font-size: 14px;
+    font-size: 16px;
 }

@@ -268,10 +268,10 @@ export default function IndexPage() {
                                 <div className='gameDetails'>
                                     <span>{game.good_review}</span>
                                 </div>
-                                <div>
+                                <div className='gameDetails'>
                                     <span>{game.description}</span>
                                 </div>
-                                <div>
+                                <div className='gameDetails'>
                                     <span>{game.bad_review}</span>                                    
                                 </div>
                             </div>
