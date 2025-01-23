@@ -2,10 +2,11 @@ import { create } from "zustand"; // named export 사용
 
 
 const useStore = create((set) => ({
-  isLoggedIn: false,
+  isLoggedIn: null,
   userInfo: null,
   accessToken: null,
   refreshToken: null,
+  setIsLoggedIn: (status) => set({ isLoggedIn: status }),
   setUserInfo: (userInfo) => set({ userInfo, isLoggedIn: true }),
   setAccessToken: (token) => set({ accessToken: token }),
   setRefreshToken: (token) => set({ refreshToken: token }),

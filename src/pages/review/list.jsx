@@ -37,7 +37,8 @@ export default function ReviewList() {
                                     {review.header_image && <img src={review.header_image} alt={review.game_name} />}
                                 </div>
                                 <div className="game_info">
-                                    <h4>{review.game_name}</h4>
+                                    <h4>{review.content}</h4>
+                                    <span>{review.game_name}</span>
                                     <div className="categories">
                                         {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
                                             return (
@@ -45,13 +46,14 @@ export default function ReviewList() {
                                             )
                                         })}
                                     </div>
-                                    <span>{ dateformat2(review.created_at)}</span>
-                                    <span>{review.nickname}</span>
+                                    
                                 </div>
                             </div>
                             <div className="game_rating">
                                 <Rating value={review.score} fractions={2} readOnly />
                                 <span>좋아요 수 {review.total_likes}</span>
+                                <span>{ dateformat2(review.created_at)}</span>
+                                <span>{review.nickname}</span>
                             </div>
                         </div>
                     )

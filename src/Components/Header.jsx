@@ -9,7 +9,7 @@ import { getProfilePhotoUrl } from '@src/utils';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
-    const { isLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
+    const { isLoggedIn, setIsLoggedIn, userInfo, setUserInfo, logout, accessToken, refreshToken, setAccessToken, setRefreshToken } = useStore();
 
     useEffect(() => {
         const accessToken = sessionStorage.getItem('access_token');
@@ -29,6 +29,8 @@ export default function Header() {
             }).catch((error) => {
                 console.error('Error fetching user info:', error);
             });
+        } else {
+            setIsLoggedIn(false);
         }
         if (refreshToken) {
             setRefreshToken(refreshToken);

@@ -5,13 +5,16 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import "@assets/css/layout.css";
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 class GlobalLayout extends Component {
 
     render() {
         return (
             <MantineProvider>
+                <Notifications />
                 <div className="layout">
                     <Header />
                     <main className="layout-content">
@@ -28,11 +31,10 @@ class GlobalLayout extends Component {
 
 const DynamicContainer = ({ children }) => {
     const location = useLocation();
-    console.log(location.pathname)
-
     // 동적으로 컨테이너 클래스를 변경
     const getContainerClass = () => {
         if (location.pathname.startsWith("/game/")) return "detail-container container";
+        if (location.pathname.startsWith("/chatbot")) return "chatbot container";
         return "container";
     };
 
