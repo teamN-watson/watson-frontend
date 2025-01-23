@@ -63,6 +63,24 @@ function MainIndex() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 현재 토큰과 저장된 토큰을 비교
+    const currentToken = sessionStorage.getItem('access_token');
+    const savedToken = sessionStorage.getItem('saved_token');
+
+    // 토큰이 변경되었거나 없는 경우 캐시 초기화
+    if (!currentToken || currentToken !== savedToken) {
+      sessionStorage.removeItem('recommendedGames');
+      sessionStorage.removeItem('recommendedGamesTimestamp');
+      if (currentToken) {
+        sessionStorage.setItem('saved_token', currentToken);
+      }
+    }
+
+    if (!currentToken) {
+      navigate('/login');
+      return;
+    }
+
     const fetchRecommendedGames = async () => {
       try {
         const cachedGames = sessionStorage.getItem('recommendedGames');
@@ -81,9 +99,8 @@ function MainIndex() {
         }
 
         // API 호출
-        const token = sessionStorage.getItem('access_token');
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/recommended_games/`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${currentToken}` }
         });
         
         // 데이터 저장
@@ -98,7 +115,7 @@ function MainIndex() {
     };
 
     fetchRecommendedGames();
-  }, []);
+  }, [navigate]);
 
   // 게임 카드 컴포넌트
   const GameCard = ({ game, index }) => (
