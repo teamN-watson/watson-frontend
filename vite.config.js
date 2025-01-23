@@ -6,8 +6,14 @@ import { fileURLToPath, URL } from "url";
 const getAliasPath = (path) => {
   return fileURLToPath(new URL(path, import.meta.url));
 };
+
 export default defineConfig({
   plugins: [react()],
+  server: {
+    fs: {
+      strict: false  // 이 한 줄만 추가
+    }
+  },
   resolve: {
     alias: {
       "@Components": getAliasPath("./src/Components"),

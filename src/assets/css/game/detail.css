@@ -235,3 +235,33 @@
 .GamedetailContainer .review_wrap {
 }
 
+.GamedetailContainer .game_video {
+    position: relative;
+}
+
+.GamedetailContainer .game_video::after {
+    content: "Beta";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #ff6b6b;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.GamedetailContainer .game_video h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.GamedetailContainer .game_video h1::after {
+    content: "(실험적 기능)";
+    font-size: 14px;
+    color: #888;
+    font-weight: normal;
+}
+
