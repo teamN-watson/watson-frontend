@@ -139,9 +139,9 @@ export default function GameDetail() {
                         </div>
                         <div className='section game_video'>
                             <h1>게임 관련 영상</h1>
-                            {/* {video && 
+                            {video && 
                             <YouTubePlayer videoId={video?.id} className="youtube_embed" />
-                            } */}
+                            }
 
                         </div>
 
