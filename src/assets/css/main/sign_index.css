@@ -1,11 +1,18 @@
 .sign-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
     width: 100%;
-    min-height: calc(100vh - 70px);  /* navbar 높이 고려 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000;  /* 검은 배경 */
+    min-height: calc(100vh - 70px);
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
     margin: 0;
     padding: 0;
 }

@@ -1,7 +1,348 @@
-.Maincontainer {
-
+/* 기본 레이아웃 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.Maincontainer .asa {
-    
+/* 헤더 스타일 */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #66c0f4;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #acb2b8;
+}
+
+/* 캐러셀 스타일 */
+.carousel-wrapper {
+  margin: auto;
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+}
+
+.carousel-wrapper .slick-slide {
+  padding: 0 10px;
+}
+
+.carousel-wrapper .slick-prev,
+.carousel-wrapper .slick-next {
+  z-index: 1;
+}
+
+.carousel-wrapper .slick-prev:before,
+.carousel-wrapper .slick-next:before {
+  color: #66c0f4;
+  font-size: 30px;
+}
+
+.carousel-wrapper .slick-prev {
+  left: -5px;
+}
+
+.carousel-wrapper .slick-next {
+  right: -5px;
+}
+
+/* 게임 카드 스타일 */
+.featured-game-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.featured-game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  backface-visibility: hidden;
+}
+
+/* 게임 정보 스타일 */
+.game-info {
+  padding: 1rem;
+}
+
+.game-info h3 {
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.game-info .genres {
+  color: #66c0f4;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.meta-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8f98a0;
+  font-size: 0.9rem;
+}
+
+/* 점수 및 순위 표시 */
+.watson-score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.rank-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(45deg, #c7d5e0, #66c0f4);
+  color: #1b2838;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.rank-1 {
+  background: linear-gradient(45deg, #ffd700, #ffa500);
+  color: #000;
+  padding-top: 25px;
+}
+
+.rank-1::before {
+  content: '👑';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 메타크리틱 스코어 스타일 */
+.metacritic {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.metacritic-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.metacritic.high {
+  background: #66CC33;
+}
+
+.metacritic.medium {
+  background: #FFCC33;
+}
+
+.metacritic.low {
+  background: #FF0000;
+}
+
+/* 가격 표시 */
+.price {
+  color: #a4d007;
+  font-weight: bold;
+}
+
+/* 로딩 상태 */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: #66c0f4;
+  font-size: 1.2rem;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1024px) {
+  .carousel-wrapper {
+    padding: 0 1rem;
+  }
+  
+  .featured-game-card {
+    margin: 0 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .image-container img {
+    height: 200px;
+  }
+}
+
+.carousel-controls {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: #fff;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.overlay h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px rgba(74, 157, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.overlay p {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 10px rgba(74, 157, 255, 0.3);
+}
+
+/* 노드 호버 효과를 위한 커서 스타일 */
+.canvas-container:hover {
+  cursor: pointer;
+}
+
+.featured-section {
+  margin-bottom: 40px;
+}
+
+.game-section {
+  margin-bottom: 30px;
+}
+
+.game-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #fff;
+  padding-left: 10px;
+}
+
+.game-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #4a63a7 #1b2838;
+}
+
+.game-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.game-row::-webkit-scrollbar-track {
+  background: #1b2838;
+}
+
+.game-row::-webkit-scrollbar-thumb {
+  background-color: #4a63a7;
+  border-radius: 4px;
+}
+
+.game-card {
+  flex: 0 0 auto;
+  width: 306px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.game-card:hover {
+  transform: scale(1.03);
+}
+
+.game-card-content {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.game-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.discount {
+  background: #4c6b22;
+  color: #a4d007;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #738895;
+  font-size: 0.9rem;
+}
+
+.final-price {
+  color: #beee11;
+  font-size: 1.1rem;
+}
+
