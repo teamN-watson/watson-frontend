@@ -1,0 +1,10 @@
+footer {
+    padding: 2rem;
+    background: rgba(25, 25, 35, 0.9);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9ba0b3;
+    text-align: center;
+    font-size: 0.9rem;
+    height: 100px;
+}

@@ -1,0 +1,33 @@
+/* .layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-top: 70px;  
+} */
+/* navbar 높이만큼만 패딩 */
+
+/* .layout-content {
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+} */
+
+/* .container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+} */
+
+/* footer {
+    margin: 0;
+    padding: 2rem 0;
+} */
+/* @media (max-width: 768px) {
+    .layout {
+        padding-top: 60px;   
+        
+    }
+}  */
+/* 모바일 navbar 높이 */

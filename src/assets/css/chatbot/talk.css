@@ -1,36 +1,281 @@
 .chatbotContainer {
-    width: 960px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+    height: 100vh;
+    max-height: calc(100vh - 70px);
+    padding: 2rem 2rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    gap: 40px;
 }
-/* .chatbot_record */
-.chatbot_record {
-    min-height: 50vh;
+.container.chatbot {
+    max-width: 100%;
+}
+footer {
+    display: none;
+}
+.chatbotContainer .chatbot_wrap {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    /* background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px; */
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 50px;
-
+}
+.chatbotContainer .chatbot_wrap .chatbot_header{
+    text-align: center;
+    height: 40px;
+    /* padding: 0.5rem 0; */
+    position: relative;
+    margin-bottom: 5px;
+}
+.chatbotContainer .chatbot_wrap .chatbot_header h2 {
+    font-size: 30px;
+}
+/* 버튼 스타일 */
+.chatbotContainer .chatbot_header .popup_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
-.chatbot_record .ai {
-    text-align: left;
-}
-.chatbot_record .user {
-    text-align: right;
-    margin-bottom: 10px;
-}
-
-/* chatbot_input */
-.chatbot_input {
-    border: 1px solid #2f2f2f;
-    border-radius: 2px;
-    margin: 50px 0;
-}
-
-.chatbot_input input {
-    background-color: transparent;
-    padding: 20px;
-    width: 100%;
+.chatbotContainer .chatbot_header .popup_btn button {
+    padding: 0 20px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #6c63ff;
     border: none;
-    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.chatbotContainer .chatbot_header .popup_btn button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+.chatbotContainer .chatbot_record {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* 스크롤바 스타일링 */
+.chatbotContainer .chatbot_record::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatbotContainer .chatbot_record::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.chatbotContainer .chatbot_record::-webkit-scrollbar-thumb {
+    background: rgba(108, 99, 255, 0.3);
+    border-radius: 4px;
+}
+
+.chatbotContainer .chatbot_record::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 99, 255, 0.5);
+}
+
+/* 메시지 스타일링 */
+.chatbotContainer .chatbot_record > div {
+    margin-bottom: 1.5rem;
+}
+
+.chatbotContainer .user, .chatbotContainer .ai {
+    max-width: 80%;
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 0.5rem 0;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbotContainer .user {
+    margin-left: auto;
+    background: rgba(108, 99, 255, 0.2);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.chatbotContainer .ai {
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.chatbotContainer .user > div, .chatbotContainer .ai > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;    
+}
+
+.chatbotContainer .user p, .ai p {
+    color: #fff;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+/* 입력 영역 스타일링 */
+.chatbotContainer .chatbot_input {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 16px 16px;
+    height: 100px;
+}
+
+.chatbotContainer .chatbot_input input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.chatbotContainer .chatbot_input input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.chatbotContainer .chatbot_input input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+  
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .chatbotContainer {
+        padding: 1rem;
+    }
+
+    .chatbot_wrap {
+        height: calc(100vh - 2rem);
+    }
+
+    .user, .ai {
+        max-width: 90%;
+        padding: 0.8rem;
+    }
+
+    .chatbot_input {
+        padding: 1rem;
+    }
+
+    .chatbot_input input {
+        padding: 0.8rem 1.2rem;
+    }
+}
+
+
+/* loading */
+/* .loadingWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.loadingWrap.loading {
+    display: flex;
+} */
+
+/* description_wrap */
+.description_wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(100vw - 800px);
+    width: 0;
+    height: 100%;
+    transform: translateX(100%); /* 오른쪽 화면 밖 */
+    opacity: 0; /* 투명하게 */
+    visibility: hidden; /* 화면에서 숨김 */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.description_wrap.active {
+    transform: translateX(0); /* 화면 안으로 이동 */
+    opacity: 1; /* 보이게 */
+    visibility: visible; /* 표시됨 */
+    width: 100%;
+  }
+.description_wrap .descriptionHeader {
+    display: flex;
+    /* flex-direction: column; */
+}
+.description_wrap .descriptionHeader span {
+    text-align: center;
+    flex: 1;
+    font-size: 30px;
+    padding: 0 1rem;
+}
+.description_wrap .descriptionHeader span:first-child {
+    flex: 2;
+}
+.description_wrap .descriptionRow {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.description_wrap .descriptionRow .gameWrap {
+    display: flex;
+    flex: 1;
+    max-height: 33%;
+}
+
+/* 게임 세부정보 */
+.description_wrap .descriptionRow .gameWrap > div {
+    flex: 1; /* 남은 공간 차지 */
+    padding: 1rem 0.5rem;
+}
+.description_wrap .descriptionRow .gameWrap .imgWrap {
+    padding: 1rem;
+    flex: 2;
+}
+
+/* 이미지 */
+.description_wrap .descriptionRow .gameWrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    /* flex: 1; */
+}
+
+.description_wrap .descriptionRow .gameWrap .gameDetails span {
+    line-height: 1.5;
+    font-size: 16px;
 }

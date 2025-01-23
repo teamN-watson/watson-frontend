@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
 
             try {
                 // refresh_token을 사용해 새 access_token 발급 요청
-                const refreshResponse = await fetch('http://127.0.0.1:8000/api/account/refresh/', {
+                const refreshResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/account/refresh/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ refresh_token: refresh_token }),

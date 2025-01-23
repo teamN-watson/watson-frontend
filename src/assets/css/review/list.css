@@ -1,44 +1,91 @@
-/* listContainer */
-.listContainer {
+/* ReviewlistContainer */
+.ReviewlistContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+.ReviewlistContainer .titleWrap {
+    margin: 50px 0;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+.ReviewlistContainer button{
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.ReviewlistContainer .titleWrap button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    padding: 0.7rem;
+}
+.ReviewlistContainer .reviewList button{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 60px;
+    padding: 0.7rem;
+}
+
+.ReviewlistContainer .titleWrap button:hover{
+    background: #5a52d5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+/* reviewList */
+.ReviewlistContainer .reviewList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
 /* .game_row */
-.game_row {
+.ReviewlistContainer .game_row {
     display: flex;
     gap: 10px;
-    width: 960px;
+    /* width: 960px; */
+    width: 100%;
     margin: 0 auto;
     height: 150px;
     justify-content: space-between;
 }
 /* .game_title */
-.game_title {
+.ReviewlistContainer .game_title {
     display: flex;
     gap: 10px;
 }
-.game_title .game_img {
+.ReviewlistContainer .game_title .game_img {
     overflow: hidden;
 }
-.game_title .game_img img{
-    width: 200px;
+.ReviewlistContainer .game_title .game_img img{
+    width: 300px;
 }
 /* .game_info */
-.game_info h4 {
+.ReviewlistContainer .game_info h4 {
     font-size: 30px;
 }
-.game_info {
+.ReviewlistContainer .game_info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    overflow: hidden;
 }
-.game_info .categories {
+.ReviewlistContainer .game_info .categories {
     height: 30px;
     display: flex;
     gap: 5px;
 }
-.game_info .categories span {
+.ReviewlistContainer .game_info .categories span {
     padding: 10px;
     color: #a5b0b6;
 background-color: rgb(15 25 35);
@@ -48,7 +95,7 @@ background-color: rgb(15 25 35);
     line-height: 10px;
 }
 /* .game_rating */
-.game_rating {
+.ReviewlistContainer .game_rating {
     display: flex;
     flex-direction: column;
 }

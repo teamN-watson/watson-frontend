@@ -1,0 +1,259 @@
+.sign-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.sign-index .background-video {
+    position: fixed;  /* fixed로 변경하여 스크롤해도 배경이 고정되게 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.sign-index .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+    padding: 0;
+}
+/* ?? */
+.sign-index .header, .sign-index .navigation-section {
+    position: relative; /* Keeps these elements above the video */
+}
+
+.sign-index .logo {
+    width: auto;
+    height: 100px;
+    margin-bottom: 3rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sign-index .logo::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.8) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    border-radius: 2px;
+}
+
+.sign-index .subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 2.5rem auto 3.5rem;
+    max-width: 600px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    word-break: keep-all;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.sign-index .subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(108, 99, 255, 0) 0%,
+        rgba(108, 99, 255, 0.5) 50%,
+        rgba(108, 99, 255, 0) 100%
+    );
+}
+
+/* 기존 스타일 유지 */
+.sign-index .button-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+.sign-index .auth-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+}
+
+.sign-index .auth-button.signup {
+    background: #6c63ff;
+    color: white;
+}
+
+.sign-index .auth-button.login {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.sign-index .auth-button:hover {
+    transform: translateY(-2px);
+}
+
+.sign-index .auth-button.signup:hover {
+    background: #5a52d5;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+}
+
+.sign-index .auth-button.login:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(108, 99, 255, 0.5);
+}
+
+.sign-index .start-button {
+    background-color: #1db954;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.sign-index .start-button:hover {
+    background-color: #1ed760;
+}
+
+.sign-index .features {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.sign-index .feature {
+    text-align: center;
+    max-width: 200px;
+}
+
+.sign-index .feature h2 {
+    color: #1db954;
+}
+/* 추가 네비게이션 버튼 스타일 */
+.sign-index .navigation-section {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.sign-index .nav-button {
+    background-color: #2b2b2b;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sign-index .nav-button:hover {
+    background-color: #1db954;
+    transform: scale(1.05);
+}
+
+.sign-index .auth-form {
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+}
+
+.sign-index .email-input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.sign-index .continue-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #1ed760;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sign-index .continue-button:hover {
+  background-color: #1fdf64;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .sign-index .logo {
+        height: 80px;
+        margin-bottom: 2rem;
+    }
+
+    .sign-index .subtitle {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 2rem auto 3rem;
+        padding: 0 1.5rem;
+    }
+
+    .sign-index .button-group {
+        flex-direction: column;
+        padding: 0 2rem;
+        gap: 1rem;
+    }
+
+    .sign-index .auth-button {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .sign-index {
+        min-height: calc(100vh - 60px);  /* 모바일 navbar 높이 고려 */
+    }
+}
+
