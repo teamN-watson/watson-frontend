@@ -11,11 +11,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     fs: {
-      // node_modules 디렉토리와 프로젝트 루트 디렉토리에 대한 접근을 허용
-      allow: [
-        'node_modules/slick-carousel',
-        './'  // 프로젝트 루트 디렉토리 추가
-      ]
+      strict: false  // 이 한 줄만 추가
     }
   },
   resolve: {
