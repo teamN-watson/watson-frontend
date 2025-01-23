@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '@assets/css/game/list.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
-import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
 import { useSearchParams } from 'react-router-dom';
 
 export default function GameList() {
@@ -149,6 +148,7 @@ export default function GameList() {
                         )
                     })}
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
+                    {games?.length > 0 && hasNext && <button className='more-button' onClick={fetchMoreItems}>더불러오기</button>}
                 </div>
 
             </div>

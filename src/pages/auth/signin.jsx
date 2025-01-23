@@ -5,7 +5,6 @@ import useStore from '@store/zustore';
 import '@assets/css/input.css';
 import '@assets/css/account/signin.css';
 import { getProfilePhotoUrl } from '@src/utils';
-import steam_sign from '@assets/images/steam_sign.png';  // .png에서 .gif로 변경
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -84,7 +83,7 @@ export default function SignIn() {
         </button>
 
         <div className='steamloginBtn'>
-          <img src={steam_sign} onClick={handleSteamLogin} />
+          <img src={"/images/steam_sign.png"} onClick={handleSteamLogin} />
         </div>
 
         <div className="signin-footer">

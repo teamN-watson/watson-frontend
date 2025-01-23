@@ -11,12 +11,7 @@
     text-align: center;
     position: relative;
 }
-.ReviewlistContainer .titleWrap button{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 150px;
-    padding: 0.7rem;
+.ReviewlistContainer button{
     background: #6c63ff;
     color: white;
     border: none;
@@ -24,6 +19,20 @@
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+.ReviewlistContainer .titleWrap button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    padding: 0.7rem;
+}
+.ReviewlistContainer .reviewList button{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 60px;
+    padding: 0.7rem;
 }
 
 .ReviewlistContainer .titleWrap button:hover{
@@ -68,6 +77,8 @@
 .ReviewlistContainer .game_info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    overflow: hidden;
 }
 .ReviewlistContainer .game_info .categories {
     height: 30px;

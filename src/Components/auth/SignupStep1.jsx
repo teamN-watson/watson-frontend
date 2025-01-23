@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import default_photo from '@assets/images/default_profile.png';
 
 export default function SignupStep1({ step, formData, errors, handleImageChange, updateFormData, handleSubmit }) {
   const imgRef = useRef();
@@ -15,7 +14,7 @@ export default function SignupStep1({ step, formData, errors, handleImageChange,
     <div className={`signupStep1 ${step === 1 ? 'active' : ''}`}>
       <div className="user_photo_wrap">
         <label className="user_photo" htmlFor="photo_upload">
-          <img src={formData.photo_result !== '' ? formData.photo_result : default_photo} alt="프로필 사진" />
+          <img src={formData.photo_result !== '' ? formData.photo_result : "/images/default_profile.png"} alt="프로필 사진" />
           <div className="user_photo_overlay">
             <span className="user_photo_icon">📷</span>
           </div>

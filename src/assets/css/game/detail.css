@@ -167,3 +167,71 @@
     gap: 20px;
     width: 500px;
 }
+
+
+.GamedetailContainer .review_wrap.active_review {
+    margin-bottom: 50px;
+}
+.GamedetailContainer .review_wrap {
+    display: flex;
+    width: 100%;
+    min-height: 80px;
+    gap: 10px;
+}
+/* review_img */
+.GamedetailContainer .review_wrap .review_img {
+    width: 80px;
+    height: 80px;
+}
+.GamedetailContainer .review_wrap .review_img img{
+    width: 100%;
+    height: auto;
+}
+/* review_detail */
+.GamedetailContainer .review_wrap .review_detail {
+    flex: 1;
+}
+.GamedetailContainer .review_wrap .review_detail .review_profile {
+    display: flex;
+    gap: 20px;
+    height: 30px;
+    line-height: 30px;
+    align-items: center;
+}
+.GamedetailContainer .review_wrap .review_detail .review_nickname {
+    font-weight: bold;
+    font-size: 20px;
+}
+.GamedetailContainer .review_wrap .review_detail .review_info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.GamedetailContainer .review_wrap .review_detail .review_text {
+    font-size: 20px;
+}
+/* review_comment */
+.GamedetailContainer .review_wrap .review_comment {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+    padding-top: 10px;
+}
+.GamedetailContainer .review_wrap .review_comment button{
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.GamedetailContainer .review_wrap {
+}
+.GamedetailContainer .review_wrap {
+}
+.GamedetailContainer .review_wrap {
+}
+

@@ -6,7 +6,7 @@ export default function InterestList({ games, selectedGames, onGameSelect }) {
             {games && games.map((game, index) => (
                 <div className="interest_info" onClick={() => onGameSelect(game.id)} key={index}>
                     <div className={`interest_img ${selectedGames.includes(game.id) && "selected"}`}>
-                        <img src={`/src/assets/images/games/${game.id}.jpg`} />
+                        <img src={`/images/games/${game.id}.jpg`} />
                     </div>
                     <div className="interest_hover"></div>
                 </div>

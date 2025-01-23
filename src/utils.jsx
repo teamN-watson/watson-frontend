@@ -1,5 +1,5 @@
 export function getProfilePhotoUrl(photo) {
-    if (!photo) return '/src/assets/images/default_profile.png'; // 기본 이미지
+    if (!photo) return '/images/default_profile.png'; // 기본 이미지
 
     const photoParts = photo.replace("/media/", "").split("/"); // URL 파싱
     console.log(photoParts)

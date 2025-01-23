@@ -3,7 +3,6 @@ import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import '@assets/css/account/signchoose.css';
 import { useNavigate } from 'react-router';
-import steam_sign from '@assets/images/steam_sign.png';  // .png에서 .gif로 변경
 
 export default function SteamChoose() {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ export default function SteamChoose() {
     <div className="signChooseContainer">
       <h2>Steam 계정연동</h2>
       <div className='chooseWrap'>
-        <img src={steam_sign} onClick={handleSteamLogin} />
+        <img src={"/images/steam_sign.png"} onClick={handleSteamLogin} />
         {/* <button className='btn btn-steam-login' onClick={handleSteamLogin}>스팀 로그인</button> */}
         <a href='/signup'>다음에 하기</a>
 

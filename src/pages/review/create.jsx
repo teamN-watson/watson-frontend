@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import '@assets/css/review/create.css';  // '@assets' 별칭을 사용하여 CSS 파일 import
 import '@assets/css/input.css';
 import axios from '@src/axiosInstance';
+import useStore from '@store/zustore';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Rating } from '@mantine/core';
-import search_loading from '@assets/images/search_loading.gif';  // .gif에서 .png로 변경
+import { notifications } from '@mantine/notifications';
 
 export default function ReviewCreate() {
+    const { isLoggedIn } = useStore();
+
     const [content, setContent] = useState("");
     const [app_id, setAppId] = useState("");
     const [selectGame, setSelectGame] = useState({});
@@ -26,8 +29,18 @@ export default function ReviewCreate() {
     const scrollRef = useRef(null);
 
     useEffect(() => {
+        if (isLoggedIn !== null && !isLoggedIn) {
+            notifications.show({
+                title: '로그인 필요',
+                message: '로그인이 필요합니다.',
+                color:"red"
+            });
+            setTimeout(() => {
+                navigate(`/`)
+            }, 5000)
+        }
 
-    }, []);
+    }, [isLoggedIn]);
 
     const pagingInit = () => {
         setGames([]);
@@ -189,7 +202,7 @@ export default function ReviewCreate() {
                 </div>
             </form>
 
-            <Modal opened={opened} onClose={onClose} title="게임 검색" className='gameModal' centered>
+            <Modal opened={opened} onClose={onClose} title="게임 검색" className='gameModal' centered size={"lg"}>
                 <form>
                     <div className="search-bar">
                         <input type="text" name="q" placeholder="검색어를 입력해주세요" id="id_q" value={q} onChange={(e) => setQ(e.target.value)} className="search-input" onKeyDown={handleKeyPress} />
@@ -208,7 +221,7 @@ export default function ReviewCreate() {
                     {isEmpty && <div className='empty_list'><h3>검색 결과가 없습니다.</h3></div>}
                     {games && games.length > 0 && hasNext && (
                         <div className='load_more' ref={scrollRef} style={{ textAlign: 'center' }}>
-                            <img src={search_loading} />
+                            <img src={"/images/search_loading.gif"} />
                         </div>
                     )}
                 </div>
