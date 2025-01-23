@@ -1,7 +1,7 @@
 .div.layout {
     background-color: #000;
 }
-.container {
+.detail-container.container {
     max-width: 100%;
 }
 .GamedetailContainer {
