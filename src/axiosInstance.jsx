@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // axios 인스턴스 생성
 const axiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 // 요청 인터셉터 추가

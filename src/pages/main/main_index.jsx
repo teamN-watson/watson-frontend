@@ -81,7 +81,7 @@ function MainIndex() {
         }
 
         // API 호출
-        const token = localStorage.getItem('accessToken');
+        const token = sessionStorage.getItem('access_token');
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/recommended_games/`, {
           headers: { Authorization: `Bearer ${token}` }
         });
