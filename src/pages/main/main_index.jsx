@@ -28,13 +28,34 @@ const carouselSettings = {
 };
 
 // 유틸리티 함수
-const formatPrice = (price) => !price ? '무료' : `₩ ${price.toLocaleString()}`;
+const formatPrice = (price) => !price ? '무료' : `$ ${price.toLocaleString()}`;
 
 const getMetacriticClass = (score) => {
   if (score >= 75) return 'high';
   if (score >= 50) return 'medium';
   return 'low';
 };
+
+// 메타크리틱 아이콘 SVG 컴포넌트
+const MetacriticIcon = () => (
+  <svg 
+    width="16" 
+    height="16" 
+    viewBox="0 0 16 16" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className="metacritic-icon"
+  >
+    <path 
+      d="M8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0ZM8 14.5C4.41015 14.5 1.5 11.5899 1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 11.5899 11.5899 14.5 8 14.5Z" 
+      fill="currentColor"
+    />
+    <path 
+      d="M8 3.5C5.51472 3.5 3.5 5.51472 3.5 8C3.5 10.4853 5.51472 12.5 8 12.5C10.4853 12.5 12.5 10.4853 12.5 8C12.5 5.51472 10.4853 3.5 8 3.5Z" 
+      fill="currentColor"
+    />
+  </svg>
+);
 
 function MainIndex() {
   const [recommendedGames, setRecommendedGames] = useState([]);
@@ -102,7 +123,7 @@ function MainIndex() {
         </div>
         <div className="meta-info">
           <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
-            <img src="/metacritic-icon.svg" alt="Metacritic" className="metacritic-icon" />
+            <MetacriticIcon />
             {game.metacritic_score || 'N/A'}
           </div>
           <span className="price">{formatPrice(game.price)}</span>
@@ -134,7 +155,7 @@ function MainIndex() {
         </div>
         <div className="meta-info">
           <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
-            <img src="/metacritic-icon.svg" alt="Metacritic" className="metacritic-icon" />
+            <MetacriticIcon />
             {game.metacritic_score || 'N/A'}
           </div>
           <span className="price">{formatPrice(game.price)}</span>
