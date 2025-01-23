@@ -57,6 +57,22 @@ const MetacriticIcon = () => (
   </svg>
 );
 
+// 왕관 아이콘 SVG 컴포넌트 수정
+const CrownIcon = () => (
+  <svg 
+    className="crown-icon"
+    width="40" 
+    height="40" 
+    viewBox="0 0 24 24" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path 
+      fill="#FFD700"
+      d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"
+    />
+  </svg>
+);
+
 function MainIndex() {
   const [recommendedGames, setRecommendedGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -152,6 +168,7 @@ function MainIndex() {
   // 상위 3개 게임을 위한 컴포넌트
   const TopGameCard = ({ game, rank }) => (
     <div className={`top-game-card rank-${rank}`} onClick={() => navigate(`/game/${game.appID}`)}>
+      {rank === 1 && <div className="crown-container"><CrownIcon /></div>}
       <div className="image-container">
         <img 
           src={game.header_image} 
