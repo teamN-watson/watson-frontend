@@ -154,7 +154,7 @@ export default function GameDetail() {
                     <div className='section rating'>
                         <h2>Watson 유저 평가</h2>
                         <div>
-                            <Rating value={my_review.score} fractions={2} readOnly />
+                            <Rating value={my_review?.score} fractions={2} readOnly />
                             <span>{'1.0 (5)'}</span>
                         </div>
                     </div>
