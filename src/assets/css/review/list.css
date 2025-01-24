@@ -88,7 +88,7 @@
 .ReviewlistContainer .game_info .categories span {
     padding: 10px;
     color: #a5b0b6;
-background-color: rgb(15 25 35);
+    background-color: rgb(15 25 35);
     border-radius: 5px;
     font-size: 12px;
     height: 30px;
@@ -98,4 +98,14 @@ background-color: rgb(15 25 35);
 .ReviewlistContainer .game_rating {
     display: flex;
     flex-direction: column;
+    min-width: 150px;
+}
+
+/* empty_list */
+.ReviewlistContainer .reviewList .empty_list {
+    margin-top: 20vh;
+    text-align: center;
+}
+.ReviewlistContainer .reviewList .empty_list h3{
+    font-size: 50px;
 }

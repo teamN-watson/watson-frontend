@@ -57,8 +57,27 @@ const MetacriticIcon = () => (
   </svg>
 );
 
+// 왕관 아이콘 SVG 컴포넌트 수정
+const CrownIcon = () => (
+  <svg 
+    className="crown-icon"
+    width="40" 
+    height="40" 
+    viewBox="0 0 24 24" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path 
+      fill="#FFD700"
+      d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"
+    />
+  </svg>
+);
+
 function MainIndex() {
-  const [recommendedGames, setRecommendedGames] = useState([]);
+  const [recommendedGames, setRecommendedGames] = useState({
+    interest_based_games: [],
+    playtime_based_games: []
+  });
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -86,7 +105,6 @@ function MainIndex() {
         const cachedGames = sessionStorage.getItem('recommendedGames');
         const cachedTimestamp = sessionStorage.getItem('recommendedGamesTimestamp');
         
-        // 캐시 유효성 검사
         if (cachedGames && cachedTimestamp) {
           const now = new Date().getTime();
           const cacheAge = now - parseInt(cachedTimestamp);
@@ -98,14 +116,15 @@ function MainIndex() {
           }
         }
 
-        // API 호출
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/recommended_games/`, {
           headers: { Authorization: `Bearer ${currentToken}` }
         });
         
-        // 데이터 저장
-        setRecommendedGames(response.data.games);
-        sessionStorage.setItem('recommendedGames', JSON.stringify(response.data.games));
+        setRecommendedGames({
+          interest_based_games: response.data.interest_based_games || [],
+          playtime_based_games: response.data.playtime_based_games || []
+        });
+        sessionStorage.setItem('recommendedGames', JSON.stringify(response.data));
         sessionStorage.setItem('recommendedGamesTimestamp', new Date().getTime().toString());
       } catch (error) {
         console.error('게임 추천 데이터를 가져오는데 실패했습니다:', error);
@@ -141,7 +160,7 @@ function MainIndex() {
         <div className="meta-info">
           <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
             <MetacriticIcon />
-            {game.metacritic_score || 'N/A'}
+            {game.metacritic_score || '없음'}
           </div>
           <span className="price">{formatPrice(game.price)}</span>
         </div>
@@ -152,6 +171,7 @@ function MainIndex() {
   // 상위 3개 게임을 위한 컴포넌트
   const TopGameCard = ({ game, rank }) => (
     <div className={`top-game-card rank-${rank}`} onClick={() => navigate(`/game/${game.appID}`)}>
+      {rank === 1 && <div className="crown-container"><CrownIcon /></div>}
       <div className="image-container">
         <img 
           src={game.header_image} 
@@ -173,7 +193,7 @@ function MainIndex() {
         <div className="meta-info">
           <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
             <MetacriticIcon />
-            {game.metacritic_score || 'N/A'}
+            {game.metacritic_score || '없음'}
           </div>
           <span className="price">{formatPrice(game.price)}</span>
         </div>
@@ -189,9 +209,6 @@ function MainIndex() {
     );
   }
 
-  const topThreeGames = recommendedGames.slice(0, 3);
-  const remainingGames = recommendedGames.slice(3);
-
   return (
     <div className="main-container">
       <div className="header">
@@ -199,20 +216,43 @@ function MainIndex() {
         <p>당신의 취향에 맞는 게임을 발견하세요</p>
       </div>
 
+      {/* 관심사 기반 추천 섹션 */}
       <div className="top-games-section">
-        <h2>TOP 3 추천 게임</h2>
+        <h2>관심사 기반 TOP 3 추천 게임</h2>
         <div className="top-games-container">
-          {topThreeGames.map((game, index) => (
+          {recommendedGames.interest_based_games.slice(0, 3).map((game, index) => (
+            <TopGameCard key={game.appID} game={game} rank={index + 1} />
+          ))}
+        </div>
+      </div>
+
+      {/* 플레이타임 기반 추천 섹션 */}
+      <div className="top-games-section">
+        <h2>STEAM 플레이 게임 기반 TOP 3 추천 게임</h2>
+        <div className="top-games-container">
+          {recommendedGames.playtime_based_games.slice(0, 3).map((game, index) => (
             <TopGameCard key={game.appID} game={game} rank={index + 1} />
           ))}
         </div>
       </div>
       
+      {/* 나머지 추천 게임들 */}
       <div className="other-recommendations">
-        <h2>다른 추천 게임</h2>
+        <h2>하위 관심사 기반 추천 게임</h2>
         <div className="carousel-wrapper">
           <Slider {...carouselSettings}>
-            {remainingGames.map((game, index) => (
+            {recommendedGames.interest_based_games.slice(3).map((game, index) => (
+              <GameCard key={game.appID} game={game} index={index + 3} />
+            ))}
+          </Slider>
+        </div>
+      </div>
+
+      <div className="other-recommendations">
+        <h2>하위 STEAM 플레이 게임 기반 추천 게임</h2>
+        <div className="carousel-wrapper">
+          <Slider {...carouselSettings}>
+            {recommendedGames.playtime_based_games.slice(3).map((game, index) => (
               <GameCard key={game.appID} game={game} index={index + 3} />
             ))}
           </Slider>
