@@ -20,7 +20,10 @@ const useStore = create((set) => ({
       refreshToken,
     });
   },
-  logout: () => set({ isLoggedIn: false, userInfo: null, accessToken: null, refreshToken: null }),
+  logout: () => {
+    sessionStorage.removeItem('recommendedGames');
+    sessionStorage.removeItem('recommendedGamesTimestamp');
+    set({ isLoggedIn: false, userInfo: null, accessToken: null, refreshToken: null })},
 }));
 
 export default useStore;

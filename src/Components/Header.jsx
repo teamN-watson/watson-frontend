@@ -45,7 +45,9 @@ export default function Header() {
                     logout(); // zustand 상태에서 로그아웃 처리
                     sessionStorage.removeItem('access_token');
                     sessionStorage.removeItem('refresh_token');
-                    window.location.href = '/'; // 로그아웃 후 리다이렉트
+                    if (window.location.pathname !== "/") {
+                        window.location.href = "/";
+                    }
                 }
             }).catch((error) => {
                 console.error('Error fetching user info:', error);
