@@ -88,7 +88,7 @@ export default function ReviewList() {
                     )
                 })}
                 {reviews?.length == 0 && <div className='empty_list'><h3>등록된 리뷰가 없습니다.</h3></div>}
-                {hasNext && <button className='more-button' onClick={fetchMoreItems}>더불러오기</button>}
+                {reviews?.length !== 0 && hasNext && <button className='more-button' onClick={fetchMoreItems}>더불러오기</button>}
             </div>
         </div>
     )
