@@ -87,6 +87,15 @@ function MainIndex() {
   useEffect(() => {
     const fetchRecommendedGames = async () => {
       try {
+        // 로그인 상태 체크
+        if (!isLoggedIn || !accessToken) {
+          setRecommendedGames({
+            interest_based_games: [],
+            playtime_based_games: []
+          });
+          return;
+        }
+
         const cachedGames = sessionStorage.getItem('recommendedGames');
         const cachedTimestamp = sessionStorage.getItem('recommendedGamesTimestamp');
         
@@ -94,7 +103,9 @@ function MainIndex() {
           const now = new Date().getTime();
           const cacheAge = now - parseInt(cachedTimestamp);
           
-          if (cacheAge < 3600000) {
+          // 캐시 무효화 조건 추가: 유저 정보가 변경된 경우
+          const cachedUserId = sessionStorage.getItem('recommendedGamesUserId');
+          if (cacheAge < 3600000 && cachedUserId === userInfo.user_id.toString()) {
             setRecommendedGames(JSON.parse(cachedGames));
             setIsLoading(false);
             return;
@@ -107,8 +118,11 @@ function MainIndex() {
           interest_based_games: response.data.interest_based_games || [],
           playtime_based_games: response.data.playtime_based_games || []
         });
+        
+        // 캐시 저장 시 유저 ID도 함께 저장
         sessionStorage.setItem('recommendedGames', JSON.stringify(response.data));
         sessionStorage.setItem('recommendedGamesTimestamp', new Date().getTime().toString());
+        sessionStorage.setItem('recommendedGamesUserId', userInfo.user_id.toString());
       } catch (error) {
         console.error('게임 추천 데이터를 가져오는데 실패했습니다:', error);
       } finally {
@@ -117,7 +131,7 @@ function MainIndex() {
     };
 
     fetchRecommendedGames();
-  }, [navigate]);
+  }, [navigate, isLoggedIn, userInfo, accessToken]);  // 의존성 배열에 로그인 상태와 유저 정보 추가
 
   // 게임 카드 컴포넌트
   const GameCard = ({ game, index }) => (
