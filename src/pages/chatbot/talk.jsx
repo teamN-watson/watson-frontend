@@ -9,6 +9,7 @@ export default function IndexPage() {
     const [isStart, setIsStart] = useState(false);
     const [isSide, setIsSide] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingMsg, setLoadingMsg] = useState("게임을 찾는 중입니다.");
     const [chatHistory, setChatHistory] = useState([]);  // 채팅 기록 상태
     const [gameDescription, setGameDescription] = useState([]);  // 채팅 기록 상태
     const chatEndRef = useRef(null);  // 스크롤을 위한 ref 추가
@@ -136,6 +137,14 @@ export default function IndexPage() {
 
         try {
             setIsLoading(true);
+            const loadingMessages = ["게임을 찾는 중입니다.", "게임을 찾는 중입니다..", "게임을 찾는 중입니다..."];
+            let index = 0;
+
+            const interval = setInterval(() => {
+                setLoadingMsg(loadingMessages[index])
+                index = (index + 1) % loadingMessages.length; // 0 -> 1 -> 2 -> 0 반복
+            }, 500); // 500ms 간격으로 업데이트
+
             await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}/api/chatbot/`,
                 { message: message },
@@ -180,6 +189,7 @@ export default function IndexPage() {
             }).catch((error) => {
                 console.error('Error chatbot record:', error);
             }).finally(() => {
+                clearInterval(interval);
                 setIsLoading(false);
             });
         } catch (error) {
@@ -282,6 +292,7 @@ export default function IndexPage() {
             </div>}
             <div className={`loadingWrap ${isLoading ? "loading" : ""}`}>
                 <img src={"/images/search_loading.gif"} />
+                <span>{ loadingMsg }</span>
             </div>
         </div>)
 }
