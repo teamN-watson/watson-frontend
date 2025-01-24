@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '@src/axiosInstance';
 import Slider from 'react-slick';
+import useStore from '@store/zustore';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '@src/assets/css/main/main_index.css';
@@ -80,26 +81,10 @@ function MainIndex() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { isLoggedIn, userInfo, accessToken } = useStore();
+
 
   useEffect(() => {
-    // 현재 토큰과 저장된 토큰을 비교
-    const currentToken = sessionStorage.getItem('access_token');
-    const savedToken = sessionStorage.getItem('saved_token');
-
-    // 토큰이 변경되었거나 없는 경우 캐시 초기화
-    if (!currentToken || currentToken !== savedToken) {
-      sessionStorage.removeItem('recommendedGames');
-      sessionStorage.removeItem('recommendedGamesTimestamp');
-      if (currentToken) {
-        sessionStorage.setItem('saved_token', currentToken);
-      }
-    }
-
-    if (!currentToken) {
-      navigate('/login');
-      return;
-    }
-
     const fetchRecommendedGames = async () => {
       try {
         const cachedGames = sessionStorage.getItem('recommendedGames');
@@ -116,9 +101,7 @@ function MainIndex() {
           }
         }
 
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/recommended_games/`, {
-          headers: { Authorization: `Bearer ${currentToken}` }
-        });
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/recommended_games/`);
         
         setRecommendedGames({
           interest_based_games: response.data.interest_based_games || [],
@@ -228,7 +211,7 @@ function MainIndex() {
 
       {/* 플레이타임 기반 추천 섹션 */}
       <div className="top-games-section">
-        <h2>STEAM 플레이 게임 기반 TOP 3 추천 게임</h2>
+        <h2>STEAM 플레이 게임 기반 TOP 3 추천 게임 - [BETA]</h2>
         <div className="top-games-container">
           {recommendedGames.playtime_based_games.slice(0, 3).map((game, index) => (
             <TopGameCard key={game.appID} game={game} rank={index + 1} />
@@ -249,7 +232,7 @@ function MainIndex() {
       </div>
 
       <div className="other-recommendations">
-        <h2>하위 STEAM 플레이 게임 기반 추천 게임</h2>
+        <h2>하위 STEAM 플레이 게임 기반 추천 게임 - [BETA]</h2>
         <div className="carousel-wrapper">
           <Slider {...carouselSettings}>
             {recommendedGames.playtime_based_games.slice(3).map((game, index) => (

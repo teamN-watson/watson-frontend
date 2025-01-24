@@ -262,3 +262,12 @@
     font-weight: normal;
 }
 
+
+
+.GamedetailContainer .game_video .emptyVideo {
+    text-align: center;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -147,9 +147,11 @@ export default function GameDetail() {
                         </div>
                         <div className='section game_video'>
                             <h1>게임 관련 영상</h1>
-                            {video && rand && 
-                            <YouTubePlayer videoId={video[rand]?.id} className="youtube_embed" />
-                            }
+                            {(video && video.length > 0 && rand) 
+                            ? <YouTubePlayer videoId={video[rand]?.id} className="youtube_embed" />
+                            : <div className='emptyVideo'>
+                                <h2>표시할 영상이 없습니다</h2>                                
+                            </div> }
 
                         </div>
 
@@ -198,7 +200,7 @@ export default function GameDetail() {
                         <h2>Watson 유저 평가</h2>
                         <div>
                             <Rating value={game?.average_score} fractions={2} readOnly />
-                            <span>{Object.keys(game).length > 0 && `${game?.average_score} (${game?.total_reviews})`}</span>
+                            <span>{Object.keys(game).length > 0 && `${game.average_score ? game.average_score : 0} (${game.total_reviews ? game.total_reviews : 0})`}</span>
                         </div>
                     </div>
                     { gameData?.metacritic && <div className='section metacritic'>

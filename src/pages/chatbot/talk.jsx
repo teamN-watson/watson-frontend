@@ -276,10 +276,10 @@ export default function IndexPage() {
                                     <img src={game.image} />
                                 </div>
                                 <div className='gameDetails'>
-                                    <span>{game.good_review}</span>
+                                    <span>{game.description}</span>
                                 </div>
                                 <div className='gameDetails'>
-                                    <span>{game.description}</span>
+                                    <span>{game.good_review}</span>
                                 </div>
                                 <div className='gameDetails'>
                                     <span>{game.bad_review}</span>                                    
