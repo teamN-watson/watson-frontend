@@ -190,7 +190,7 @@ function MainIndex() {
         <div className="meta-info">
           <div className={`metacritic ${getMetacriticClass(game.metacritic_score)}`}>
             <MetacriticIcon />
-            {game.metacritic_score || 'N/A'}
+            {game.metacritic_score || '없음'}
           </div>
           <span className="price">{formatPrice(game.price)}</span>
         </div>
