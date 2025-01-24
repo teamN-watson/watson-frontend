@@ -382,14 +382,34 @@
 .top-games-section {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 4rem auto;
+  margin: 0 auto 3rem auto;  /* 간격 줄임 */
   padding: 0 2rem;
 }
 
-.top-games-section h2 {
+.top-games-section:last-of-type {
+  margin-bottom: 4rem;  /* 마지막 섹션은 더 큰 간격 */
+}
+
+.top-games-section h2,
+.other-recommendations h2 {
   color: #66c0f4;
   font-size: 1.8rem;
   margin-bottom: 2rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.top-games-section h2::before,
+.other-recommendations h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: #66c0f4;
+  border-radius: 2px;
 }
 
 .top-games-container {
@@ -548,12 +568,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  margin-bottom: 3rem;  /* 간격 조정 */
 }
 
-.other-recommendations h2 {
-  color: #66c0f4;
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
+.other-recommendations:last-child {
+  margin-bottom: 4rem;  /* 마지막 섹션은 더 큰 간격 */
 }
 
 @media (max-width: 1024px) {
