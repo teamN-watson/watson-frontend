@@ -13,6 +13,7 @@ import useStore from '@store/zustore';
 export default function GameDetail() {
     const { isLoggedIn } = useStore();
     const { id } = useParams(); // URL에서 id 파라미터 가져오기
+    const [rand, setRand] = useState(null);
     const [game, setGame] = useState({});
     const [video, setVideo] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -40,8 +41,15 @@ export default function GameDetail() {
                 if (response.status === 200) {
                     const data = response.data;
                     console.log(data)
-    
-                    setGame(data.game)
+                    const game = data.game
+
+                    // 평균 점수
+                    if(data.average_score)  game.average_score = Math.ceil(data.average_score);     
+                    // 총 리뷰 수
+                    if(data.total_reviews)  game.total_reviews = data.total_reviews;                
+
+                    setGame(game)
+
                     if(data.video){
                         setVideo(data.video)
                     }
@@ -59,6 +67,7 @@ export default function GameDetail() {
             });
         }
         if (isFirstRender.current && id) {
+            setRand(Math.floor(Math.random() * 5));
             isFirstRender.current = false; // 첫 렌더링 이후 false로 설정
             fetchGame();
         }
@@ -135,12 +144,11 @@ export default function GameDetail() {
                                 </div>
                             </div>
                             }
-
                         </div>
                         <div className='section game_video'>
                             <h1>게임 관련 영상</h1>
-                            {video && 
-                            <YouTubePlayer videoId={video?.id} className="youtube_embed" />
+                            {video && rand && 
+                            <YouTubePlayer videoId={video[rand]?.id} className="youtube_embed" />
                             }
 
                         </div>
@@ -163,7 +171,7 @@ export default function GameDetail() {
                                 )
                             })
                             }{ clicked_review == null && reviews?.length == 0 && 
-                                <div className='review_wrap'>
+                                <div className='review_wrap empty_list'>
                                     <h2>등록된 리뷰가 없습니다.</h2>
                                 </div>
                             }
@@ -189,8 +197,8 @@ export default function GameDetail() {
                     <div className='section rating'>
                         <h2>Watson 유저 평가</h2>
                         <div>
-                            <Rating value={my_review?.score} fractions={2} readOnly />
-                            <span>{'1.0 (5)'}</span>
+                            <Rating value={game?.average_score} fractions={2} readOnly />
+                            <span>{Object.keys(game).length > 0 && `${game?.average_score} (${game?.total_reviews})`}</span>
                         </div>
                     </div>
                     { gameData?.metacritic && <div className='section metacritic'>

@@ -88,8 +88,13 @@
     flex-direction: column;
     gap: 10px;
 }
+.GameWrap .game_list .empty_list {
+    text-align: center;
+    margin-top: 20vh;
+}
 .GameWrap .game_list .empty_list h3{
-    color: #000;
+    /* color: #000; */
+    font-size: 50px;
 }
 .GameWrap .game_list div.game_info {
     display: flex;
