@@ -228,11 +228,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.GamedetailContainer .review_wrap {
-}
-.GamedetailContainer .review_wrap {
-}
-.GamedetailContainer .review_wrap {
+.GamedetailContainer .review_wrap.empty_list{
+    justify-content: center;
 }
 
 .GamedetailContainer .game_video {
