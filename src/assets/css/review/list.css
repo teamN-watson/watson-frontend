@@ -98,4 +98,5 @@ background-color: rgb(15 25 35);
 .ReviewlistContainer .game_rating {
     display: flex;
     flex-direction: column;
+    min-width: 150px;
 }
