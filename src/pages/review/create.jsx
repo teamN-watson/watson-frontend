@@ -15,6 +15,7 @@ export default function ReviewCreate() {
     const [app_id, setAppId] = useState("");
     const [selectGame, setSelectGame] = useState({});
     const [score, setScore] = useState(0);
+    const [errors, setErrors] = useState({});
 
     const [opened, { open, close }] = useDisclosure(false);
     const [q, setQ] = useState("");
@@ -24,6 +25,7 @@ export default function ReviewCreate() {
     const [hasNext, setHasNext] = useState(true);
     const [loading, setLoading] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
+
 
     const navigate = useNavigate();
     const scrollRef = useRef(null);
@@ -64,6 +66,7 @@ export default function ReviewCreate() {
             }
 
         } catch (error) {
+            setErrors(error.response?.data || {});
             console.error(error);
         }
     };
@@ -185,17 +188,18 @@ export default function ReviewCreate() {
                         </Button>
                         <input type="hidden" name="app_id" placeholder="app id를 입력해주세요" id="id_app_id" value={app_id} onChange={(e) => setAppId(e.target.value)} />
                     </div>
-                    <p className="error-message app_id"></p>
+                    {errors.app_id && <p className="error-message">{errors.app_id}</p>}
+
                     <div className="input-group">
-                        <label htmlFor="id_age">내용</label>
+                        <label htmlFor="id_content">내용</label>
                         <input type="text" name="content" placeholder="내용을 입력해주세요" id="id_content" value={content} onChange={(e) => setContent(e.target.value)} />
                     </div>
-                    <p className="error-message content"></p>
+                    {errors.content && <p className="error-message">{errors.content}</p>}
                     <div className="input-group">
-                        <label htmlFor="id_age">점수</label>
-                        <Rating defaultValue={2} fractions={2} onChange={setScore} size={'xl'} />
+                        <label htmlFor="id_score">점수</label>
+                        <Rating id="id_score" defaultValue={0} fractions={2} onChange={setScore} size={'xl'} />
                     </div>
-                    <p className="error-message score"></p>
+                    {errors.score && <p className="error-message">{errors.score}</p>}
                     <span className="error-message"></span>
 
                     <input type="submit" value="리뷰 등록" onClick={handleSubmit} className='action-button' />

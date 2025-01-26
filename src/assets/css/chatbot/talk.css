@@ -95,6 +95,9 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+.chatbotContainer .history {
+    cursor: pointer;
+}
 .chatbotContainer .user, .chatbotContainer .ai {
     max-width: 80%;
     padding: 1rem;

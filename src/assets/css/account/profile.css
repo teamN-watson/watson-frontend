@@ -282,7 +282,12 @@
 }
 /* .game_info */
 .profileContainer .reviewWrap .game_info h4 {
+    height: 100px;
+    overflow: hidden;
     font-size: 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .profileContainer .reviewWrap .game_info {
     display: flex;
@@ -306,4 +311,22 @@
 .profileContainer .reviewWrap .game_rating {
     display: flex;
     flex-direction: column;
+}
+
+
+.profileModal {
+    color: #000;
+}
+.profileModal .actoinWrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+    margin-top: 30px;
+}
+.profileModal p {
+    font-size: 20px;
+    text-align: center;
+}
+.profileModal .actoinWrap button{ 
+    background-color: #6c63ff;
 }

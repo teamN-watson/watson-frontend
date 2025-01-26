@@ -72,7 +72,12 @@
 }
 /* .game_info */
 .ReviewlistContainer .game_info h4 {
+    height: 100px;
+    overflow: hidden;
     font-size: 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .ReviewlistContainer .game_info {
     display: flex;

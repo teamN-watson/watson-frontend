@@ -3,18 +3,21 @@ import '@assets/css/chatbot/talk.css';  // '@assets' 별칭을 사용하여 CSS 
 import axios from '@src/axiosInstance';
 import useStore from '@store/zustore';
 import { notifications } from '@mantine/notifications';
+import { useNavigate } from 'react-router-dom';
 
 export default function IndexPage() {
-    const [message, setMessage] = useState('');
     const [isStart, setIsStart] = useState(false);
     const [isSide, setIsSide] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loadingMsg, setLoadingMsg] = useState("게임을 찾는 중입니다.");
+
+    const [message, setMessage] = useState('');
     const [chatHistory, setChatHistory] = useState([]);  // 채팅 기록 상태
     const [gameDescription, setGameDescription] = useState([]);  // 채팅 기록 상태
     const chatEndRef = useRef(null);  // 스크롤을 위한 ref 추가
     const chatInputRef = useRef(null);  // 스크롤을 위한 ref 추가
     const { isLoggedIn } = useStore();
+    const navigate = useNavigate();
 
     // 스크롤 함수 추가
     const scrollToBottom = () => {
@@ -53,7 +56,7 @@ export default function IndexPage() {
                     lastGameContent = chat.content.game_data;
 
                     
-                    newChatHistory.push({content: { message: chat.content.message },game_history: game_history,is_user: false,});
+                    newChatHistory.push({content: { message: chat.content.message },game_history: game_history,is_user: false,game_data:chat.content.game_data},);
                 } else {
                     newChatHistory.push({content: { message: chat.content.message },is_user: false,});
                     lastGameContent = null;
@@ -212,6 +215,14 @@ export default function IndexPage() {
         });
     }
 
+    const gameDataClick = (index) => {
+        console.log(chatHistory[index])
+        if(chatHistory[index]["game_data"]){
+            setGameDescription(chatHistory[index]["game_data"])
+        }
+
+    }
+
     return (
         <div className="chatbotContainer">
             <div className="chatbot_wrap" id="wrap1">
@@ -223,7 +234,7 @@ export default function IndexPage() {
                 </div>
                 <div className="chatbot_record">
                     {chatHistory.length > 0 && chatHistory.map((chat, index) => (
-                        <div key={index} className={chat.is_user ? "user" : "ai"}>
+                        <div key={index} className={`${chat.is_user ? "user" : "ai"} ${chat.game_history ? "history" : ""}`} onClick={() => gameDataClick(index)}>
                             <div>
                                 <p>{chat.content.message}</p>
                                 {chat.game_history && chat.game_history.length > 0 && chat.game_history.map((game, index) => (
@@ -271,7 +282,7 @@ export default function IndexPage() {
                 <div className='descriptionRow'>
                     { gameDescription.map((game, game_index) => {
                         return (
-                            <div className='gameWrap' key={game_index}>
+                            <div className='gameWrap' key={game_index} onClick={()=> navigate(`/game/${game.steam_app_id}`)}>
                                 <div className='imgWrap'>
                                     <img src={game.image} />
                                 </div>

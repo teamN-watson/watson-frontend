@@ -66,11 +66,11 @@ export default function Header() {
                         </a>
                     </div>
                     <div>
-                        <ul className="menu">
+                        {isLoggedIn && <ul className="menu">
                             <li><a href="/review/">리뷰</a></li>
                             <li><a href="/game">게임</a></li>
                             <li><a href="/chatbot">챗봇</a></li>
-                        </ul>
+                        </ul> }
                     </div>
                     <div>
                         <div className="nav_auth">
