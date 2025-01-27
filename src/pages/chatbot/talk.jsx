@@ -282,8 +282,8 @@ export default function IndexPage() {
                 <div className='descriptionRow'>
                     { gameDescription.map((game, game_index) => {
                         return (
-                            <div className='gameWrap' key={game_index} onClick={()=> navigate(`/game/${game.steam_app_id}`)}>
-                                <div className='imgWrap'>
+                            <div className='gameWrap' key={game_index} >
+                                <div className='imgWrap' onClick={()=> navigate(`/game/${game.steam_app_id}`)}>
                                     <img src={game.image} />
                                 </div>
                                 <div className='gameDetails'>
