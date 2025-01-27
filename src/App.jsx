@@ -11,7 +11,6 @@ const SteamCallback = lazy(() => import("./pages/auth/steam_callback")); // 스�
 const SteamChoose = lazy(() => import("./pages/auth/steam_choose")); // 스팀 선택 페이지
 const ReviewList = lazy(() => import("./pages/review/list")); // 리뷰 목록 페이지
 const ReviewCreate = lazy(() => import("./pages/review/create")); // 리뷰 작성 페이지
-const ReviewDetail = lazy(() => import("./pages/review/detail")); // 리뷰 상세 페이지
 const GameList = lazy(() => import("./pages/game/list")); // 게임 목록 페이지
 const GameDetail = lazy(() => import("./pages/game/detail")); // 게임 상세 페이지
 import "@assets/css/App.css";
@@ -27,7 +26,6 @@ export default function App() {
           <Route path="/steam/choose" element={<SteamChoose />} />
           <Route path="/chatbot" element={<Talk />} />
           <Route path="/review" element={<ReviewList />} />
-          <Route path="/review/:id" element={<ReviewDetail />} />
           <Route path="/review/create" element={<ReviewCreate />} />
           <Route path="/game" element={<GameList />} />
           <Route path="/game/:id" element={<GameDetail />} />

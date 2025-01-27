@@ -4,7 +4,7 @@ import useStore from '@store/zustore';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProfilePhotoUrl, dateformat2 } from '@src/utils';
 import '@assets/css/account/profile.css';
-import { Rating } from '@mantine/core';
+import { Rating, Modal, Button, Text } from '@mantine/core';
 
 function Profile() {
   const { id } = useParams(); // URL에서 id 파라미터 가져오기
@@ -13,6 +13,8 @@ function Profile() {
   const [recentGames, setRecentGames] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [isMypage, setIsMypage] = useState(false);
+  const [steamProfileModalOpened, setSteamProfileModalOpened] = useState(false);
+  const [deleteModalOpened, setDeleteModalOpened] = useState(false);
 
   const navigate = useNavigate();
 
@@ -54,36 +56,32 @@ function Profile() {
     }
   };
   const handleUserDelete = async () => {
-    if (window.confirm('탈퇴하시겠습니까?')) {
-      axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/account/mypage/`).then((response) => {
-        if (response.status === 200) {
-            console.log(response.data)
-            logout(); // zustand 상태에서 로그아웃 처리
-            sessionStorage.removeItem('access_token');
-            sessionStorage.removeItem('refresh_token');
-            window.location.href = '/'; // 로그아웃 후 리다이렉트
-        }
-      }).catch((error) => {
-          console.error('Error user delete:', error);
-      });
-    }
+    axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/account/mypage/`).then((response) => {
+      if (response.status === 200) {
+          console.log(response.data)
+          logout(); // zustand 상태에서 로그아웃 처리
+          sessionStorage.removeItem('access_token');
+          sessionStorage.removeItem('refresh_token');
+          window.location.href = '/'; // 로그아웃 후 리다이렉트
+      }
+    }).catch((error) => {
+        console.error('Error user delete:', error);
+    });
   };
 
   const steamProfileAction = () => {
-    if (window.confirm('스팀 프로필 이미지를 가져오시겠습니까?')) {
-      axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_profile/`, {
-      }).then((response) => {
-        console.log(response)
-        if (response.data?.data?.steam_photo) {
-          const photo = getProfilePhotoUrl(response.data.data.steam_photo);
-          setUserInfo({ ...userInfo, photo: photo });
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/account/steam_profile/`, {
+    }).then((response) => {
+      console.log(response)
+      if (response.data?.data?.steam_photo) {
+        const photo = getProfilePhotoUrl(response.data.data.steam_photo);
+        setUserInfo({ ...userInfo, photo: photo });
+        setSteamProfileModalOpened(false);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   };
-
 
   return (
     <div className="profileContainer">
@@ -103,7 +101,7 @@ function Profile() {
 
             {isMypage && (
               userInfo?.steamId ? (
-                <input type="button" name="steam_profile" className="steam_profile" value="스팀 프로필 이미지 사용" onClick={steamProfileAction} />
+                <input type="button" name="steam_profile" className="steam_profile" value="스팀 프로필 이미지 사용" onClick={() => setSteamProfileModalOpened(true)} />
               ) : (
                 <button className='btn btn-steam-login' onClick={handleSteamLogin}>스팀 로그인</button>
               )
@@ -111,7 +109,7 @@ function Profile() {
           </div>
           <div className="user_delete">
             <h3>회원탈퇴</h3>
-            <button className='btn btn-steam-login' onClick={handleUserDelete}>회원탈퇴</button>
+            <button className='btn btn-steam-login' onClick={()=>setDeleteModalOpened(true)}>회원탈퇴</button>
           </div>
         </div>
 
@@ -129,8 +127,8 @@ function Profile() {
                       <img src={`https://avatars.fastly.steamstatic.com/${game.img_icon_url}.jpg`} alt={game.name} />
                       <div className="game_info">
                         <span className="game_name">{game.name}</span>
-                        <span className="game_time">{(game.playtime_forever / 60).toFixed(1)}시간</span>
-                        <span className="game_last_played">최근 플레이 {formattedDate}</span>
+                        {game.playtime_forever && <span className="game_time">플레이타임 {(game.playtime_forever / 60).toFixed(1)}시간</span>}
+                        {game.rtime_last_played && <span className="game_last_played">최근 플레이 {formattedDate}</span>}
                       </div>
                     </div>
                   );
@@ -174,7 +172,8 @@ function Profile() {
                       {review.header_image && <img src={review.header_image} alt={review.game_name} />}
                   </div>
                   <div className="game_info">
-                      <h4>{review.game_name}</h4>
+                      <h4>{review.content}</h4>
+                      <span>{review.game_name}</span>
                       <div className="categories">
                           {review.categories && review.categories.length > 0 && review.categories.map((category, cIndex) => {
                               return (
@@ -182,21 +181,60 @@ function Profile() {
                               )
                           })}
                       </div>
-                      <span>{dateformat2(review.created_at)}</span>
-                      <span>{review.nickname}</span>
                   </div>
               </div>
               <div className="game_rating">
+                  <span>{review.nickname}</span>
                   <Rating value={review.score} fractions={2} readOnly />
                   <span>좋아요 수 {review.total_likes}</span>
+                  <span>{dateformat2(review.created_at)}</span>
               </div>
           </div>
           )})
         }
         </div>
       </div>
+      <SteamProfileModal opened={steamProfileModalOpened} onClose={() => setSteamProfileModalOpened(false)} onFetch={steamProfileAction} />
+      <UserDeleteModal opened={deleteModalOpened} onClose={() => setDeleteModalOpened(false)} onDelete={handleUserDelete} />
     </div>
   );
 }
 
 export default Profile;
+
+
+const SteamProfileModal = ({ opened, onClose, onFetch }) => {
+  return (
+    <Modal className='profileModal steamProfileModal' opened={opened} onClose={onClose} title="" centered size={'md'}>
+      <Text size="sm">
+        스팀 프로필 이미지를 가져올 수 있습니다. <br/>계속 진행하시겠습니까?
+      </Text>
+      <div className='actoinWrap'>
+        <Button color="blue" fullWidth onClick={onFetch}>
+          가져오기
+        </Button>
+        <Button fullWidth onClick={onClose}>
+          취소
+        </Button>
+      </div>
+    </Modal>
+  );
+};
+
+const UserDeleteModal = ({ opened, onClose, onDelete }) => {
+  return (
+    <Modal className='profileModal userDeleteModal' opened={opened} onClose={onClose} title="" centered size={'md'}>
+      <Text size="sm">
+        탈퇴 후에는 계정이 복구되지 않습니다.<br/> 정말로 탈퇴하시겠습니까?
+      </Text>
+      <div className='actoinWrap'> 
+        <Button color="red" fullWidth onClick={onDelete}>
+          탈퇴
+        </Button>
+        <Button fullWidth onClick={onClose}>
+          취소
+        </Button>
+      </div>
+    </Modal>
+  );
+};

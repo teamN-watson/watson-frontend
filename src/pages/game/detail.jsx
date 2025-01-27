@@ -9,6 +9,7 @@ import { Modal, Rating } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Review from '../../Components/review/Review';
 import useStore from '@store/zustore';
+import ReviewCommentContainer from '../../Components/review/Comment';
 
 export default function GameDetail() {
     const { isLoggedIn } = useStore();
@@ -30,6 +31,7 @@ export default function GameDetail() {
     const [opened, { open, close }] = useDisclosure(false); // 모달 상태
 
     const isFirstRender = useRef(true); // 첫 렌더링 여부를 추적
+    const navigate = useNavigate();
 
     const query = new URLSearchParams(window.location.search);
     const review_id = query.get("review_id") || 0;
@@ -110,6 +112,12 @@ export default function GameDetail() {
     const onClose = () => {
         close();
     }
+
+    const decodeHtml = (html) => {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      };
     
     return (
         <div className="GamedetailContainer">
@@ -136,11 +144,12 @@ export default function GameDetail() {
                             <h1>게임 소개</h1>
                             {game && 
                             <div className="game_intro">
+                                {gameData && gameData.short_description &&
                                 <div className="game_img">
                                     {game.header_image && <img src={game.header_image} alt={game.game_name} />}
-                                </div>
+                                </div>}
                                 <div className='game_description'>
-                                    {gameData.short_description}
+                                    {gameData && gameData.short_description ? decodeHtml(gameData.short_description) : "게임 정보가 없습니다."}  
                                 </div>
                             </div>
                             }
@@ -160,16 +169,16 @@ export default function GameDetail() {
                     <div className='section_wrap review'>
                         { my_review && <div className='section my_review'>
                             <h1>내 리뷰</h1>
-                            <Review review={my_review} key={my_review.id} click={() => reviewClick(my_review) } />
+                            <Review navigate={navigate} review={my_review} key={my_review.id} click={() => reviewClick(my_review) } />
                         </div>
 
                         }
                         <div className='section reviews'>
                             <h1>리뷰</h1>
-                            { clicked_review && <Review  review={clicked_review} isActive={true} click={() => reviewClick(clicked_review) } />}
+                            { clicked_review && <Review navigate={navigate}  review={clicked_review} isActive={true} click={() => reviewClick(clicked_review) } />}
                             { reviews?.length > 0 && reviews.map((review) => {
                                 return (
-                                    <Review review={review} key={review.id} click={() => reviewClick(review)} />
+                                    <Review navigate={navigate} review={review} key={review.id} click={() => reviewClick(review)} />
                                 )
                             })
                             }{ clicked_review == null && reviews?.length == 0 && 
@@ -249,30 +258,7 @@ export default function GameDetail() {
                             
                         </div>
                     </div>
-                    <div className="commentContainer">
-                        {select_review.comments && select_review.comments.map((comment, index) => {
-                            return (
-                                <div className='review_wrap' key={index}>
-                                    <div key={index} className='review_img'>
-                                        <img src={comment?.photo ? comment.photo : "/images/default_profile.png"} alt="User Photo" />
-                                    </div>
-                                    <div className='review_detail'>
-                                        <div className='review_profile'>
-                                            <span className='review_nickname'>@{comment.nickname}</span>
-                                        </div>
-                                        <div className='review_content'>
-                                            <div className='review_info'>
-                                                <span className='review_date'>{dateformat2(comment.created_at)}</span>
-                                            </div>
-                                        </div>
-                                        <div className='review_text'>
-                                            <span>{comment.content}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
+                    <ReviewCommentContainer review={select_review} />
                 </div> }
             </Modal>
 
