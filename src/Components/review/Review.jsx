@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Rating } from '@mantine/core';
 import { dateformat2 } from '@src/utils';
+import { getProfilePhotoUrl } from '@src/utils';
 
 export default function Review({ navigate, review, isActive, click }) {
   return (
     <div className={`review_wrap ${isActive ? "active_review" : ""}`}>
         <div className='review_img' onClick={()=>navigate(`/profile/${review.user}`)}>
-            <img src={review.photo ? review.photo : "/images/default_profile.png"} alt="User Photo" />
+            <img src={review.user_photo == "알수없음" ? "/images/default_profile.png" : getProfilePhotoUrl(review.user_photo)} alt="User Photo" />
         </div>
         <div className='review_detail' onClick={()=>navigate(`/profile/${review.user}`)}>
             <div className='review_profile'>

@@ -21,6 +21,8 @@
 .review_modal .review_wrap .review_img img{
     width: 100%;
     height: auto;
+    border-radius: 50%;
+    object-fit: cover;
 }
 /* review_detail */
 .review_modal .review_wrap .review_detail {

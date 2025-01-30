@@ -229,7 +229,7 @@ export default function GameDetail() {
                 {  select_review && <div>
                     <div className={`review_wrap`}>
                         <div className='review_img'>
-                            <img src={select_review?.photo ? select_review.photo : "/images/default_profile.png"} alt="User Photo" />
+                            <img src={select_review?.user_photo == "알수없음" ? "/images/default_profile.png" : select_review.user_photo} alt="User Photo" />
                         </div>
                         <div className='review_detail'>
                             <div className='review_profile'>

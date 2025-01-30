@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { dateformat2 } from '@src/utils';
+import { getProfilePhotoUrl } from '@src/utils';
 
 const ReviewComment = ({ comment }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -23,7 +24,7 @@ const ReviewComment = ({ comment }) => {
     <div className="review_wrap">
       <div className="review_img">
         <img
-          src={comment?.photo ? comment.photo : "/images/default_profile.png"}
+          src={comment?.user_photo == "알수없음" ? "/images/default_profile.png" : getProfilePhotoUrl(comment.user_photo)}
           alt="User Photo"
         />
       </div>
